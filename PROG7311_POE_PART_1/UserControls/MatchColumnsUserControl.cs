@@ -300,13 +300,17 @@ namespace PROG7311_POE_PART_1
                             {
                                 receiverLocation = kvp.Value;
                                 sourceLocation = labelLocationsDictionary[sourceLabel.Name];
+
+                                // Creating a new line and adding it to the list
+                                Line newLine = new Line(sourceLocation, receiverLocation, sourceLabel.Name, receiverLabel.Name);
+                                linesList.Add(newLine);
                             }
                         }
                     }
                 }
             }
             // Invalidating the main panel to trigger a repaint
-            pnlMainMatches.Invalidate();            
+            pnlMainMatches.Invalidate();       
         }
 
         #endregion
@@ -413,7 +417,7 @@ namespace PROG7311_POE_PART_1
                 RemoveExistingLine(sourceLabel);
                 RemoveExistingLine(receiverLabel);
 
-                // Create a new line and add it to the list
+                // Creating a new line and adding it to the list
                 Line newLine = new Line(sourceLabelLocation, receiverLabelLocation, sourceLabel, receiverLabel);
                 linesList.Add(newLine);
 
