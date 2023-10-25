@@ -32,16 +32,7 @@ namespace PROG7311_POE_PART_1
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            DialogResult result = MessageBox.Show("Are you sure you want to exit?", "Confirmation", MessageBoxButtons.YesNo);
-
-            if (result == DialogResult.No)
-            {
-                e.Cancel = true;
-            }
-            else if (result == DialogResult.Yes)
-            {
-                Environment.Exit(0);
-            }
+            Application.Exit();
         }
 
         #endregion             
