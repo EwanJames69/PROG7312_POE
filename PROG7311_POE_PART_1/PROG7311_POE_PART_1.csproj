@@ -166,6 +166,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\appIcon.ico" />
+    <None Include="Resources\swapButtonBackground.png" />
     <None Include="Resources\bwIdentifyAreasLogo.png" />
     <None Include="Resources\identifyAreasLogo.png" />
     <None Include="Resources\replaceBooksInstructionsPicture.png" />

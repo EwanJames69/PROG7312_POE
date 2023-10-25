@@ -35,6 +35,7 @@
             this.btnInstructionsMatch = new System.Windows.Forms.Button();
             this.btnMainMenu = new System.Windows.Forms.Button();
             this.pnlMainMatches = new System.Windows.Forms.Panel();
+            this.lblHeader = new System.Windows.Forms.Label();
             this.lblReceiver7 = new System.Windows.Forms.Label();
             this.lblReceiver6 = new System.Windows.Forms.Label();
             this.lblReceiver5 = new System.Windows.Forms.Label();
@@ -54,6 +55,7 @@
             this.timerMatch = new System.Windows.Forms.Timer(this.components);
             this.lblTimer = new System.Windows.Forms.Label();
             this.lblCurrentLevel = new System.Windows.Forms.Label();
+            this.btnSwap = new System.Windows.Forms.Button();
             this.pnlMainMatches.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -108,6 +110,8 @@
             // pnlMainMatches
             // 
             this.pnlMainMatches.BackColor = System.Drawing.Color.Khaki;
+            this.pnlMainMatches.Controls.Add(this.btnSwap);
+            this.pnlMainMatches.Controls.Add(this.lblHeader);
             this.pnlMainMatches.Controls.Add(this.lblReceiver7);
             this.pnlMainMatches.Controls.Add(this.lblReceiver6);
             this.pnlMainMatches.Controls.Add(this.lblReceiver5);
@@ -125,6 +129,15 @@
             this.pnlMainMatches.TabIndex = 13;
             this.pnlMainMatches.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlMainMatches_Paint);
             // 
+            // lblHeader
+            // 
+            this.lblHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblHeader.Location = new System.Drawing.Point(313, 214);
+            this.lblHeader.Name = "lblHeader";
+            this.lblHeader.Size = new System.Drawing.Size(333, 153);
+            this.lblHeader.TabIndex = 7;
+            this.lblHeader.Text = "WELCOME TO THE IDENTIFY AREAS GAME";
+            // 
             // lblReceiver7
             // 
             this.lblReceiver7.AllowDrop = true;
@@ -134,7 +147,7 @@
             this.lblReceiver7.Name = "lblReceiver7";
             this.lblReceiver7.Size = new System.Drawing.Size(200, 65);
             this.lblReceiver7.TabIndex = 6;
-            this.lblReceiver7.Text = "lblReceiver7";
+            this.lblReceiver7.Text = "LEARNING";
             this.lblReceiver7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblReceiver7.DragDrop += new System.Windows.Forms.DragEventHandler(this.Label_DragDrop);
             this.lblReceiver7.DragEnter += new System.Windows.Forms.DragEventHandler(this.Label_DragEnter);
@@ -149,7 +162,7 @@
             this.lblReceiver6.Name = "lblReceiver6";
             this.lblReceiver6.Size = new System.Drawing.Size(200, 65);
             this.lblReceiver6.TabIndex = 5;
-            this.lblReceiver6.Text = "lblReceiver6";
+            this.lblReceiver6.Text = "BEGIN";
             this.lblReceiver6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblReceiver6.DragDrop += new System.Windows.Forms.DragEventHandler(this.Label_DragDrop);
             this.lblReceiver6.DragEnter += new System.Windows.Forms.DragEventHandler(this.Label_DragEnter);
@@ -164,7 +177,7 @@
             this.lblReceiver5.Name = "lblReceiver5";
             this.lblReceiver5.Size = new System.Drawing.Size(200, 65);
             this.lblReceiver5.TabIndex = 4;
-            this.lblReceiver5.Text = "lblReceiver5";
+            this.lblReceiver5.Text = "TO";
             this.lblReceiver5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblReceiver5.DragDrop += new System.Windows.Forms.DragEventHandler(this.Label_DragDrop);
             this.lblReceiver5.DragEnter += new System.Windows.Forms.DragEventHandler(this.Label_DragEnter);
@@ -179,7 +192,7 @@
             this.lblReceiver4.Name = "lblReceiver4";
             this.lblReceiver4.Size = new System.Drawing.Size(200, 65);
             this.lblReceiver4.TabIndex = 3;
-            this.lblReceiver4.Text = "lblReceiver4";
+            this.lblReceiver4.Text = "BUTTON";
             this.lblReceiver4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblReceiver4.DragDrop += new System.Windows.Forms.DragEventHandler(this.Label_DragDrop);
             this.lblReceiver4.DragEnter += new System.Windows.Forms.DragEventHandler(this.Label_DragEnter);
@@ -194,7 +207,7 @@
             this.lblReceiver3.Name = "lblReceiver3";
             this.lblReceiver3.Size = new System.Drawing.Size(200, 65);
             this.lblReceiver3.TabIndex = 2;
-            this.lblReceiver3.Text = "lblReceiver3";
+            this.lblReceiver3.Text = "GENERATE";
             this.lblReceiver3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblReceiver3.DragDrop += new System.Windows.Forms.DragEventHandler(this.Label_DragDrop);
             this.lblReceiver3.DragEnter += new System.Windows.Forms.DragEventHandler(this.Label_DragEnter);
@@ -209,7 +222,7 @@
             this.lblReceiver2.Name = "lblReceiver2";
             this.lblReceiver2.Size = new System.Drawing.Size(200, 65);
             this.lblReceiver2.TabIndex = 1;
-            this.lblReceiver2.Text = "lblReceiver2";
+            this.lblReceiver2.Text = "THE";
             this.lblReceiver2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblReceiver2.DragDrop += new System.Windows.Forms.DragEventHandler(this.Label_DragDrop);
             this.lblReceiver2.DragEnter += new System.Windows.Forms.DragEventHandler(this.Label_DragEnter);
@@ -224,7 +237,7 @@
             this.lblReceiver1.Name = "lblReceiver1";
             this.lblReceiver1.Size = new System.Drawing.Size(200, 65);
             this.lblReceiver1.TabIndex = 0;
-            this.lblReceiver1.Text = "lblReceiver1";
+            this.lblReceiver1.Text = "CLICK";
             this.lblReceiver1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblReceiver1.DragDrop += new System.Windows.Forms.DragEventHandler(this.Label_DragDrop);
             this.lblReceiver1.DragEnter += new System.Windows.Forms.DragEventHandler(this.Label_DragEnter);
@@ -239,7 +252,7 @@
             this.lblSource4.Name = "lblSource4";
             this.lblSource4.Size = new System.Drawing.Size(200, 110);
             this.lblSource4.TabIndex = 2;
-            this.lblSource4.Text = "lblSourceFour";
+            this.lblSource4.Text = "BEGIN";
             this.lblSource4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblSource4.DragDrop += new System.Windows.Forms.DragEventHandler(this.Label_DragDrop);
             this.lblSource4.DragEnter += new System.Windows.Forms.DragEventHandler(this.Label_DragEnter);
@@ -254,7 +267,7 @@
             this.lblSource3.Name = "lblSource3";
             this.lblSource3.Size = new System.Drawing.Size(200, 110);
             this.lblSource3.TabIndex = 2;
-            this.lblSource3.Text = "lblSourceThree";
+            this.lblSource3.Text = "TO";
             this.lblSource3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblSource3.DragDrop += new System.Windows.Forms.DragEventHandler(this.Label_DragDrop);
             this.lblSource3.DragEnter += new System.Windows.Forms.DragEventHandler(this.Label_DragEnter);
@@ -269,7 +282,7 @@
             this.lblSource2.Name = "lblSource2";
             this.lblSource2.Size = new System.Drawing.Size(200, 110);
             this.lblSource2.TabIndex = 1;
-            this.lblSource2.Text = "lblSourceTwo";
+            this.lblSource2.Text = "GENERATE";
             this.lblSource2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblSource2.DragDrop += new System.Windows.Forms.DragEventHandler(this.Label_DragDrop);
             this.lblSource2.DragEnter += new System.Windows.Forms.DragEventHandler(this.Label_DragEnter);
@@ -284,7 +297,7 @@
             this.lblSource1.Name = "lblSource1";
             this.lblSource1.Size = new System.Drawing.Size(200, 110);
             this.lblSource1.TabIndex = 0;
-            this.lblSource1.Text = "lblSourceOne";
+            this.lblSource1.Text = "CLICK";
             this.lblSource1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblSource1.DragDrop += new System.Windows.Forms.DragEventHandler(this.Label_DragDrop);
             this.lblSource1.DragEnter += new System.Windows.Forms.DragEventHandler(this.Label_DragEnter);
@@ -354,6 +367,17 @@
             this.lblCurrentLevel.TabIndex = 21;
             this.lblCurrentLevel.Text = "Current Level: Casual";
             // 
+            // btnSwap
+            // 
+            this.btnSwap.BackgroundImage = global::PROG7311_POE_PART_1.Properties.Resources.swapButtonBackground;
+            this.btnSwap.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnSwap.Location = new System.Drawing.Point(393, 3);
+            this.btnSwap.Name = "btnSwap";
+            this.btnSwap.Size = new System.Drawing.Size(141, 48);
+            this.btnSwap.TabIndex = 8;
+            this.btnSwap.UseVisualStyleBackColor = true;
+            this.btnSwap.Click += new System.EventHandler(this.btnSwap_Click);
+            // 
             // MatchColumnsUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -406,5 +430,7 @@
         private System.Windows.Forms.Timer timerMatch;
         private System.Windows.Forms.Label lblTimer;
         private System.Windows.Forms.Label lblCurrentLevel;
+        private System.Windows.Forms.Label lblHeader;
+        private System.Windows.Forms.Button btnSwap;
     }
 }
