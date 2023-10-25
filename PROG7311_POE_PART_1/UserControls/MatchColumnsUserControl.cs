@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.Linq;
 using System.Media;
@@ -10,8 +11,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DeweyDecimalClassLibrary;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
 
 namespace PROG7311_POE_PART_1
 {
@@ -52,7 +51,7 @@ namespace PROG7311_POE_PART_1
         /// <summary>
         /// Stores the images used for the countdown of the game
         /// </summary>
-        private PictureBox countdownPictureBox = new PictureBox();
+        private PictureBox countdownPictureBox;
 
         /// <summary>
         /// Stores the name of the panel that is currently getting dragged
@@ -68,11 +67,6 @@ namespace PROG7311_POE_PART_1
         /// Stores the level the user is currently playing
         /// </summary>
         private string level = "casual";
-
-        /// <summary>
-        /// Stores the value that tells the code if the countdown must start or not
-        /// </summary>
-        private string countdown = "finish";
 
         /// <summary>
         /// Stores the current time the timer is on in the game
@@ -154,8 +148,11 @@ namespace PROG7311_POE_PART_1
             btnSwap.Enabled = false;
             lblTimer.Text = "";
 
-            // Setting the timers interval to 1 second
+            // Setting the timers intervals to 1 second
             timerMatch.Interval = 1000;
+            timerCountdown.Interval = 1000;
+            timerLevel3Intro.Interval = 3000;
+            timerLevel3Countdown.Interval = 730;
 
             // Invalidating the main panel to trigger a repaint
             pnlMainMatches.Invalidate();
@@ -193,7 +190,6 @@ namespace PROG7311_POE_PART_1
             btnReset.Enabled = true;
             btnCheckMatches.Enabled = true;
             btnMatch.Enabled = true;
-            btnCasual.Enabled = true;
             btnLevel1.Enabled = true;
             btnLevel2.Enabled = true;
             btnLevel3.Enabled = true;
@@ -327,6 +323,131 @@ namespace PROG7311_POE_PART_1
 
             // Clearing the lines drawn on the main panel
             pnlMainMatches.Invalidate();
+
+            if (level != "casual")
+            {
+                timerCountdown.Stop();
+                timerMatch.Stop();
+                EnableButtons();
+                lblTimer.Text = "";
+                level = "casual";
+                lblCurrentLevel.Text = "Current Level: Casual";
+
+                if (countdownPictureBox != null)
+                {
+                    pnlMainMatches.Controls.Remove(countdownPictureBox);
+                    countdownPictureBox.Dispose();
+
+                    // Clearing all previous values
+                    callNumberDictionary.Clear();
+                    callNumberList.Clear();
+                    linesList.Clear();
+
+                    // Class constructor for DictionaryValueGenerator class in the class library
+                    DictionaryValueGenerator dvg = new DictionaryValueGenerator(callNumberDictionary, callNumberList);
+                    dvg.GenerateCallNumber();
+
+                    /*
+                     * Shuffling the callNumbersList to display 4 random call numbers from the dictionary
+                     * The Enumerable.OrderBy method sorts the elements of a sequence using the specified comparer
+                     * This code was taken from Techie Delight at: https://www.techiedelight.com/randomize-a-list-in-csharp/
+                    */
+                    Random random = new Random();
+                    var shuffledCallNumbers = callNumberList.OrderBy(_ => random.Next()).ToList();
+
+                    // Randomly generating 4 out of 7 numbers to display for the correct answers
+                    List<int> sevenNumberList = new List<int>() { 1, 2, 3, 4, 5, 6, 7 };
+                    var shuffledNumbers = sevenNumberList.OrderBy(_ => random.Next()).ToList();
+
+                    // Checking if the user wants to match call numbers to descriptions or the other way around
+                    if (callNumbers)
+                    {
+                        // Setting the source label values with the shuffled call numbers
+                        for (int i = 0; i < 4; i++)
+                        {
+                            Label sourceLabel = Controls.Find($"lblSource{i + 1}", true).FirstOrDefault() as Label;
+                            sourceLabel.Text = shuffledCallNumbers[i].ToString("D3");
+
+                            // Reconnecting the source labels with the events
+                            sourceLabel.MouseDown += SourceLabel_MouseDown;
+                            sourceLabel.DragEnter += Label_DragEnter;
+                            sourceLabel.DragDrop += Label_DragDrop;
+                        }
+
+                        // Setting the correct receiver label values
+                        List<int> usedNumbersList = new List<int>();
+                        for (int i = 0; i < 4; i++)
+                        {
+                            Label receiverLabel = Controls.Find($"lblReceiver{shuffledNumbers[i]}", true).FirstOrDefault() as Label;
+                            usedNumbersList.Add(shuffledNumbers[i]);
+                            receiverLabel.Text = callNumberDictionary[shuffledCallNumbers[i].ToString("D3")];
+
+                            // Reconnecting the correct receiver labels with the events
+                            receiverLabel.MouseDown += SourceLabel_MouseDown;
+                            receiverLabel.DragEnter += Label_DragEnter;
+                            receiverLabel.DragDrop += Label_DragDrop;
+                        }
+
+                        // Creating a list to store the 3 numbers that were not used, to fill in the missing labels with the "incorrect" values
+                        var missingNumbers = sevenNumberList.Except(usedNumbersList).ToList();
+
+                        // Setting the incorrect receiver label values
+                        for (int i = 0; i < missingNumbers.Count; i++)
+                        {
+                            Label receiverLabel = Controls.Find($"lblReceiver{missingNumbers[i]}", true).FirstOrDefault() as Label;
+                            receiverLabel.Text = callNumberDictionary[shuffledCallNumbers[i + 4].ToString("D3")];
+
+                            // Reconnecting the incorrect receiver labels with the events
+                            receiverLabel.MouseDown += SourceLabel_MouseDown;
+                            receiverLabel.DragEnter += Label_DragEnter;
+                            receiverLabel.DragDrop += Label_DragDrop;
+                        }
+                    }
+                    else if (!callNumbers)
+                    {
+                        // Setting the source label values with the shuffled descriptions
+                        for (int i = 0; i < 4; i++)
+                        {
+                            Label sourceLabel = Controls.Find($"lblSource{i + 1}", true).FirstOrDefault() as Label;
+                            sourceLabel.Text = callNumberDictionary[shuffledCallNumbers[i].ToString("D3")];
+
+                            // Reconnecting the source labels with the events
+                            sourceLabel.MouseDown += SourceLabel_MouseDown;
+                            sourceLabel.DragEnter += Label_DragEnter;
+                            sourceLabel.DragDrop += Label_DragDrop;
+                        }
+
+                        // Setting the correct receiver label values
+                        List<int> usedNumbersList = new List<int>();
+                        for (int i = 0; i < 4; i++)
+                        {
+                            Label receiverLabel = Controls.Find($"lblReceiver{shuffledNumbers[i]}", true).FirstOrDefault() as Label;
+                            usedNumbersList.Add(shuffledNumbers[i]);
+                            receiverLabel.Text = shuffledCallNumbers[i].ToString("D3");
+
+                            // Reconnecting the correct receiver labels with the events
+                            receiverLabel.MouseDown += SourceLabel_MouseDown;
+                            receiverLabel.DragEnter += Label_DragEnter;
+                            receiverLabel.DragDrop += Label_DragDrop;
+                        }
+
+                        // Creating a list to store the 3 numbers that were not used, to fill in the missing labels with the "incorrect" values
+                        var missingNumbers = sevenNumberList.Except(usedNumbersList).ToList();
+
+                        // Setting the incorrect receiver label values
+                        for (int i = 0; i < missingNumbers.Count; i++)
+                        {
+                            Label receiverLabel = Controls.Find($"lblReceiver{missingNumbers[i]}", true).FirstOrDefault() as Label;
+                            receiverLabel.Text = shuffledCallNumbers[i + 4].ToString("D3");
+
+                            // Reconnecting the incorrect receiver labels with the events
+                            receiverLabel.MouseDown += SourceLabel_MouseDown;
+                            receiverLabel.DragEnter += Label_DragEnter;
+                            receiverLabel.DragDrop += Label_DragDrop;
+                        }
+                    }
+                }
+            }
         }
 
         #endregion
@@ -355,13 +476,21 @@ namespace PROG7311_POE_PART_1
             {
                 if (correctMatches == 4 && level == "levelOne" || level == "levelTwo")
                 {
+                    timerMatch.Stop();
                     MessageBox.Show($"Congratulations! You got {correctMatches * 25}% correct matches\nIn a time of {elapsedTime} seconds\n" +
                                      "Think you can give the next level a try?");
+                    EnableButtons();
                 }
                 else if (correctMatches == 4 && level == "levelThree")
                 {
+                    timerMatch.Stop();
                     MessageBox.Show($"Congratulations! You got {correctMatches * 25}% correct matches\nIn a time of {elapsedTime} seconds\n" +
                                      "You have now mastered the game! Well done, the application is proud of you.");
+                    EnableButtons();
+                }
+                else if (correctMatches != 4)
+                {
+                    MessageBox.Show($"KEEP GOING! You got {correctMatches * 25}% correct matches so far");
                 }
             }
         }
@@ -606,9 +735,138 @@ namespace PROG7311_POE_PART_1
 
         private void btnCasual_Click(object sender, EventArgs e)
         {
-            lblTimer.Text = "";
-            lblCurrentLevel.Text = "Current Level: Casual";
-            level = "casual";
+            DialogResult dialogResult = MessageBox.Show("Do you wish to stop the level and go back to casual mode?\n",
+                                                        "Confirmation", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                // Clearing the lines stored in the lines 
+                linesList.Clear();
+
+                // Clearing the lines drawn on the main panel
+                pnlMainMatches.Invalidate();
+
+                timerCountdown.Stop();
+                timerMatch.Stop();
+                EnableButtons();
+                lblTimer.Text = "";
+                level = "casual";
+                lblCurrentLevel.Text = "Current Level: Casual";
+
+                if (countdownPictureBox != null)
+                {
+                    pnlMainMatches.Controls.Remove(countdownPictureBox);
+                    countdownPictureBox.Dispose();
+
+                    // Clearing all previous values
+                    callNumberDictionary.Clear();
+                    callNumberList.Clear();
+                    linesList.Clear();
+
+                    // Class constructor for DictionaryValueGenerator class in the class library
+                    DictionaryValueGenerator dvg = new DictionaryValueGenerator(callNumberDictionary, callNumberList);
+                    dvg.GenerateCallNumber();
+
+                    /*
+                     * Shuffling the callNumbersList to display 4 random call numbers from the dictionary
+                     * The Enumerable.OrderBy method sorts the elements of a sequence using the specified comparer
+                     * This code was taken from Techie Delight at: https://www.techiedelight.com/randomize-a-list-in-csharp/
+                    */
+                    Random random = new Random();
+                    var shuffledCallNumbers = callNumberList.OrderBy(_ => random.Next()).ToList();
+
+                    // Randomly generating 4 out of 7 numbers to display for the correct answers
+                    List<int> sevenNumberList = new List<int>() { 1, 2, 3, 4, 5, 6, 7 };
+                    var shuffledNumbers = sevenNumberList.OrderBy(_ => random.Next()).ToList();
+
+                    // Checking if the user wants to match call numbers to descriptions or the other way around
+                    if (callNumbers)
+                    {
+                        // Setting the source label values with the shuffled call numbers
+                        for (int i = 0; i < 4; i++)
+                        {
+                            Label sourceLabel = Controls.Find($"lblSource{i + 1}", true).FirstOrDefault() as Label;
+                            sourceLabel.Text = shuffledCallNumbers[i].ToString("D3");
+
+                            // Reconnecting the source labels with the events
+                            sourceLabel.MouseDown += SourceLabel_MouseDown;
+                            sourceLabel.DragEnter += Label_DragEnter;
+                            sourceLabel.DragDrop += Label_DragDrop;
+                        }
+
+                        // Setting the correct receiver label values
+                        List<int> usedNumbersList = new List<int>();
+                        for (int i = 0; i < 4; i++)
+                        {
+                            Label receiverLabel = Controls.Find($"lblReceiver{shuffledNumbers[i]}", true).FirstOrDefault() as Label;
+                            usedNumbersList.Add(shuffledNumbers[i]);
+                            receiverLabel.Text = callNumberDictionary[shuffledCallNumbers[i].ToString("D3")];
+
+                            // Reconnecting the correct receiver labels with the events
+                            receiverLabel.MouseDown += SourceLabel_MouseDown;
+                            receiverLabel.DragEnter += Label_DragEnter;
+                            receiverLabel.DragDrop += Label_DragDrop;
+                        }
+
+                        // Creating a list to store the 3 numbers that were not used, to fill in the missing labels with the "incorrect" values
+                        var missingNumbers = sevenNumberList.Except(usedNumbersList).ToList();
+
+                        // Setting the incorrect receiver label values
+                        for (int i = 0; i < missingNumbers.Count; i++)
+                        {
+                            Label receiverLabel = Controls.Find($"lblReceiver{missingNumbers[i]}", true).FirstOrDefault() as Label;
+                            receiverLabel.Text = callNumberDictionary[shuffledCallNumbers[i + 4].ToString("D3")];
+
+                            // Reconnecting the incorrect receiver labels with the events
+                            receiverLabel.MouseDown += SourceLabel_MouseDown;
+                            receiverLabel.DragEnter += Label_DragEnter;
+                            receiverLabel.DragDrop += Label_DragDrop;
+                        }
+                    }
+                    else if (!callNumbers)
+                    {
+                        // Setting the source label values with the shuffled descriptions
+                        for (int i = 0; i < 4; i++)
+                        {
+                            Label sourceLabel = Controls.Find($"lblSource{i + 1}", true).FirstOrDefault() as Label;
+                            sourceLabel.Text = callNumberDictionary[shuffledCallNumbers[i].ToString("D3")];
+
+                            // Reconnecting the source labels with the events
+                            sourceLabel.MouseDown += SourceLabel_MouseDown;
+                            sourceLabel.DragEnter += Label_DragEnter;
+                            sourceLabel.DragDrop += Label_DragDrop;
+                        }
+
+                        // Setting the correct receiver label values
+                        List<int> usedNumbersList = new List<int>();
+                        for (int i = 0; i < 4; i++)
+                        {
+                            Label receiverLabel = Controls.Find($"lblReceiver{shuffledNumbers[i]}", true).FirstOrDefault() as Label;
+                            usedNumbersList.Add(shuffledNumbers[i]);
+                            receiverLabel.Text = shuffledCallNumbers[i].ToString("D3");
+
+                            // Reconnecting the correct receiver labels with the events
+                            receiverLabel.MouseDown += SourceLabel_MouseDown;
+                            receiverLabel.DragEnter += Label_DragEnter;
+                            receiverLabel.DragDrop += Label_DragDrop;
+                        }
+
+                        // Creating a list to store the 3 numbers that were not used, to fill in the missing labels with the "incorrect" values
+                        var missingNumbers = sevenNumberList.Except(usedNumbersList).ToList();
+
+                        // Setting the incorrect receiver label values
+                        for (int i = 0; i < missingNumbers.Count; i++)
+                        {
+                            Label receiverLabel = Controls.Find($"lblReceiver{missingNumbers[i]}", true).FirstOrDefault() as Label;
+                            receiverLabel.Text = shuffledCallNumbers[i + 4].ToString("D3");
+
+                            // Reconnecting the incorrect receiver labels with the events
+                            receiverLabel.MouseDown += SourceLabel_MouseDown;
+                            receiverLabel.DragEnter += Label_DragEnter;
+                            receiverLabel.DragDrop += Label_DragDrop;
+                        }
+                    }
+                }
+            }       
         }
 
         #endregion
@@ -634,19 +892,48 @@ namespace PROG7311_POE_PART_1
                 linesList.Clear();
                 pnlMainMatches.Invalidate();
 
+                lblCurrentLevel.Text = "Current Level: Level 1";
+
+                for (int i = 0; i < 4; i++)
+                {
+                    Label sourceLabel = Controls.Find($"lblSource{i + 1}", true).FirstOrDefault() as Label;
+
+                    // Disconnecting the source labels from their events while the countdown is happening
+                    sourceLabel.MouseDown -= SourceLabel_MouseDown;
+                    sourceLabel.DragEnter -= Label_DragEnter;
+                    sourceLabel.DragDrop -= Label_DragDrop;
+
+                    // Setting the text to GOODLUCK for each label
+                    sourceLabel.Text = "GOODLUCK";
+                }
+
+                for (int i = 0; i < 7; i++)
+                {
+                    Label receiverLabel = Controls.Find($"lblReceiver{i + 1}", true).FirstOrDefault() as Label;
+
+                    // Disconnecting the source labels from their events while the countdown is happening
+                    receiverLabel.MouseDown -= SourceLabel_MouseDown;
+                    receiverLabel.DragEnter -= Label_DragEnter;
+                    receiverLabel.DragDrop -= Label_DragDrop;
+
+                    // Setting the text to GOODLUCK for each label
+                    receiverLabel.Text = "GOODLUCK";
+                }
+
+                DisableButtons();
+
                 level = "levelOne";
-                countdown = "start";
                 elapsedTime = 4;
 
                 // Setting up the PictureBox properties when the user starts the countdown
-                countdownPictureBox.Name = "pbCountdown";
+                countdownPictureBox = new PictureBox();
                 countdownPictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
                 countdownPictureBox.Size = new Size(250, 300);
                 countdownPictureBox.Location = new Point(230, 100);
                 pnlMainMatches.Controls.Add(countdownPictureBox);
                 countdownPictureBox.BringToFront();
 
-                timerMatch.Start();
+                timerCountdown.Start();
             }
         }
 
@@ -665,7 +952,57 @@ namespace PROG7311_POE_PART_1
 
         private void btnLevel2_Click(object sender, EventArgs e)
         {
+            DialogResult dialogResult = MessageBox.Show("Do you wish to proceed to level 2?\n" +
+                                                        "Please make sure you have read and understood the instructions before continuing",
+                                                        "Confirmation", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                linesList.Clear();
+                pnlMainMatches.Invalidate();
 
+                lblCurrentLevel.Text = "Current Level: Level 2";
+
+                for (int i = 0; i < 4; i++)
+                {
+                    Label sourceLabel = Controls.Find($"lblSource{i + 1}", true).FirstOrDefault() as Label;
+
+                    // Disconnecting the source labels from their events while the countdown is happening
+                    sourceLabel.MouseDown -= SourceLabel_MouseDown;
+                    sourceLabel.DragEnter -= Label_DragEnter;
+                    sourceLabel.DragDrop -= Label_DragDrop;
+
+                    // Setting the text to GOODLUCK for each label
+                    sourceLabel.Text = "GOODLUCK";
+                }
+
+                for (int i = 0; i < 7; i++)
+                {
+                    Label receiverLabel = Controls.Find($"lblReceiver{i + 1}", true).FirstOrDefault() as Label;
+
+                    // Disconnecting the source labels from their events while the countdown is happening
+                    receiverLabel.MouseDown -= SourceLabel_MouseDown;
+                    receiverLabel.DragEnter -= Label_DragEnter;
+                    receiverLabel.DragDrop -= Label_DragDrop;
+
+                    // Setting the text to GOODLUCK for each label
+                    receiverLabel.Text = "GOODLUCK";
+                }
+
+                DisableButtons();
+
+                level = "levelTwo";
+                elapsedTime = 4;
+
+                // Setting up the PictureBox properties when the user starts the countdown
+                countdownPictureBox = new PictureBox();
+                countdownPictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+                countdownPictureBox.Size = new Size(250, 300);
+                countdownPictureBox.Location = new Point(230, 100);
+                pnlMainMatches.Controls.Add(countdownPictureBox);
+                countdownPictureBox.BringToFront();
+
+                timerCountdown.Start();
+            }
         }
 
         #endregion
@@ -683,7 +1020,59 @@ namespace PROG7311_POE_PART_1
 
         private void btnLevel3_Click(object sender, EventArgs e)
         {
+            DialogResult dialogResult = MessageBox.Show("Do you wish to proceed to level 3?\n" +
+            "Prepare for the ultimate challenge as you enter the heart-pounding, nerve-wracking final level of the game. " +
+            "This level is the stuff of legends, a true test of your lightning-fast wit and memory. With a mere 5 seconds on the " +
+            "clock, it has brought even the bravest souls to their knees, making grown men shed tears of frustration. It's a " +
+            "level so intense, it's whispered about in hushed tones. Brace yourself, for this level is feared by death itself, " +
+            "and it will push you to the very limits of your abilities. Will you conquer it or crumble under the pressure?",
+                                                        "Are you sure you want to do this?", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                linesList.Clear();
+                pnlMainMatches.Invalidate();                
 
+                for (int i = 0; i < 4; i++)
+                {
+                    Label sourceLabel = Controls.Find($"lblSource{i + 1}", true).FirstOrDefault() as Label;
+
+                    // Disconnecting the source labels from their events while the countdown is happening
+                    sourceLabel.MouseDown -= SourceLabel_MouseDown;
+                    sourceLabel.DragEnter -= Label_DragEnter;
+                    sourceLabel.DragDrop -= Label_DragDrop;
+
+                    // Setting the text to GOODLUCK for each label
+                    sourceLabel.Text = "GOODLUCK";
+                }
+
+                for (int i = 0; i < 7; i++)
+                {
+                    Label receiverLabel = Controls.Find($"lblReceiver{i + 1}", true).FirstOrDefault() as Label;
+
+                    // Disconnecting the source labels from their events while the countdown is happening
+                    receiverLabel.MouseDown -= SourceLabel_MouseDown;
+                    receiverLabel.DragEnter -= Label_DragEnter;
+                    receiverLabel.DragDrop -= Label_DragDrop;
+
+                    // Setting the text to GOODLUCK for each label
+                    receiverLabel.Text = "GOODLUCK";
+                }
+
+                DisableButtons();
+
+                level = "levelThree";
+                elapsedTime = 0;
+
+                // Setting up the PictureBox properties when the user starts the countdown
+                countdownPictureBox = new PictureBox();
+                countdownPictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+                countdownPictureBox.Size = new Size(250, 300);
+                countdownPictureBox.Location = new Point(220, 80);
+                pnlMainMatches.Controls.Add(countdownPictureBox);
+                countdownPictureBox.BringToFront();
+
+                timerLevel3Intro.Start();                
+            }
         }
 
         #endregion
@@ -969,78 +1358,182 @@ namespace PROG7311_POE_PART_1
 
         private void TimerMatch_Tick(object sender, EventArgs e)
         {
-            if (countdown == "start")
-            {
-                elapsedTime--;
+            elapsedTime--;
 
-                using (SoundPlayer levelCountdown = new SoundPlayer(Properties.Resources.levelCountdown))
+            if (elapsedTime > 1)
+            {
+                lblTimer.Text = $"Timer: {elapsedTime}" + " seconds";
+            }
+            if (elapsedTime == 1)
+            {
+                lblTimer.Text = $"Timer: {elapsedTime}" + " second";
+            }
+            if (elapsedTime == 0)
+            {
+                timerMatch.Stop();
+                if (level == "levelOne")
                 {
-                    if (elapsedTime == 3)
+                    using (SoundPlayer levelOneFail = new SoundPlayer(Properties.Resources.levelOneFail))
                     {
-                        levelCountdown.Play();
-                        countdownPictureBox.Image = Properties.Resources.threePhoto;
+                        levelOneFail.Play();
                     }
-                    else if (elapsedTime == 2)
+                    MessageBox.Show("Fail! You did not manage to match the correct values in time.", "Fail", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    EnableButtons();
+                    lblTimer.Text = "";
+                    lblCurrentLevel.Text = "Current Level: Casual";
+                }
+                else if (level == "levelTwo")
+                {
+                    using (SoundPlayer levelTwoThreeFail = new SoundPlayer(Properties.Resources.levelTwoThreeFail))
                     {
-                        levelCountdown.Play();
-                        countdownPictureBox.Image = Properties.Resources.twoPhoto;
+                        levelTwoThreeFail.Play();
                     }
-                    if (elapsedTime == 1)
+                    MessageBox.Show("Fail! You did not manage to match the correct values in time.", "Fail", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    EnableButtons();
+                    lblTimer.Text = "";
+                    lblCurrentLevel.Text = "Current Level: Casual";
+                }
+                else if (level == "levelThree")
+                {
+                    using (SoundPlayer levelTwoThreeFail = new SoundPlayer(Properties.Resources.levelTwoThreeFail))
                     {
-                        levelCountdown.Play();
-                        countdownPictureBox.Image = Properties.Resources.onePhoto;
+                        levelTwoThreeFail.Play();
                     }
-                    else if (elapsedTime == 0)
-                    {
-                        levelCountdown.Play();
-                        pnlMainMatches.Controls.Remove(countdownPictureBox);
-                        countdownPictureBox.Dispose();
-                        timerMatch.Stop();
-                        countdown = "finish";
-                        LevelStarter();
-                    }
+                    MessageBox.Show("Fail! You did not manage to match the correct values in time.\nI told you this level was difficult\n" +
+                                    "Walk away while you still can", "Fail", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    EnableButtons();
+                    lblTimer.Text = "";
+                    lblCurrentLevel.Text = "Current Level: Casual";
                 }
             }
-            else if (countdown == "finish")
-            {
-                elapsedTime--;
+        }
 
-                if (elapsedTime > 1)
+        #endregion
+
+        //----------------------------------------------------------------------------------------------------------------------------------//
+
+        /// <summary>
+        /// Creates a countdown functionality whenever the user starts a level
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+
+        #region TimerCountdown_Tick
+
+        private void timerCountdown_Tick(object sender, EventArgs e)
+        {
+            elapsedTime--;
+
+            using (SoundPlayer levelCountdown = new SoundPlayer(Properties.Resources.levelCountdown))
+            {
+                if (elapsedTime == 3)
                 {
-                    lblTimer.Text = $"Timer: {elapsedTime}" + " seconds";
+                    levelCountdown.Play();
+                    countdownPictureBox.Image = Properties.Resources.threePhoto;
+                }
+                else if (elapsedTime == 2)
+                {
+                    levelCountdown.Play();
+                    countdownPictureBox.Image = Properties.Resources.twoPhoto;
                 }
                 if (elapsedTime == 1)
                 {
-                    lblTimer.Text = $"Timer: {elapsedTime}" + " second";
-                }                
-                if (elapsedTime == 0)
-                {
-                    timerMatch.Stop();
-                    if (level == "levelOne")
-                    {
-                        using (SoundPlayer levelOneFail = new SoundPlayer(Properties.Resources.levelOneFail))
-                        {
-                            levelOneFail.Play();
-                        }
-                        MessageBox.Show("Fail! You did not manage to match the correct values in time.", "Fail", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    else if (level == "levelTwo")
-                    {
-                        using (SoundPlayer levelTwoThreeFail = new SoundPlayer(Properties.Resources.levelTwoThreeFail))
-                        {
-                            levelTwoThreeFail.Play();
-                        }
-                        MessageBox.Show("Fail! You did not manage to match the correct values in time.", "Fail", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    else if (level == "levelThree")
-                    {
-                        using (SoundPlayer levelTwoThreeFail = new SoundPlayer(Properties.Resources.levelTwoThreeFail))
-                        {
-                            levelTwoThreeFail.Play();
-                        }
-                        MessageBox.Show("Fail! You did not manage to match the correct values in time.\nI told you this level was difficult", "Fail", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
+                    levelCountdown.Play();
+                    countdownPictureBox.Image = Properties.Resources.onePhoto;
                 }
+                else if (elapsedTime == 0)
+                {
+                    levelCountdown.Play();
+                    pnlMainMatches.Controls.Remove(countdownPictureBox);
+                    countdownPictureBox.Dispose();
+                    timerCountdown.Stop();
+                    LevelStarter();
+                }
+            }
+        }
+
+        #endregion
+
+        //----------------------------------------------------------------------------------------------------------------------------------//
+
+        /// <summary>
+        /// Creates a cool introduction whenever the user starts level 3
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+
+        #region TimerLevel3Intro_Tick
+
+        private void timerLevel3Intro_Tick(object sender, EventArgs e)
+        {
+            elapsedTime++;
+
+            if (elapsedTime == 1)
+            {
+                using (SoundPlayer levelThreeIntro = new SoundPlayer(Properties.Resources.levelThreeIntroMusic))
+                {
+                    levelThreeIntro.Play();
+                }
+                countdownPictureBox.Image = Properties.Resources.levelThreeIntroduction1;
+                lblCurrentLevel.Text = "Current Level: IM";
+            }
+            else if (elapsedTime == 2) 
+            {
+                countdownPictureBox.Image = Properties.Resources.levelThreeIntroduction2;
+                lblCurrentLevel.Text = "Current Level: IMPOS";
+            }
+            else if (elapsedTime == 3)
+            {
+                countdownPictureBox.Image = Properties.Resources.levelThreeIntroduction3;
+                lblCurrentLevel.Text = "Current Level: IMPOSSI";
+            }
+            else if (elapsedTime == 4)
+            {
+                lblCurrentLevel.Text = "Current Level: IMPOSSIBLE";
+                elapsedTime = 0;
+                timerLevel3Intro.Stop();
+                timerLevel3Countdown.Start();
+            }
+        }
+
+        #endregion
+
+        //----------------------------------------------------------------------------------------------------------------------------------//
+
+        /// <summary>
+        /// Creates the countdown effect but for level 3
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+
+        #region TimerLevel3Countdown_Tick
+
+        private void timerLevel3Countdown_Tick(object sender, EventArgs e)
+        {
+            elapsedTime++;
+
+            if(elapsedTime == 1)
+            {
+                countdownPictureBox.Image = Properties.Resources.threePhoto;
+            }
+            else if (elapsedTime == 2)
+            {
+                countdownPictureBox.Image = Properties.Resources.twoPhoto;
+            }
+            else if (elapsedTime == 3)
+            {
+                countdownPictureBox.Image = Properties.Resources.onePhoto;
+            }
+            if (elapsedTime == 4)
+            {
+                countdownPictureBox.Image = Properties.Resources.levelThreeIntroduction4;
+            }
+            if (elapsedTime == 5)
+            {
+                pnlMainMatches.Controls.Remove(countdownPictureBox);
+                countdownPictureBox.Dispose();
+                timerLevel3Countdown.Stop();
+                LevelStarter();
             }
         }
 
@@ -1056,27 +1549,184 @@ namespace PROG7311_POE_PART_1
 
         private void LevelStarter()
         {
-            lblCurrentLevel.Text = level;
+            // Clearing all previous values
+            callNumberDictionary.Clear();
+            callNumberList.Clear();
+            linesList.Clear();            
+
+            // Class constructor for DictionaryValueGenerator class in the class library
+            DictionaryValueGenerator dvg = new DictionaryValueGenerator(callNumberDictionary, callNumberList);
+            dvg.GenerateCallNumber();
+
+            /*
+             * Shuffling the callNumbersList to display 4 random call numbers from the dictionary
+             * The Enumerable.OrderBy method sorts the elements of a sequence using the specified comparer
+             * This code was taken from Techie Delight at: https://www.techiedelight.com/randomize-a-list-in-csharp/
+            */
+            Random random = new Random();
+            var shuffledCallNumbers = callNumberList.OrderBy(_ => random.Next()).ToList();
+
+            // Randomly generating 4 out of 7 numbers to display for the correct answers
+            List<int> sevenNumberList = new List<int>() { 1, 2, 3, 4, 5, 6, 7 };
+            var shuffledNumbers = sevenNumberList.OrderBy(_ => random.Next()).ToList();
+
+            // Checking if the user wants to match call numbers to descriptions or the other way around
+            if (callNumbers)
+            {
+                // Setting the source label values with the shuffled call numbers
+                for (int i = 0; i < 4; i++)
+                {
+                    Label sourceLabel = Controls.Find($"lblSource{i + 1}", true).FirstOrDefault() as Label;
+                    sourceLabel.Text = shuffledCallNumbers[i].ToString("D3");
+
+                    // Reconnecting the source labels with the events
+                    sourceLabel.MouseDown += SourceLabel_MouseDown;
+                    sourceLabel.DragEnter += Label_DragEnter;
+                    sourceLabel.DragDrop += Label_DragDrop;
+                }
+
+                // Setting the correct receiver label values
+                List<int> usedNumbersList = new List<int>();
+                for (int i = 0; i < 4; i++)
+                {
+                    Label receiverLabel = Controls.Find($"lblReceiver{shuffledNumbers[i]}", true).FirstOrDefault() as Label;
+                    usedNumbersList.Add(shuffledNumbers[i]);
+                    receiverLabel.Text = callNumberDictionary[shuffledCallNumbers[i].ToString("D3")];
+
+                    // Reconnecting the correct receiver labels with the events
+                    receiverLabel.MouseDown += SourceLabel_MouseDown;
+                    receiverLabel.DragEnter += Label_DragEnter;
+                    receiverLabel.DragDrop += Label_DragDrop;
+                }
+
+                // Creating a list to store the 3 numbers that were not used, to fill in the missing labels with the "incorrect" values
+                var missingNumbers = sevenNumberList.Except(usedNumbersList).ToList();
+
+                // Setting the incorrect receiver label values
+                for (int i = 0; i < missingNumbers.Count; i++)
+                {
+                    Label receiverLabel = Controls.Find($"lblReceiver{missingNumbers[i]}", true).FirstOrDefault() as Label;
+                    receiverLabel.Text = callNumberDictionary[shuffledCallNumbers[i + 4].ToString("D3")];
+
+                    // Reconnecting the incorrect receiver labels with the events
+                    receiverLabel.MouseDown += SourceLabel_MouseDown;
+                    receiverLabel.DragEnter += Label_DragEnter;
+                    receiverLabel.DragDrop += Label_DragDrop;
+                }
+            }
+            else if (!callNumbers)
+            {
+                // Setting the source label values with the shuffled descriptions
+                for (int i = 0; i < 4; i++)
+                {
+                    Label sourceLabel = Controls.Find($"lblSource{i + 1}", true).FirstOrDefault() as Label;
+                    sourceLabel.Text = callNumberDictionary[shuffledCallNumbers[i].ToString("D3")];
+
+                    // Reconnecting the source labels with the events
+                    sourceLabel.MouseDown += SourceLabel_MouseDown;
+                    sourceLabel.DragEnter += Label_DragEnter;
+                    sourceLabel.DragDrop += Label_DragDrop;
+                }
+
+                // Setting the correct receiver label values
+                List<int> usedNumbersList = new List<int>();
+                for (int i = 0; i < 4; i++)
+                {
+                    Label receiverLabel = Controls.Find($"lblReceiver{shuffledNumbers[i]}", true).FirstOrDefault() as Label;
+                    usedNumbersList.Add(shuffledNumbers[i]);
+                    receiverLabel.Text = shuffledCallNumbers[i].ToString("D3");
+
+                    // Reconnecting the correct receiver labels with the events
+                    receiverLabel.MouseDown += SourceLabel_MouseDown;
+                    receiverLabel.DragEnter += Label_DragEnter;
+                    receiverLabel.DragDrop += Label_DragDrop;
+                }
+
+                // Creating a list to store the 3 numbers that were not used, to fill in the missing labels with the "incorrect" values
+                var missingNumbers = sevenNumberList.Except(usedNumbersList).ToList();
+
+                // Setting the incorrect receiver label values
+                for (int i = 0; i < missingNumbers.Count; i++)
+                {
+                    Label receiverLabel = Controls.Find($"lblReceiver{missingNumbers[i]}", true).FirstOrDefault() as Label;
+                    receiverLabel.Text = shuffledCallNumbers[i + 4].ToString("D3");
+
+                    // Reconnecting the incorrect receiver labels with the events
+                    receiverLabel.MouseDown += SourceLabel_MouseDown;
+                    receiverLabel.DragEnter += Label_DragEnter;
+                    receiverLabel.DragDrop += Label_DragDrop;
+                }
+            }
+
             if (level == "levelOne")
             {
-                lblCurrentLevel.Text = "Current Level: Level 1";
                 elapsedTime = 20;
                 timerMatch.Start();
             }
             else if (level == "levelTwo")
             {
-                lblCurrentLevel.Text = "Current Level: Level 2";
                 elapsedTime = 10;
                 timerMatch.Start();
             }
             else if (level == "levelThree")
             {
-                lblCurrentLevel.Text = "Current Level: Level 3";
                 elapsedTime = 5;
                 timerMatch.Start();
             }
         }
 
         #endregion
+
+        //----------------------------------------------------------------------------------------------------------------------------------//
+
+        /// <summary>
+        /// Enables all the buttons once a level has been completed
+        /// </summary>
+
+        #region EnableButtons_Method
+
+        public void EnableButtons()
+        {
+            // Disabling the game buttons
+            btnGenerate.Enabled = true;
+            btnReset.Enabled = true;
+            btnReset.Text = "Reset";
+            btnCheckMatches.Enabled = true;
+            btnMatch.Enabled = true;
+            btnCasual.Enabled = false;
+            btnLevel1.Enabled = true;
+            btnLevel2.Enabled = true;
+            btnLevel3.Enabled = true;
+            btnSwap.Enabled = true;
+            btnSwap.Visible = true;
+        }
+
+        #endregion        
+
+        //----------------------------------------------------------------------------------------------------------------------------------//
+
+        /// <summary>
+        /// Disables all the buttons once a level is starting
+        /// </summary>
+
+        #region DisableButtons_Method
+
+        public void DisableButtons()
+        {
+            // Disabling the game buttons
+            btnGenerate.Enabled = false;
+            btnReset.Enabled = true;
+            btnReset.Text = "Stop";
+            btnCheckMatches.Enabled = true;
+            btnMatch.Enabled = false;
+            btnCasual.Enabled = true;
+            btnLevel1.Enabled = false;
+            btnLevel2.Enabled = false;
+            btnLevel3.Enabled = false;
+            btnSwap.Enabled = false;
+            btnSwap.Visible = false;
+        }
+
+        #endregion        
     }
 }

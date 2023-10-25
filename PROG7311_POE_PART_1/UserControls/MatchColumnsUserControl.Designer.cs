@@ -51,6 +51,9 @@
             this.timerMatch = new System.Windows.Forms.Timer(this.components);
             this.lblTimer = new System.Windows.Forms.Label();
             this.lblCurrentLevel = new System.Windows.Forms.Label();
+            this.timerCountdown = new System.Windows.Forms.Timer(this.components);
+            this.timerLevel3Intro = new System.Windows.Forms.Timer(this.components);
+            this.timerLevel3Countdown = new System.Windows.Forms.Timer(this.components);
             this.btnLevel3 = new System.Windows.Forms.Button();
             this.btnLevel2 = new System.Windows.Forms.Button();
             this.btnLevel1 = new System.Windows.Forms.Button();
@@ -331,9 +334,21 @@
             this.lblCurrentLevel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCurrentLevel.Location = new System.Drawing.Point(15, 675);
             this.lblCurrentLevel.Name = "lblCurrentLevel";
-            this.lblCurrentLevel.Size = new System.Drawing.Size(266, 23);
+            this.lblCurrentLevel.Size = new System.Drawing.Size(319, 23);
             this.lblCurrentLevel.TabIndex = 21;
             this.lblCurrentLevel.Text = "Current Level: Casual";
+            // 
+            // timerCountdown
+            // 
+            this.timerCountdown.Tick += new System.EventHandler(this.timerCountdown_Tick);
+            // 
+            // timerLevel3Intro
+            // 
+            this.timerLevel3Intro.Tick += new System.EventHandler(this.timerLevel3Intro_Tick);
+            // 
+            // timerLevel3Countdown
+            // 
+            this.timerLevel3Countdown.Tick += new System.EventHandler(this.timerLevel3Countdown_Tick);
             // 
             // btnLevel3
             // 
@@ -444,5 +459,8 @@
         private System.Windows.Forms.Label lblCurrentLevel;
         private System.Windows.Forms.Label lblHeader;
         private System.Windows.Forms.Button btnSwap;
+        private System.Windows.Forms.Timer timerCountdown;
+        private System.Windows.Forms.Timer timerLevel3Intro;
+        private System.Windows.Forms.Timer timerLevel3Countdown;
     }
 }
