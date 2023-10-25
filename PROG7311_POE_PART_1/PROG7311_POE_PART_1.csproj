@@ -166,6 +166,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\appIcon.ico" />
+    <None Include="Resources\levelCountdown.wav" />
+    <None Include="Resources\onePhoto.png" />
+    <None Include="Resources\twoPhoto.png" />
+    <None Include="Resources\threePhoto.png" />
+    <None Include="Resources\levelTwoThreeFail.wav" />
+    <None Include="Resources\levelOneFail.wav" />
+    <None Include="Resources\levelComplete.wav" />
+    <None Include="Resources\levelChange.wav" />
+    <None Include="Resources\lvlCasualButtonBackground.png" />
+    <None Include="Resources\lvlThreeButtonBackground.png" />
+    <None Include="Resources\lvlTwoButtonBackground.png" />
+    <None Include="Resources\lvlOneButtonBackground.png" />
     <None Include="Resources\swapButtonBackground.png" />
     <None Include="Resources\bwIdentifyAreasLogo.png" />
     <None Include="Resources\identifyAreasLogo.png" />

@@ -48,13 +48,13 @@
             this.lblSource2 = new System.Windows.Forms.Label();
             this.lblSource1 = new System.Windows.Forms.Label();
             this.btnCheckMatches = new System.Windows.Forms.Button();
-            this.btnCasual = new System.Windows.Forms.Button();
-            this.btnLevel1 = new System.Windows.Forms.Button();
-            this.btnLevel2 = new System.Windows.Forms.Button();
-            this.btnLevel3 = new System.Windows.Forms.Button();
             this.timerMatch = new System.Windows.Forms.Timer(this.components);
             this.lblTimer = new System.Windows.Forms.Label();
             this.lblCurrentLevel = new System.Windows.Forms.Label();
+            this.btnLevel3 = new System.Windows.Forms.Button();
+            this.btnLevel2 = new System.Windows.Forms.Button();
+            this.btnLevel1 = new System.Windows.Forms.Button();
+            this.btnCasual = new System.Windows.Forms.Button();
             this.btnSwap = new System.Windows.Forms.Button();
             this.pnlMainMatches.SuspendLayout();
             this.SuspendLayout();
@@ -313,41 +313,9 @@
             this.btnCheckMatches.UseVisualStyleBackColor = true;
             this.btnCheckMatches.Click += new System.EventHandler(this.btnCheckMatches_Click);
             // 
-            // btnCasual
+            // timerMatch
             // 
-            this.btnCasual.Location = new System.Drawing.Point(13, 574);
-            this.btnCasual.Name = "btnCasual";
-            this.btnCasual.Size = new System.Drawing.Size(230, 79);
-            this.btnCasual.TabIndex = 16;
-            this.btnCasual.Text = "button1";
-            this.btnCasual.UseVisualStyleBackColor = true;
-            // 
-            // btnLevel1
-            // 
-            this.btnLevel1.Location = new System.Drawing.Point(249, 574);
-            this.btnLevel1.Name = "btnLevel1";
-            this.btnLevel1.Size = new System.Drawing.Size(230, 79);
-            this.btnLevel1.TabIndex = 17;
-            this.btnLevel1.Text = "button2";
-            this.btnLevel1.UseVisualStyleBackColor = true;
-            // 
-            // btnLevel2
-            // 
-            this.btnLevel2.Location = new System.Drawing.Point(485, 574);
-            this.btnLevel2.Name = "btnLevel2";
-            this.btnLevel2.Size = new System.Drawing.Size(230, 79);
-            this.btnLevel2.TabIndex = 18;
-            this.btnLevel2.Text = "button3";
-            this.btnLevel2.UseVisualStyleBackColor = true;
-            // 
-            // btnLevel3
-            // 
-            this.btnLevel3.Location = new System.Drawing.Point(721, 574);
-            this.btnLevel3.Name = "btnLevel3";
-            this.btnLevel3.Size = new System.Drawing.Size(230, 79);
-            this.btnLevel3.TabIndex = 19;
-            this.btnLevel3.Text = "button4";
-            this.btnLevel3.UseVisualStyleBackColor = true;
+            this.timerMatch.Tick += new System.EventHandler(this.TimerMatch_Tick);
             // 
             // lblTimer
             // 
@@ -366,6 +334,50 @@
             this.lblCurrentLevel.Size = new System.Drawing.Size(266, 23);
             this.lblCurrentLevel.TabIndex = 21;
             this.lblCurrentLevel.Text = "Current Level: Casual";
+            // 
+            // btnLevel3
+            // 
+            this.btnLevel3.BackgroundImage = global::PROG7311_POE_PART_1.Properties.Resources.lvlThreeButtonBackground;
+            this.btnLevel3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnLevel3.Location = new System.Drawing.Point(721, 574);
+            this.btnLevel3.Name = "btnLevel3";
+            this.btnLevel3.Size = new System.Drawing.Size(230, 79);
+            this.btnLevel3.TabIndex = 19;
+            this.btnLevel3.UseVisualStyleBackColor = true;
+            this.btnLevel3.Click += new System.EventHandler(this.btnLevel3_Click);
+            // 
+            // btnLevel2
+            // 
+            this.btnLevel2.BackgroundImage = global::PROG7311_POE_PART_1.Properties.Resources.lvlTwoButtonBackground;
+            this.btnLevel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnLevel2.Location = new System.Drawing.Point(485, 574);
+            this.btnLevel2.Name = "btnLevel2";
+            this.btnLevel2.Size = new System.Drawing.Size(230, 79);
+            this.btnLevel2.TabIndex = 18;
+            this.btnLevel2.UseVisualStyleBackColor = true;
+            this.btnLevel2.Click += new System.EventHandler(this.btnLevel2_Click);
+            // 
+            // btnLevel1
+            // 
+            this.btnLevel1.BackgroundImage = global::PROG7311_POE_PART_1.Properties.Resources.lvlOneButtonBackground;
+            this.btnLevel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnLevel1.Location = new System.Drawing.Point(249, 574);
+            this.btnLevel1.Name = "btnLevel1";
+            this.btnLevel1.Size = new System.Drawing.Size(230, 79);
+            this.btnLevel1.TabIndex = 17;
+            this.btnLevel1.UseVisualStyleBackColor = true;
+            this.btnLevel1.Click += new System.EventHandler(this.btnLevel1_Click);
+            // 
+            // btnCasual
+            // 
+            this.btnCasual.BackgroundImage = global::PROG7311_POE_PART_1.Properties.Resources.lvlCasualButtonBackground;
+            this.btnCasual.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnCasual.Location = new System.Drawing.Point(13, 574);
+            this.btnCasual.Name = "btnCasual";
+            this.btnCasual.Size = new System.Drawing.Size(230, 79);
+            this.btnCasual.TabIndex = 16;
+            this.btnCasual.UseVisualStyleBackColor = true;
+            this.btnCasual.Click += new System.EventHandler(this.btnCasual_Click);
             // 
             // btnSwap
             // 

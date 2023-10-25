@@ -4,11 +4,14 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Media;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DeweyDecimalClassLibrary;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
 
 namespace PROG7311_POE_PART_1
 {
@@ -47,6 +50,11 @@ namespace PROG7311_POE_PART_1
         private Point receiverLabelLocation = new Point();
 
         /// <summary>
+        /// Stores the images used for the countdown of the game
+        /// </summary>
+        private PictureBox countdownPictureBox = new PictureBox();
+
+        /// <summary>
         /// Stores the name of the panel that is currently getting dragged
         /// </summary>
         private string sourceLabelName;
@@ -55,6 +63,16 @@ namespace PROG7311_POE_PART_1
         /// Stores if the user is currently matching call numbers to descriptions or the other way around
         /// </summary>
         private bool callNumbers = true;
+
+        /// <summary>
+        /// Stores the level the user is currently playing
+        /// </summary>
+        private string level = "casual";
+
+        /// <summary>
+        /// Stores the value that tells the code if the countdown must start or not
+        /// </summary>
+        private string countdown = "finish";
 
         /// <summary>
         /// Stores the current time the timer is on in the game
@@ -85,8 +103,8 @@ namespace PROG7311_POE_PART_1
                 Point labelLocation = new Point(
                     mainPanelLocation.X + sourceLabel.Location.X + 140,
                     mainPanelLocation.Y + sourceLabel.Location.Y + 30
-                );            
-                
+                );
+
                 // Adding the values to the locations dictionary
                 labelLocationsDictionary.Add(sourceLabel.Name, labelLocation);
 
@@ -134,6 +152,7 @@ namespace PROG7311_POE_PART_1
             btnLevel2.Enabled = false;
             btnLevel3.Enabled = false;
             btnSwap.Enabled = false;
+            lblTimer.Text = "";
 
             // Setting the timers interval to 1 second
             timerMatch.Interval = 1000;
@@ -168,7 +187,7 @@ namespace PROG7311_POE_PART_1
             {
                 Controls.Remove(labelToDelete);
                 labelToDelete.Dispose();
-            }            
+            }
 
             // Enabling the game buttons
             btnReset.Enabled = true;
@@ -209,7 +228,7 @@ namespace PROG7311_POE_PART_1
                     sourceLabel.MouseDown += SourceLabel_MouseDown;
                     sourceLabel.DragEnter += Label_DragEnter;
                     sourceLabel.DragDrop += Label_DragDrop;
-                }                
+                }
 
                 // Setting the correct receiver label values
                 List<int> usedNumbersList = new List<int>();
@@ -328,7 +347,23 @@ namespace PROG7311_POE_PART_1
             // Running the correctMatches method to determine how many lines drawn were matched correctly
             int correctMatches = CheckMatches();
 
-            MessageBox.Show($"You have {correctMatches * 25}% correct matches.");
+            if (level == "casual")
+            {
+                MessageBox.Show($"You have {correctMatches * 25}% correct matches.");
+            }
+            else if (level == "levelOne" || level == "levelTwo" || level == "levelThree")
+            {
+                if (correctMatches == 4 && level == "levelOne" || level == "levelTwo")
+                {
+                    MessageBox.Show($"Congratulations! You got {correctMatches * 25}% correct matches\nIn a time of {elapsedTime} seconds\n" +
+                                     "Think you can give the next level a try?");
+                }
+                else if (correctMatches == 4 && level == "levelThree")
+                {
+                    MessageBox.Show($"Congratulations! You got {correctMatches * 25}% correct matches\nIn a time of {elapsedTime} seconds\n" +
+                                     "You have now mastered the game! Well done, the application is proud of you.");
+                }
+            }
         }
 
         #endregion
@@ -415,7 +450,7 @@ namespace PROG7311_POE_PART_1
             }
 
             // Invalidating the main panel to trigger a repaint
-            pnlMainMatches.Invalidate();       
+            pnlMainMatches.Invalidate();
         }
 
         #endregion
@@ -554,6 +589,101 @@ namespace PROG7311_POE_PART_1
 
             // Invalidating the main panel to trigger a repaint
             pnlMainMatches.Invalidate();
+        }
+
+        #endregion
+
+        //----------------------------------------------------------------------------------------------------------------------------------//
+
+        /// <summary>
+        /// Event that runs when the casual button is clicked
+        /// Hides timer label, turns timer off and generates a new list of call numbers and descriptions, 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+
+        #region Casual_Button_Click
+
+        private void btnCasual_Click(object sender, EventArgs e)
+        {
+            lblTimer.Text = "";
+            lblCurrentLevel.Text = "Current Level: Casual";
+            level = "casual";
+        }
+
+        #endregion
+
+        //----------------------------------------------------------------------------------------------------------------------------------//
+
+        /// <summary>
+        /// Event that runs when the level one button is clicked
+        /// Sets the timer to 20 seconds
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+
+        #region LevelOne_Button_Click
+
+        private void btnLevel1_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("Do you wish to proceed to level 1?\n" +
+                                                        "Please make sure you have read and understood the instructions before continuing",
+                                                        "Confirmation", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                linesList.Clear();
+                pnlMainMatches.Invalidate();
+
+                level = "levelOne";
+                countdown = "start";
+                elapsedTime = 4;
+
+                // Setting up the PictureBox properties when the user starts the countdown
+                countdownPictureBox.Name = "pbCountdown";
+                countdownPictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+                countdownPictureBox.Size = new Size(250, 300);
+                countdownPictureBox.Location = new Point(230, 100);
+                pnlMainMatches.Controls.Add(countdownPictureBox);
+                countdownPictureBox.BringToFront();
+
+                timerMatch.Start();
+            }
+        }
+
+        #endregion
+
+        //----------------------------------------------------------------------------------------------------------------------------------//
+
+        /// <summary>
+        /// Event that runs when the level two button is clicked
+        /// Sets the timer to 20 seconds
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+
+        #region LevelTwo_Button_Click
+
+        private void btnLevel2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        #endregion
+
+        //----------------------------------------------------------------------------------------------------------------------------------//
+
+        /// <summary>
+        /// Event that runs when the level three button is clicked
+        /// Sets the timer to 20 seconds
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+
+        #region LevelThree_Button_Click
+
+        private void btnLevel3_Click(object sender, EventArgs e)
+        {
+
         }
 
         #endregion
@@ -766,7 +896,7 @@ namespace PROG7311_POE_PART_1
                             correctMatches++;
                         }
                     }
-                } 
+                }
                 else if (!callNumbers)
                 {
                     // Code that runs if the line was drawn from a receiver label
@@ -801,7 +931,7 @@ namespace PROG7311_POE_PART_1
         #endregion
 
         //----------------------------------------------------------------------------------------------------------------------------------//
-        
+
         /// <summary>
         /// Gets the key using the kvp.value 
         /// </summary>
@@ -826,5 +956,127 @@ namespace PROG7311_POE_PART_1
         }
 
         #endregion        
+
+        //----------------------------------------------------------------------------------------------------------------------------------//
+
+        /// <summary>
+        /// Event that runs when the timer has ticked (every second in realtime)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+
+        #region TimerMatch_Tick
+
+        private void TimerMatch_Tick(object sender, EventArgs e)
+        {
+            if (countdown == "start")
+            {
+                elapsedTime--;
+
+                using (SoundPlayer levelCountdown = new SoundPlayer(Properties.Resources.levelCountdown))
+                {
+                    if (elapsedTime == 3)
+                    {
+                        levelCountdown.Play();
+                        countdownPictureBox.Image = Properties.Resources.threePhoto;
+                    }
+                    else if (elapsedTime == 2)
+                    {
+                        levelCountdown.Play();
+                        countdownPictureBox.Image = Properties.Resources.twoPhoto;
+                    }
+                    if (elapsedTime == 1)
+                    {
+                        levelCountdown.Play();
+                        countdownPictureBox.Image = Properties.Resources.onePhoto;
+                    }
+                    else if (elapsedTime == 0)
+                    {
+                        levelCountdown.Play();
+                        pnlMainMatches.Controls.Remove(countdownPictureBox);
+                        countdownPictureBox.Dispose();
+                        timerMatch.Stop();
+                        countdown = "finish";
+                        LevelStarter();
+                    }
+                }
+            }
+            else if (countdown == "finish")
+            {
+                elapsedTime--;
+
+                if (elapsedTime > 1)
+                {
+                    lblTimer.Text = $"Timer: {elapsedTime}" + " seconds";
+                }
+                if (elapsedTime == 1)
+                {
+                    lblTimer.Text = $"Timer: {elapsedTime}" + " second";
+                }                
+                if (elapsedTime == 0)
+                {
+                    timerMatch.Stop();
+                    if (level == "levelOne")
+                    {
+                        using (SoundPlayer levelOneFail = new SoundPlayer(Properties.Resources.levelOneFail))
+                        {
+                            levelOneFail.Play();
+                        }
+                        MessageBox.Show("Fail! You did not manage to match the correct values in time.", "Fail", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else if (level == "levelTwo")
+                    {
+                        using (SoundPlayer levelTwoThreeFail = new SoundPlayer(Properties.Resources.levelTwoThreeFail))
+                        {
+                            levelTwoThreeFail.Play();
+                        }
+                        MessageBox.Show("Fail! You did not manage to match the correct values in time.", "Fail", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else if (level == "levelThree")
+                    {
+                        using (SoundPlayer levelTwoThreeFail = new SoundPlayer(Properties.Resources.levelTwoThreeFail))
+                        {
+                            levelTwoThreeFail.Play();
+                        }
+                        MessageBox.Show("Fail! You did not manage to match the correct values in time.\nI told you this level was difficult", "Fail", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
+        }
+
+        #endregion
+
+        //----------------------------------------------------------------------------------------------------------------------------------//
+
+        /// <summary>
+        /// Checks what level the user has selected and starts it
+        /// </summary>
+
+        #region LevelStarter_Method
+
+        private void LevelStarter()
+        {
+            lblCurrentLevel.Text = level;
+            if (level == "levelOne")
+            {
+                lblCurrentLevel.Text = "Current Level: Level 1";
+                elapsedTime = 20;
+                timerMatch.Start();
+            }
+            else if (level == "levelTwo")
+            {
+                lblCurrentLevel.Text = "Current Level: Level 2";
+                elapsedTime = 10;
+                timerMatch.Start();
+            }
+            else if (level == "levelThree")
+            {
+                lblCurrentLevel.Text = "Current Level: Level 3";
+                elapsedTime = 5;
+                timerMatch.Start();
+            }
+        }
+
+        #endregion
     }
 }
