@@ -23,9 +23,10 @@ namespace DeweyDecimalClassLibrary
         //----------------------------------------------------------------------------------------------------------------------------------//
 
         /// <summary>
-        /// Class constructor
+        /// Class contructor
         /// </summary>
         /// <param name="cnDictionary"></param>
+        /// <param name="cnList"></param>
         public DictionaryValueGenerator(Dictionary<string, string> cnDictionary, List<int> cnList)
         {
             callNumberDictionary = cnDictionary;
@@ -94,16 +95,6 @@ namespace DeweyDecimalClassLibrary
             descriptionForRange = descriptionsDictionary[firstDigit];
 
             return descriptionForRange;            
-        }
-
-        //----------------------------------------------------------------------------------------------------------------------------------//
-
-        /// <summary>
-        /// Method to clear the dictionaries data
-        /// </summary>
-        public void ClearData()
-        {
-            callNumberDictionary.Clear();
         }
     }
 }

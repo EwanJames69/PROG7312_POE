@@ -212,9 +212,29 @@ namespace PROG7311_POE_PART_1.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap DeweyDecimalPicture {
+            get {
+                object obj = ResourceManager.GetObject("DeweyDecimalPicture", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap deweyHeader {
             get {
                 object obj = ResourceManager.GetObject("deweyHeader", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap identifyAreasInstructionsPicture {
+            get {
+                object obj = ResourceManager.GetObject("identifyAreasInstructionsPicture", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

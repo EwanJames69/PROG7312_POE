@@ -35,6 +35,7 @@
             this.btnInstructionsMatch = new System.Windows.Forms.Button();
             this.btnMainMenu = new System.Windows.Forms.Button();
             this.pnlMainMatches = new System.Windows.Forms.Panel();
+            this.btnSwap = new System.Windows.Forms.Button();
             this.lblHeader = new System.Windows.Forms.Label();
             this.lblReceiver7 = new System.Windows.Forms.Label();
             this.lblReceiver6 = new System.Windows.Forms.Label();
@@ -58,7 +59,6 @@
             this.btnLevel2 = new System.Windows.Forms.Button();
             this.btnLevel1 = new System.Windows.Forms.Button();
             this.btnCasual = new System.Windows.Forms.Button();
-            this.btnSwap = new System.Windows.Forms.Button();
             this.pnlMainMatches.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -100,6 +100,7 @@
             this.btnInstructionsMatch.TabIndex = 10;
             this.btnInstructionsMatch.Text = "Instructions";
             this.btnInstructionsMatch.UseVisualStyleBackColor = true;
+            this.btnInstructionsMatch.Click += new System.EventHandler(this.btnInstructionsMatch_Click);
             // 
             // btnMainMenu
             // 
@@ -109,6 +110,7 @@
             this.btnMainMenu.TabIndex = 12;
             this.btnMainMenu.Text = "Main Menu";
             this.btnMainMenu.UseVisualStyleBackColor = true;
+            this.btnMainMenu.Click += new System.EventHandler(this.btnMainMenu_Click);
             // 
             // pnlMainMatches
             // 
@@ -131,6 +133,17 @@
             this.pnlMainMatches.Size = new System.Drawing.Size(935, 546);
             this.pnlMainMatches.TabIndex = 13;
             this.pnlMainMatches.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlMainMatches_Paint);
+            // 
+            // btnSwap
+            // 
+            this.btnSwap.BackgroundImage = global::PROG7311_POE_PART_1.Properties.Resources.swapButtonBackground;
+            this.btnSwap.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnSwap.Location = new System.Drawing.Point(393, 3);
+            this.btnSwap.Name = "btnSwap";
+            this.btnSwap.Size = new System.Drawing.Size(141, 48);
+            this.btnSwap.TabIndex = 8;
+            this.btnSwap.UseVisualStyleBackColor = true;
+            this.btnSwap.Click += new System.EventHandler(this.btnSwap_Click);
             // 
             // lblHeader
             // 
@@ -393,17 +406,6 @@
             this.btnCasual.TabIndex = 16;
             this.btnCasual.UseVisualStyleBackColor = true;
             this.btnCasual.Click += new System.EventHandler(this.btnCasual_Click);
-            // 
-            // btnSwap
-            // 
-            this.btnSwap.BackgroundImage = global::PROG7311_POE_PART_1.Properties.Resources.swapButtonBackground;
-            this.btnSwap.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnSwap.Location = new System.Drawing.Point(393, 3);
-            this.btnSwap.Name = "btnSwap";
-            this.btnSwap.Size = new System.Drawing.Size(141, 48);
-            this.btnSwap.TabIndex = 8;
-            this.btnSwap.UseVisualStyleBackColor = true;
-            this.btnSwap.Click += new System.EventHandler(this.btnSwap_Click);
             // 
             // MatchColumnsUserControl
             // 

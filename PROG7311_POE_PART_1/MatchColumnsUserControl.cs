@@ -197,6 +197,8 @@ namespace PROG7311_POE_PART_1
             callNumberList.Clear();
             linesList.Clear();
 
+            lblTimer.Text = "";
+
             // Deleting the header label to not get in the way
             Label labelToDelete = Controls.Find($"lblHeader", true).FirstOrDefault() as Label;
             if (labelToDelete != null)
@@ -340,6 +342,8 @@ namespace PROG7311_POE_PART_1
             // Clearing the lines stored in the lines 
             linesList.Clear();
 
+            lblTimer.Text = "";
+
             // Clearing the lines drawn on the main panel
             pnlMainMatches.Invalidate();
 
@@ -349,7 +353,7 @@ namespace PROG7311_POE_PART_1
                 timerMatch.Stop();
                 EnableButtons();
                 lblTimer.Text = "";
-                level = "casual";
+                elapsedTime = 0;
 
                 if (level == "levelThree")
                 {
@@ -360,6 +364,8 @@ namespace PROG7311_POE_PART_1
                         timerLevel3Countdown.Stop();
                     }
                 }
+
+                level = "casual";
 
                 lblCurrentLevel.Text = "Current Level: Casual";
 
@@ -547,6 +553,8 @@ namespace PROG7311_POE_PART_1
             Point sourceLocation;
             Point receiverLocation;
 
+            lblTimer.Text = "";
+
             if (callNumbers)
             {
                 // Finding the correct answers for the call numbers on the source label
@@ -619,6 +627,52 @@ namespace PROG7311_POE_PART_1
         //----------------------------------------------------------------------------------------------------------------------------------//
 
         /// <summary>
+        /// Event that runs when the main menu button is clicked
+        /// Takes the user back to the main menu
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+
+        #region MainMenu_Button_Click
+
+        private void btnMainMenu_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Are you sure you want to return to the main menu?", "Confirmation", MessageBoxButtons.YesNo);
+
+            if (result == DialogResult.Yes)
+            {
+                Home home = new Home();
+                home.Show();
+                Form mainForm = this.FindForm();
+                mainForm.Hide();
+            }
+        }
+
+        #endregion
+
+        //----------------------------------------------------------------------------------------------------------------------------------//
+
+        /// <summary>
+        /// Event that runs when the instructions button is clicked
+        /// Takes the user to the match columns instructions form
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        
+        #region InstructionsMatch_Button_Click
+
+        private void btnInstructionsMatch_Click(object sender, EventArgs e)
+        {
+            Hide();
+            IdentifyAreasInstructions iai = new IdentifyAreasInstructions();
+            iai.Show();
+        }
+
+        #endregion
+
+        //----------------------------------------------------------------------------------------------------------------------------------//
+
+        /// <summary>
         /// Event that runs when the swap button is clicked
         /// Performs the same function as the generate button but just swaps the bool value
         /// </summary>
@@ -638,6 +692,8 @@ namespace PROG7311_POE_PART_1
             {
                 callNumbers = true;
             }
+
+            lblTimer.Text = "";
 
             // Clearing all previous values
             callNumberDictionary.Clear();
@@ -780,9 +836,9 @@ namespace PROG7311_POE_PART_1
                 timerCountdown.Stop();
                 timerMatch.Stop();
                 EnableButtons();
-                lblTimer.Text = "";
-                level = "casual";
+                lblTimer.Text = "";                
                 lblCurrentLevel.Text = "Current Level: Casual";
+                elapsedTime = 0;
 
                 if (level == "levelThree")
                 {
@@ -793,6 +849,8 @@ namespace PROG7311_POE_PART_1
                         timerLevel3Countdown.Stop();
                     }
                 }
+
+                level = "casual";
 
                 if (countdownPictureBox != null)
                 {
@@ -926,11 +984,15 @@ namespace PROG7311_POE_PART_1
 
         private void btnLevel1_Click(object sender, EventArgs e)
         {
-            DialogResult dialogResult = MessageBox.Show("Do you wish to proceed to level 1?\n" +
-                                                        "Please make sure you have read and understood the instructions before continuing",
-                                                        "Confirmation", MessageBoxButtons.YesNo);
+            DialogResult dialogResult = DialogResult.No;
+            level = "levelOne";
+
+            BeginLevelMessage blm = new BeginLevelMessage(dialogResult, level, amountPlayed, completedLevelThree);
+            dialogResult = blm.DisplayMessage();
+            
             if (dialogResult == DialogResult.Yes)
             {
+                lblTimer.Text = "";
                 timeSpentOnLevel = 0;
                 linesList.Clear();
                 pnlMainMatches.Invalidate();
@@ -965,7 +1027,6 @@ namespace PROG7311_POE_PART_1
 
                 DisableButtons();
 
-                level = "levelOne";
                 elapsedTime = 4;
 
                 // Setting up the PictureBox properties when the user starts the countdown
@@ -995,11 +1056,15 @@ namespace PROG7311_POE_PART_1
 
         private void btnLevel2_Click(object sender, EventArgs e)
         {
-            DialogResult dialogResult = MessageBox.Show("Do you wish to proceed to level 2?\n" +
-                                                        "Please make sure you have read and understood the instructions before continuing",
-                                                        "Confirmation", MessageBoxButtons.YesNo);
+            DialogResult dialogResult = DialogResult.No;
+            level = "levelTwo";
+
+            BeginLevelMessage blm = new BeginLevelMessage(dialogResult, level, amountPlayed, completedLevelThree);
+            dialogResult = blm.DisplayMessage();
+
             if (dialogResult == DialogResult.Yes)
             {
+                lblTimer.Text = "";
                 timeSpentOnLevel = 0;
                 linesList.Clear();
                 pnlMainMatches.Invalidate();
@@ -1034,7 +1099,6 @@ namespace PROG7311_POE_PART_1
 
                 DisableButtons();
 
-                level = "levelTwo";
                 elapsedTime = 4;
 
                 // Setting up the PictureBox properties when the user starts the countdown
@@ -1065,54 +1129,14 @@ namespace PROG7311_POE_PART_1
         private void btnLevel3_Click(object sender, EventArgs e)
         {
             DialogResult dialogResult = DialogResult.No;
+            level = "levelThree";
 
-            if (completedLevelThree)
-            {
-                dialogResult = MessageBox.Show("I thought I said that you are free now? But it seems like you are back for more. Do you want to try again?",
-                "Are you sure you want to do this again?", MessageBoxButtons.YesNo);
-            }
-            else if (amountPlayed == 0)
-            {
-                dialogResult = MessageBox.Show("Do you wish to proceed to level 3?\n" +
-                "Prepare for the ultimate challenge as you enter the heart-pounding, nerve-wracking final level of the game. " +
-                "This level is the stuff of legends, a true test of your lightning-fast wit and memory. With a mere 5 seconds on the " +
-                "clock, it has brought even the bravest souls to their knees, making grown men shed tears of frustration. It's a " +
-                "level so intense, it's whispered about in hushed tones. Brace yourself, for this level is feared by death itself, " +
-                "and it will push you to the very limits of your abilities. Will you conquer it or crumble under the pressure?" +
-                "Are you 100% sure you want to do this?",
-                "Are you sure you want to do this?", MessageBoxButtons.YesNo);
-            }
-            else if (amountPlayed == 1)
-            {
-                dialogResult = MessageBox.Show("Did none of my writing from the first time scare you? Do you have a heart made of "+
-                "stone or something? Listen to me, this level is impossible, turn back now while you have the chance and go live your " +
-                "life. Trust me, it's better that way.\nDo you still want to attempt this?", "You're back?", MessageBoxButtons.YesNo);
-            }
-            else if (amountPlayed == 2)
-            {
-                dialogResult = MessageBox.Show("I don't want to hurt your feelings, but seriously, why are you still attempting this?" +
-                "You may sit your for hours and hours on end attempting this, it doesn't matter to me what you do with your time. Just don't " +
-                "say that I didn't warn you okay. Are you really really really sure you want to try again?", "You're back again?", MessageBoxButtons.YesNo);
-            }
-            else if (amountPlayed == 3)
-            {
-                dialogResult = MessageBox.Show("I am really starting to like you, you got fight, but listen to me, fight is not enough to beat this " +
-                "level. Please, I am begging you to close the application and go spend time with your family. It's not worth it. Are you going to " +
-                "spend time with your family while you still can? Probably not. Alright, do you want to try again?", "I do not believe it", MessageBoxButtons.YesNo);
-            }
-            else if (amountPlayed == 4)
-            {
-                dialogResult = MessageBox.Show("Take a look at yourself in the mirror and ask yourself if this is who you want to be? Don't you see? " +
-                "There is a whole world out there to explore, but you are here trying to beat the impossible level. Please, I beg of you, exit this " +
-                "level and learn the dewey decimal system on the easier levels, do you really want to try this again?", "Please listen to me", MessageBoxButtons.YesNo);
-            }
-            else if (amountPlayed < 4)
-            {
-                dialogResult = MessageBox.Show("I give up, goodluck. Do you want to try again?", "Enjoy", MessageBoxButtons.YesNo);
-            }
+            BeginLevelMessage blm = new BeginLevelMessage(dialogResult, level, amountPlayed, completedLevelThree);
+            dialogResult = blm.DisplayMessage();
 
             if (dialogResult == DialogResult.Yes)
             {
+                lblTimer.Text = "";
                 timeSpentOnLevel = 0;
                 linesList.Clear();
                 pnlMainMatches.Invalidate();                
@@ -1145,7 +1169,6 @@ namespace PROG7311_POE_PART_1
 
                 DisableButtons();
 
-                level = "levelThree";
                 elapsedTime = 0;
 
                 // Setting up the PictureBox properties when the user starts the countdown
@@ -1156,7 +1179,7 @@ namespace PROG7311_POE_PART_1
                 pnlMainMatches.Controls.Add(countdownPictureBox);
                 countdownPictureBox.BringToFront();
 
-                timerLevel3Intro.Start();                
+                timerLevel3Intro.Start();
             }
         }
 
@@ -1457,66 +1480,31 @@ namespace PROG7311_POE_PART_1
             if (elapsedTime == 0)
             {
                 timerMatch.Stop();
+
                 if (level == "levelOne")
                 {
                     using (SoundPlayer levelOneFail = new SoundPlayer(Properties.Resources.levelOneFail))
                     {
                         levelOneFail.Play();
                     }
-                    MessageBox.Show("Fail! You did not manage to match the correct values in time.", "Fail", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    EnableButtons();
-                    lblTimer.Text = "";
-                    lblCurrentLevel.Text = "Current Level: Casual";
                 }
-                else if (level == "levelTwo")
+                else if (level == "levelTwo" || level == "levelThree")
                 {
                     using (SoundPlayer levelTwoThreeFail = new SoundPlayer(Properties.Resources.levelTwoThreeFail))
                     {
                         levelTwoThreeFail.Play();
                     }
-                    MessageBox.Show("Fail! You did not manage to match the correct values in time.", "Fail", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    EnableButtons();
-                    lblTimer.Text = "";
-                    lblCurrentLevel.Text = "Current Level: Casual";
                 }
-                else if (level == "levelThree")
+
+                EnableButtons();
+                lblTimer.Text = "Level Failed";
+                lblCurrentLevel.Text = "Current Level: Casual";
+
+                if (level == "levelThree")
                 {
-                    using (SoundPlayer levelTwoThreeFail = new SoundPlayer(Properties.Resources.levelTwoThreeFail))
-                    {
-                        levelTwoThreeFail.Play();
-                    }
-
-                    if (amountPlayed == 0)
-                    {
-                        MessageBox.Show("I told you, this level is very difficult, but good attempt.",
-                        "Nice Try", MessageBoxButtons.OK);
-                    }
-                    else if (amountPlayed == 1)
-                    {
-                        MessageBox.Show("You should definitely take my advice about this game.", "Nice Second Try", MessageBoxButtons.OK);
-                    }
-                    else if (amountPlayed == 2)
-                    {
-                        MessageBox.Show("This level destroys lives. Whatever you do, do not hit that level 3 button again.", "Nice Third Try", MessageBoxButtons.OK);
-                    }
-                    else if (amountPlayed == 3)
-                    {
-                        MessageBox.Show("Please say that this is your final try.", "You Should Stop Now", MessageBoxButtons.OK);
-                    }
-                    else if (amountPlayed == 4)
-                    {
-                        MessageBox.Show("This is my final warning, please walk away from the application.", "Please listen to me", MessageBoxButtons.OK);
-                    }
-                    else if (amountPlayed < 4)
-                    {
-                        MessageBox.Show("Failed again", "Enjoy", MessageBoxButtons.OK);
-                    }
-
-                    EnableButtons();
-                    lblTimer.Text = "";
-                    lblCurrentLevel.Text = "Current Level: Casual";
                     amountPlayed++;
                 }
+                level = "casual";
             }
         }
 

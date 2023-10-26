@@ -49,10 +49,34 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="UserControls\MatchColumnsUserControl.cs">
+    <Compile Include="DeweyDecimalPicture.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeweyDecimalPicture.Designer.cs">
+      <DependentUpon>DeweyDecimalPicture.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DeweyDecimalPictureUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\MatchColumnsUserControl.Designer.cs">
+    <Compile Include="DeweyDecimalPictureUserControl.Designer.cs">
+      <DependentUpon>DeweyDecimalPictureUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IdentifyAreasInstructions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IdentifyAreasInstructions.Designer.cs">
+      <DependentUpon>IdentifyAreasInstructions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IdentifyAreasInstructionsUserControlcs.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="IdentifyAreasInstructionsUserControlcs.Designer.cs">
+      <DependentUpon>IdentifyAreasInstructionsUserControlcs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MatchColumnsUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MatchColumnsUserControl.Designer.cs">
       <DependentUpon>MatchColumnsUserControl.cs</DependentUpon>
     </Compile>
     <Compile Include="MainForm.cs">
@@ -86,7 +110,19 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="UserControls\MatchColumnsUserControl.resx">
+    <EmbeddedResource Include="DeweyDecimalPicture.resx">
+      <DependentUpon>DeweyDecimalPicture.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeweyDecimalPictureUserControl.resx">
+      <DependentUpon>DeweyDecimalPictureUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IdentifyAreasInstructions.resx">
+      <DependentUpon>IdentifyAreasInstructions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IdentifyAreasInstructionsUserControlcs.resx">
+      <DependentUpon>IdentifyAreasInstructionsUserControlcs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MatchColumnsUserControl.resx">
       <DependentUpon>MatchColumnsUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
@@ -166,6 +202,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\appIcon.ico" />
+    <None Include="Resources\DeweyDecimalPicture.jpg" />
+    <None Include="Resources\identifyAreasInstructionsPicture.png" />
     <None Include="Resources\levelThreeIntroMusic.wav" />
     <None Include="Resources\levelThreeIntroduction4.png" />
     <None Include="Resources\levelThreeIntroduction1.png" />

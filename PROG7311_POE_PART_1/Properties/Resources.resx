@@ -163,8 +163,14 @@
   <data name="deweyBackground" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\deweyBackground.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="DeweyDecimalPicture" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DeweyDecimalPicture.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="deweyHeader" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\deweyHeader.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="identifyAreasInstructionsPicture" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\identifyAreasInstructionsPicture.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="identifyAreasLogo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\identifyAreasLogo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
