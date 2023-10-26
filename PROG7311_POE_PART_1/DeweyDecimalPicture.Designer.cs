@@ -28,11 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DeweyDecimalPicture));
             this.deweyDecimalPictureUserControl1 = new PROG7311_POE_PART_1.DeweyDecimalPictureUserControl();
             this.SuspendLayout();
             // 
             // deweyDecimalPictureUserControl1
             // 
+            this.deweyDecimalPictureUserControl1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("deweyDecimalPictureUserControl1.BackgroundImage")));
+            this.deweyDecimalPictureUserControl1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.deweyDecimalPictureUserControl1.Location = new System.Drawing.Point(1, -2);
             this.deweyDecimalPictureUserControl1.Name = "deweyDecimalPictureUserControl1";
             this.deweyDecimalPictureUserControl1.Size = new System.Drawing.Size(1040, 765);
@@ -44,6 +47,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1077, 763);
             this.Controls.Add(this.deweyDecimalPictureUserControl1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "DeweyDecimalPicture";
             this.Text = "DeweyDecimalPicture";
             this.ResumeLayout(false);

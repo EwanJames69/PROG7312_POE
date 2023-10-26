@@ -170,8 +170,6 @@ namespace PROG7311_POE_PART_1
             // Setting the timers intervals to 1 second
             timerMatch.Interval = 1000;
             timerCountdown.Interval = 1000;
-            timerLevel3Intro.Interval = 3000;
-            timerLevel3Countdown.Interval = 730;
 
             // Invalidating the main panel to trigger a repaint
             pnlMainMatches.Invalidate();
@@ -339,32 +337,26 @@ namespace PROG7311_POE_PART_1
 
         private void btnReset_Click(object sender, EventArgs e)
         {
-            // Clearing the lines stored in the lines 
+            // Clearing the lines stored in the lines list
             linesList.Clear();
 
+            // Clearing the text in the timer label
             lblTimer.Text = "";
 
             // Clearing the lines drawn on the main panel
             pnlMainMatches.Invalidate();
 
+            // If the level is not currently casual, that means that there is a level going on and all the timers need to be stopped
             if (level != "casual")
             {
                 timerCountdown.Stop();
                 timerMatch.Stop();
                 EnableButtons();
-                lblTimer.Text = "";
-                elapsedTime = 0;
 
-                if (level == "levelThree")
-                {
-                    using (SoundPlayer levelThreeIntro = new SoundPlayer(Properties.Resources.levelThreeIntroMusic))
-                    {
-                        levelThreeIntro.Stop();
-                        timerLevel3Intro.Stop();
-                        timerLevel3Countdown.Stop();
-                    }
-                }
+                // Setting the time back to 0
+                elapsedTime = 0;            
 
+                // Setting the level back to casual
                 level = "casual";
 
                 lblCurrentLevel.Text = "Current Level: Casual";
@@ -512,6 +504,11 @@ namespace PROG7311_POE_PART_1
             {
                 if (correctMatches == 4 && (level == "levelOne" || level == "levelTwo"))
                 {
+                    // PLaying a congrulations sound and displaying a message
+                    using (SoundPlayer levelComplete = new SoundPlayer(Properties.Resources.levelComplete))
+                    {
+                        levelComplete.Play();
+                    }
                     timerMatch.Stop();
                     MessageBox.Show($"Congratulations! You got {correctMatches * 25}% correct matches\nIn a time of {timeSpentOnLevel} seconds\n" +
                                      "Think you can give the next level a try?");
@@ -519,6 +516,11 @@ namespace PROG7311_POE_PART_1
                 }
                 else if (correctMatches == 4 && level == "levelThree")
                 {
+                    // PLaying a congrulations sound and displaying a message
+                    using (SoundPlayer levelComplete = new SoundPlayer(Properties.Resources.levelComplete))
+                    {
+                        levelComplete.Play();
+                    }
                     timerMatch.Stop();
                     MessageBox.Show($"Congratulations! You got {correctMatches * 25}% correct matches\nIn a time of {timeSpentOnLevel} seconds\n" +
                                      "I cannot believe it... You actually did it. Well done! I am very proud of you. You have now " +
@@ -528,6 +530,7 @@ namespace PROG7311_POE_PART_1
                 }
                 else if (correctMatches != 4)
                 {
+                    // Message to tell the users that they have not gotten everything correct yet
                     MessageBox.Show($"KEEP GOING! You got {correctMatches * 25}% correct matches so far");
                 }
             }
@@ -663,9 +666,10 @@ namespace PROG7311_POE_PART_1
 
         private void btnInstructionsMatch_Click(object sender, EventArgs e)
         {
-            Hide();
             IdentifyAreasInstructions iai = new IdentifyAreasInstructions();
             iai.Show();
+            Form mainForm = this.FindForm();
+            mainForm.Hide();
         }
 
         #endregion
@@ -823,6 +827,12 @@ namespace PROG7311_POE_PART_1
 
         private void btnCasual_Click(object sender, EventArgs e)
         {
+            // Playing a change level sound
+            using (SoundPlayer levelChange = new SoundPlayer(Properties.Resources.levelChange))
+            {
+                levelChange.Play();
+            }
+
             DialogResult dialogResult = MessageBox.Show("Do you wish to stop the level and go back to casual mode?\n",
                                                         "Confirmation", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
@@ -833,25 +843,17 @@ namespace PROG7311_POE_PART_1
                 // Clearing the lines drawn on the main panel
                 pnlMainMatches.Invalidate();
 
+                // Stopping all timers and enabling buttons
                 timerCountdown.Stop();
                 timerMatch.Stop();
                 EnableButtons();
                 lblTimer.Text = "";                
                 lblCurrentLevel.Text = "Current Level: Casual";
-                elapsedTime = 0;
-
-                if (level == "levelThree")
-                {
-                    using (SoundPlayer levelThreeIntro = new SoundPlayer(Properties.Resources.levelThreeIntroMusic))
-                    {
-                        levelThreeIntro.Stop();
-                        timerLevel3Intro.Stop();
-                        timerLevel3Countdown.Stop();
-                    }
-                }
+                elapsedTime = 0;                
 
                 level = "casual";
 
+                // Checking if the user stopped the application during the countdown
                 if (countdownPictureBox != null)
                 {
                     pnlMainMatches.Controls.Remove(countdownPictureBox);
@@ -984,14 +986,23 @@ namespace PROG7311_POE_PART_1
 
         private void btnLevel1_Click(object sender, EventArgs e)
         {
+            // Playing a change level sound
+            using (SoundPlayer levelChange = new SoundPlayer(Properties.Resources.levelChange))
+            {
+                levelChange.Play();
+            }
+
+            // Setting the level to level one
             DialogResult dialogResult = DialogResult.No;
             level = "levelOne";
 
+            // Runs a method from the class library
             BeginLevelMessage blm = new BeginLevelMessage(dialogResult, level, amountPlayed, completedLevelThree);
             dialogResult = blm.DisplayMessage();
             
             if (dialogResult == DialogResult.Yes)
             {
+                // Clearing the previous lines
                 lblTimer.Text = "";
                 timeSpentOnLevel = 0;
                 linesList.Clear();
@@ -999,6 +1010,7 @@ namespace PROG7311_POE_PART_1
 
                 lblCurrentLevel.Text = "Current Level: Level 1";
 
+                // Disconnecting all the labels from their events during the countdown
                 for (int i = 0; i < 4; i++)
                 {
                     Label sourceLabel = Controls.Find($"lblSource{i + 1}", true).FirstOrDefault() as Label;
@@ -1027,6 +1039,7 @@ namespace PROG7311_POE_PART_1
 
                 DisableButtons();
 
+                // Setting the elapsed time to 4 for the countdown
                 elapsedTime = 4;
 
                 // Setting up the PictureBox properties when the user starts the countdown
@@ -1056,14 +1069,23 @@ namespace PROG7311_POE_PART_1
 
         private void btnLevel2_Click(object sender, EventArgs e)
         {
+            // Playing a change level sound
+            using (SoundPlayer levelChange = new SoundPlayer(Properties.Resources.levelChange))
+            {
+                levelChange.Play();
+            }
+
+            // Setting the level to level two
             DialogResult dialogResult = DialogResult.No;
             level = "levelTwo";
 
+            // Method that runs from the class library
             BeginLevelMessage blm = new BeginLevelMessage(dialogResult, level, amountPlayed, completedLevelThree);
             dialogResult = blm.DisplayMessage();
 
             if (dialogResult == DialogResult.Yes)
             {
+                // Clearing all the previous lines
                 lblTimer.Text = "";
                 timeSpentOnLevel = 0;
                 linesList.Clear();
@@ -1071,6 +1093,7 @@ namespace PROG7311_POE_PART_1
 
                 lblCurrentLevel.Text = "Current Level: Level 2";
 
+                // Disconnecting the labels from their events while the countdown is happening
                 for (int i = 0; i < 4; i++)
                 {
                     Label sourceLabel = Controls.Find($"lblSource{i + 1}", true).FirstOrDefault() as Label;
@@ -1099,6 +1122,7 @@ namespace PROG7311_POE_PART_1
 
                 DisableButtons();
 
+                // Setting the elapsed time to 4 for the countdown
                 elapsedTime = 4;
 
                 // Setting up the PictureBox properties when the user starts the countdown
@@ -1128,19 +1152,31 @@ namespace PROG7311_POE_PART_1
 
         private void btnLevel3_Click(object sender, EventArgs e)
         {
+            // Playing a change level sound
+            using (SoundPlayer levelChange = new SoundPlayer(Properties.Resources.levelChange))
+            {
+                levelChange.Play();
+            }
+
+            // Setting the level to level three
             DialogResult dialogResult = DialogResult.No;
             level = "levelThree";
 
+            // Method that runs from the class library
             BeginLevelMessage blm = new BeginLevelMessage(dialogResult, level, amountPlayed, completedLevelThree);
             dialogResult = blm.DisplayMessage();
 
             if (dialogResult == DialogResult.Yes)
             {
+                // Clearing all the previous lines
                 lblTimer.Text = "";
                 timeSpentOnLevel = 0;
                 linesList.Clear();
-                pnlMainMatches.Invalidate();                
+                pnlMainMatches.Invalidate();
 
+                lblCurrentLevel.Text = "Current Level: Level 3";
+
+                // Disconnecting the labels from their events while the countdown is happening
                 for (int i = 0; i < 4; i++)
                 {
                     Label sourceLabel = Controls.Find($"lblSource{i + 1}", true).FirstOrDefault() as Label;
@@ -1169,17 +1205,18 @@ namespace PROG7311_POE_PART_1
 
                 DisableButtons();
 
-                elapsedTime = 0;
+                // Setting the elapsed time to 4 for the countdown
+                elapsedTime = 4;
 
                 // Setting up the PictureBox properties when the user starts the countdown
                 countdownPictureBox = new PictureBox();
                 countdownPictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
                 countdownPictureBox.Size = new Size(250, 300);
-                countdownPictureBox.Location = new Point(220, 70);
+                countdownPictureBox.Location = new Point(230, 100);
                 pnlMainMatches.Controls.Add(countdownPictureBox);
                 countdownPictureBox.BringToFront();
 
-                timerLevel3Intro.Start();
+                timerCountdown.Start();
             }
         }
 
@@ -1312,6 +1349,7 @@ namespace PROG7311_POE_PART_1
 
         private void pnlMainMatches_Paint(object sender, PaintEventArgs e)
         {
+            // Painting the main panel everytime a user resets or draws a line
             using (Pen pen = new Pen(Color.Black, 2))
             {
                 foreach (var line in linesList)
@@ -1326,7 +1364,7 @@ namespace PROG7311_POE_PART_1
         //----------------------------------------------------------------------------------------------------------------------------------//
 
         /// <summary>
-        /// Removes all the lines connected to the source and receiver panel when a user draws a line
+        /// Removes all the lines connected to the source and receiver panel when a user draws a line to a label that already has a line
         /// </summary>
         /// <param name="labelName"></param>
 
@@ -1334,7 +1372,7 @@ namespace PROG7311_POE_PART_1
 
         private void RemoveExistingLine(string labelName)
         {
-            // Find and remove any lines associated with the given label
+            // Finding and removing any lines associated with the given labels
             var linesToRemove = linesList.Where(line => line.sourceLabelName == labelName || line.receiverLabelName == labelName).ToList();
             foreach (var lineToRemove in linesToRemove)
             {
@@ -1466,6 +1504,7 @@ namespace PROG7311_POE_PART_1
 
         private void TimerMatch_Tick(object sender, EventArgs e)
         {
+            // Incrementing the time spent on a level and decreasing the time left on the level
             elapsedTime--;
             timeSpentOnLevel++;
 
@@ -1479,10 +1518,12 @@ namespace PROG7311_POE_PART_1
             }
             if (elapsedTime == 0)
             {
+                // Stopping when the timer reaches 0
                 timerMatch.Stop();
 
                 if (level == "levelOne")
                 {
+                    // Playing a fail sound for level one
                     using (SoundPlayer levelOneFail = new SoundPlayer(Properties.Resources.levelOneFail))
                     {
                         levelOneFail.Play();
@@ -1490,18 +1531,21 @@ namespace PROG7311_POE_PART_1
                 }
                 else if (level == "levelTwo" || level == "levelThree")
                 {
+                    // Playing a fail sound for level two and three
                     using (SoundPlayer levelTwoThreeFail = new SoundPlayer(Properties.Resources.levelTwoThreeFail))
                     {
                         levelTwoThreeFail.Play();
                     }
                 }
 
+                // Enabling the buttons and moving back to level casual
                 EnableButtons();
                 lblTimer.Text = "Level Failed";
                 lblCurrentLevel.Text = "Current Level: Casual";
 
                 if (level == "levelThree")
                 {
+                    // Incrementing the amount played variable if the user failed level 3
                     amountPlayed++;
                 }
                 level = "casual";
@@ -1522,6 +1566,7 @@ namespace PROG7311_POE_PART_1
 
         private void timerCountdown_Tick(object sender, EventArgs e)
         {
+            // This code displays a different image everytime the timer ticks, creating a countdown functionality
             elapsedTime--;
 
             using (SoundPlayer levelCountdown = new SoundPlayer(Properties.Resources.levelCountdown))
@@ -1543,97 +1588,13 @@ namespace PROG7311_POE_PART_1
                 }
                 else if (elapsedTime == 0)
                 {
+                    // Stopping the timer and starting the games timer
                     levelCountdown.Play();
                     pnlMainMatches.Controls.Remove(countdownPictureBox);
                     countdownPictureBox.Dispose();
                     timerCountdown.Stop();
                     LevelStarter();
                 }
-            }
-        }
-
-        #endregion
-
-        //----------------------------------------------------------------------------------------------------------------------------------//
-
-        /// <summary>
-        /// Creates a cool introduction whenever the user starts level 3
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-
-        #region TimerLevel3Intro_Tick
-
-        private void timerLevel3Intro_Tick(object sender, EventArgs e)
-        {
-            elapsedTime++;
-
-            if (elapsedTime == 1)
-            {
-                using (SoundPlayer levelThreeIntro = new SoundPlayer(Properties.Resources.levelThreeIntroMusic))
-                {
-                    levelThreeIntro.Play();
-                }
-                countdownPictureBox.Image = Properties.Resources.levelThreeIntroduction1;
-                lblCurrentLevel.Text = "Current Level: IM";
-            }
-            else if (elapsedTime == 2) 
-            {
-                countdownPictureBox.Image = Properties.Resources.levelThreeIntroduction2;
-                lblCurrentLevel.Text = "Current Level: IMPOS";
-            }
-            else if (elapsedTime == 3)
-            {
-                countdownPictureBox.Image = Properties.Resources.levelThreeIntroduction3;
-                lblCurrentLevel.Text = "Current Level: IMPOSSI";
-            }
-            else if (elapsedTime == 4)
-            {
-                lblCurrentLevel.Text = "Current Level: IMPOSSIBLE";
-                elapsedTime = 0;
-                timerLevel3Intro.Stop();
-                timerLevel3Countdown.Start();
-            }
-        }
-
-        #endregion
-
-        //----------------------------------------------------------------------------------------------------------------------------------//
-
-        /// <summary>
-        /// Creates the countdown effect but for level 3
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-
-        #region TimerLevel3Countdown_Tick
-
-        private void timerLevel3Countdown_Tick(object sender, EventArgs e)
-        {
-            elapsedTime++;
-
-            if(elapsedTime == 1)
-            {
-                countdownPictureBox.Image = Properties.Resources.threePhoto;
-            }
-            else if (elapsedTime == 2)
-            {
-                countdownPictureBox.Image = Properties.Resources.twoPhoto;
-            }
-            else if (elapsedTime == 3)
-            {
-                countdownPictureBox.Image = Properties.Resources.onePhoto;
-            }
-            if (elapsedTime == 4)
-            {
-                countdownPictureBox.Image = Properties.Resources.levelThreeIntroduction4;
-            }
-            if (elapsedTime == 5)
-            {
-                pnlMainMatches.Controls.Remove(countdownPictureBox);
-                countdownPictureBox.Dispose();
-                timerLevel3Countdown.Stop();
-                LevelStarter();
             }
         }
 
@@ -1787,7 +1748,7 @@ namespace PROG7311_POE_PART_1
 
         public void EnableButtons()
         {
-            // Disabling the game buttons
+            // Enabling the game buttons
             btnGenerate.Enabled = true;
             btnReset.Enabled = true;
             btnReset.Text = "Reset";

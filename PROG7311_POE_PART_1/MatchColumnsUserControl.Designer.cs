@@ -53,8 +53,6 @@
             this.lblTimer = new System.Windows.Forms.Label();
             this.lblCurrentLevel = new System.Windows.Forms.Label();
             this.timerCountdown = new System.Windows.Forms.Timer(this.components);
-            this.timerLevel3Intro = new System.Windows.Forms.Timer(this.components);
-            this.timerLevel3Countdown = new System.Windows.Forms.Timer(this.components);
             this.btnLevel3 = new System.Windows.Forms.Button();
             this.btnLevel2 = new System.Windows.Forms.Button();
             this.btnLevel1 = new System.Windows.Forms.Button();
@@ -355,14 +353,6 @@
             // 
             this.timerCountdown.Tick += new System.EventHandler(this.timerCountdown_Tick);
             // 
-            // timerLevel3Intro
-            // 
-            this.timerLevel3Intro.Tick += new System.EventHandler(this.timerLevel3Intro_Tick);
-            // 
-            // timerLevel3Countdown
-            // 
-            this.timerLevel3Countdown.Tick += new System.EventHandler(this.timerLevel3Countdown_Tick);
-            // 
             // btnLevel3
             // 
             this.btnLevel3.BackgroundImage = global::PROG7311_POE_PART_1.Properties.Resources.lvlThreeButtonBackground;
@@ -462,7 +452,5 @@
         private System.Windows.Forms.Label lblHeader;
         private System.Windows.Forms.Button btnSwap;
         private System.Windows.Forms.Timer timerCountdown;
-        private System.Windows.Forms.Timer timerLevel3Intro;
-        private System.Windows.Forms.Timer timerLevel3Countdown;
     }
 }

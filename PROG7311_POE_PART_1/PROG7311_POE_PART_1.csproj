@@ -204,11 +204,6 @@
     <Content Include="Resources\appIcon.ico" />
     <None Include="Resources\DeweyDecimalPicture.jpg" />
     <None Include="Resources\identifyAreasInstructionsPicture.png" />
-    <None Include="Resources\levelThreeIntroMusic.wav" />
-    <None Include="Resources\levelThreeIntroduction4.png" />
-    <None Include="Resources\levelThreeIntroduction1.png" />
-    <None Include="Resources\levelThreeIntroduction3.png" />
-    <None Include="Resources\levelThreeIntroduction2.png" />
     <None Include="Resources\levelCountdown.wav" />
     <None Include="Resources\onePhoto.png" />
     <None Include="Resources\twoPhoto.png" />

@@ -30,9 +30,10 @@ namespace PROG7311_POE_PART_1
 
         private void btnViewImage_Click(object sender, EventArgs e)
         {
-            Hide();
             DeweyDecimalPicture ddp = new DeweyDecimalPicture();
             ddp.Show();
+            Form thisForm = this.FindForm();
+            thisForm.Hide();
         }
 
         #endregion
@@ -50,7 +51,8 @@ namespace PROG7311_POE_PART_1
 
         private void btnBack_Click(object sender, EventArgs e)
         {
-            Hide();
+            Form thisForm = this.FindForm();
+            thisForm.Hide();
             MainForm mf = new MainForm();
             mf.Show();
         }

@@ -30,9 +30,10 @@ namespace PROG7311_POE_PART_1
 
         private void btnContinue_Click(object sender, EventArgs e)
         {
-            Hide();
             IdentifyAreasInstructions iai = new IdentifyAreasInstructions();
             iai.Show();
+            Form thisForm = this.FindForm();
+            thisForm.Hide();
         }
 
         #endregion
