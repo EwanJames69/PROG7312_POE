@@ -197,7 +197,7 @@ namespace PROG7311_POE_PART_1
 
             lblTimer.Text = "";
 
-            // Deleting the header label to not get in the way
+            // Deleting the header label to not get in the way of the game
             Label labelToDelete = Controls.Find($"lblHeader", true).FirstOrDefault() as Label;
             if (labelToDelete != null)
             {
@@ -214,109 +214,8 @@ namespace PROG7311_POE_PART_1
             btnLevel3.Enabled = true;
             btnSwap.Enabled = true;
 
-            // Class constructor for DictionaryValueGenerator class in the class library
-            DictionaryValueGenerator dvg = new DictionaryValueGenerator(callNumberDictionary, callNumberList);
-            dvg.GenerateCallNumber();
-
-            /*
-             * Shuffling the callNumbersList to display 4 random call numbers from the dictionary
-             * The Enumerable.OrderBy method sorts the elements of a sequence using the specified comparer
-             * This code was taken from Techie Delight at: https://www.techiedelight.com/randomize-a-list-in-csharp/
-            */
-            Random random = new Random();
-            var shuffledCallNumbers = callNumberList.OrderBy(_ => random.Next()).ToList();
-
-            // Randomly generating 4 out of 7 numbers to display for the correct answers
-            List<int> sevenNumberList = new List<int>() { 1, 2, 3, 4, 5, 6, 7 };
-            var shuffledNumbers = sevenNumberList.OrderBy(_ => random.Next()).ToList();
-
-            // Checking if the user wants to match call numbers to descriptions or the other way around
-            if (callNumbers)
-            {
-                // Setting the source label values with the shuffled call numbers
-                for (int i = 0; i < 4; i++)
-                {
-                    Label sourceLabel = Controls.Find($"lblSource{i + 1}", true).FirstOrDefault() as Label;
-                    sourceLabel.Text = shuffledCallNumbers[i].ToString("D3");
-
-                    // Reconnecting the source labels with the events
-                    sourceLabel.MouseDown += SourceLabel_MouseDown;
-                    sourceLabel.DragEnter += Label_DragEnter;
-                    sourceLabel.DragDrop += Label_DragDrop;
-                }
-
-                // Setting the correct receiver label values
-                List<int> usedNumbersList = new List<int>();
-                for (int i = 0; i < 4; i++)
-                {
-                    Label receiverLabel = Controls.Find($"lblReceiver{shuffledNumbers[i]}", true).FirstOrDefault() as Label;
-                    usedNumbersList.Add(shuffledNumbers[i]);
-                    receiverLabel.Text = callNumberDictionary[shuffledCallNumbers[i].ToString("D3")];
-
-                    // Reconnecting the correct receiver labels with the events
-                    receiverLabel.MouseDown += SourceLabel_MouseDown;
-                    receiverLabel.DragEnter += Label_DragEnter;
-                    receiverLabel.DragDrop += Label_DragDrop;
-                }
-
-                // Creating a list to store the 3 numbers that were not used, to fill in the missing labels with the "incorrect" values
-                var missingNumbers = sevenNumberList.Except(usedNumbersList).ToList();
-
-                // Setting the incorrect receiver label values
-                for (int i = 0; i < missingNumbers.Count; i++)
-                {
-                    Label receiverLabel = Controls.Find($"lblReceiver{missingNumbers[i]}", true).FirstOrDefault() as Label;
-                    receiverLabel.Text = callNumberDictionary[shuffledCallNumbers[i + 4].ToString("D3")];
-
-                    // Reconnecting the incorrect receiver labels with the events
-                    receiverLabel.MouseDown += SourceLabel_MouseDown;
-                    receiverLabel.DragEnter += Label_DragEnter;
-                    receiverLabel.DragDrop += Label_DragDrop;
-                }
-            }
-            else if (!callNumbers)
-            {
-                // Setting the source label values with the shuffled descriptions
-                for (int i = 0; i < 4; i++)
-                {
-                    Label sourceLabel = Controls.Find($"lblSource{i + 1}", true).FirstOrDefault() as Label;
-                    sourceLabel.Text = callNumberDictionary[shuffledCallNumbers[i].ToString("D3")];
-
-                    // Reconnecting the source labels with the events
-                    sourceLabel.MouseDown += SourceLabel_MouseDown;
-                    sourceLabel.DragEnter += Label_DragEnter;
-                    sourceLabel.DragDrop += Label_DragDrop;
-                }
-
-                // Setting the correct receiver label values
-                List<int> usedNumbersList = new List<int>();
-                for (int i = 0; i < 4; i++)
-                {
-                    Label receiverLabel = Controls.Find($"lblReceiver{shuffledNumbers[i]}", true).FirstOrDefault() as Label;
-                    usedNumbersList.Add(shuffledNumbers[i]);
-                    receiverLabel.Text = shuffledCallNumbers[i].ToString("D3");
-
-                    // Reconnecting the correct receiver labels with the events
-                    receiverLabel.MouseDown += SourceLabel_MouseDown;
-                    receiverLabel.DragEnter += Label_DragEnter;
-                    receiverLabel.DragDrop += Label_DragDrop;
-                }
-
-                // Creating a list to store the 3 numbers that were not used, to fill in the missing labels with the "incorrect" values
-                var missingNumbers = sevenNumberList.Except(usedNumbersList).ToList();
-
-                // Setting the incorrect receiver label values
-                for (int i = 0; i < missingNumbers.Count; i++)
-                {
-                    Label receiverLabel = Controls.Find($"lblReceiver{missingNumbers[i]}", true).FirstOrDefault() as Label;
-                    receiverLabel.Text = shuffledCallNumbers[i + 4].ToString("D3");
-
-                    // Reconnecting the incorrect receiver labels with the events
-                    receiverLabel.MouseDown += SourceLabel_MouseDown;
-                    receiverLabel.DragEnter += Label_DragEnter;
-                    receiverLabel.DragDrop += Label_DragDrop;
-                }
-            }
+            // Generating a new game for the user
+            GenerateNewGame();
 
             // Invalidating the main panel to trigger a repaint
             pnlMainMatches.Invalidate();
@@ -353,12 +252,11 @@ namespace PROG7311_POE_PART_1
                 timerMatch.Stop();
                 EnableButtons();
 
-                // Setting the time back to 0
+                // Setting the time on the timer back to 0
                 elapsedTime = 0;            
 
                 // Setting the level back to casual
                 level = "casual";
-
                 lblCurrentLevel.Text = "Current Level: Casual";
 
                 if (countdownPictureBox != null)
@@ -371,109 +269,8 @@ namespace PROG7311_POE_PART_1
                     callNumberList.Clear();
                     linesList.Clear();
 
-                    // Class constructor for DictionaryValueGenerator class in the class library
-                    DictionaryValueGenerator dvg = new DictionaryValueGenerator(callNumberDictionary, callNumberList);
-                    dvg.GenerateCallNumber();
-
-                    /*
-                     * Shuffling the callNumbersList to display 4 random call numbers from the dictionary
-                     * The Enumerable.OrderBy method sorts the elements of a sequence using the specified comparer
-                     * This code was taken from Techie Delight at: https://www.techiedelight.com/randomize-a-list-in-csharp/
-                    */
-                    Random random = new Random();
-                    var shuffledCallNumbers = callNumberList.OrderBy(_ => random.Next()).ToList();
-
-                    // Randomly generating 4 out of 7 numbers to display for the correct answers
-                    List<int> sevenNumberList = new List<int>() { 1, 2, 3, 4, 5, 6, 7 };
-                    var shuffledNumbers = sevenNumberList.OrderBy(_ => random.Next()).ToList();
-
-                    // Checking if the user wants to match call numbers to descriptions or the other way around
-                    if (callNumbers)
-                    {
-                        // Setting the source label values with the shuffled call numbers
-                        for (int i = 0; i < 4; i++)
-                        {
-                            Label sourceLabel = Controls.Find($"lblSource{i + 1}", true).FirstOrDefault() as Label;
-                            sourceLabel.Text = shuffledCallNumbers[i].ToString("D3");
-
-                            // Reconnecting the source labels with the events
-                            sourceLabel.MouseDown += SourceLabel_MouseDown;
-                            sourceLabel.DragEnter += Label_DragEnter;
-                            sourceLabel.DragDrop += Label_DragDrop;
-                        }
-
-                        // Setting the correct receiver label values
-                        List<int> usedNumbersList = new List<int>();
-                        for (int i = 0; i < 4; i++)
-                        {
-                            Label receiverLabel = Controls.Find($"lblReceiver{shuffledNumbers[i]}", true).FirstOrDefault() as Label;
-                            usedNumbersList.Add(shuffledNumbers[i]);
-                            receiverLabel.Text = callNumberDictionary[shuffledCallNumbers[i].ToString("D3")];
-
-                            // Reconnecting the correct receiver labels with the events
-                            receiverLabel.MouseDown += SourceLabel_MouseDown;
-                            receiverLabel.DragEnter += Label_DragEnter;
-                            receiverLabel.DragDrop += Label_DragDrop;
-                        }
-
-                        // Creating a list to store the 3 numbers that were not used, to fill in the missing labels with the "incorrect" values
-                        var missingNumbers = sevenNumberList.Except(usedNumbersList).ToList();
-
-                        // Setting the incorrect receiver label values
-                        for (int i = 0; i < missingNumbers.Count; i++)
-                        {
-                            Label receiverLabel = Controls.Find($"lblReceiver{missingNumbers[i]}", true).FirstOrDefault() as Label;
-                            receiverLabel.Text = callNumberDictionary[shuffledCallNumbers[i + 4].ToString("D3")];
-
-                            // Reconnecting the incorrect receiver labels with the events
-                            receiverLabel.MouseDown += SourceLabel_MouseDown;
-                            receiverLabel.DragEnter += Label_DragEnter;
-                            receiverLabel.DragDrop += Label_DragDrop;
-                        }
-                    }
-                    else if (!callNumbers)
-                    {
-                        // Setting the source label values with the shuffled descriptions
-                        for (int i = 0; i < 4; i++)
-                        {
-                            Label sourceLabel = Controls.Find($"lblSource{i + 1}", true).FirstOrDefault() as Label;
-                            sourceLabel.Text = callNumberDictionary[shuffledCallNumbers[i].ToString("D3")];
-
-                            // Reconnecting the source labels with the events
-                            sourceLabel.MouseDown += SourceLabel_MouseDown;
-                            sourceLabel.DragEnter += Label_DragEnter;
-                            sourceLabel.DragDrop += Label_DragDrop;
-                        }
-
-                        // Setting the correct receiver label values
-                        List<int> usedNumbersList = new List<int>();
-                        for (int i = 0; i < 4; i++)
-                        {
-                            Label receiverLabel = Controls.Find($"lblReceiver{shuffledNumbers[i]}", true).FirstOrDefault() as Label;
-                            usedNumbersList.Add(shuffledNumbers[i]);
-                            receiverLabel.Text = shuffledCallNumbers[i].ToString("D3");
-
-                            // Reconnecting the correct receiver labels with the events
-                            receiverLabel.MouseDown += SourceLabel_MouseDown;
-                            receiverLabel.DragEnter += Label_DragEnter;
-                            receiverLabel.DragDrop += Label_DragDrop;
-                        }
-
-                        // Creating a list to store the 3 numbers that were not used, to fill in the missing labels with the "incorrect" values
-                        var missingNumbers = sevenNumberList.Except(usedNumbersList).ToList();
-
-                        // Setting the incorrect receiver label values
-                        for (int i = 0; i < missingNumbers.Count; i++)
-                        {
-                            Label receiverLabel = Controls.Find($"lblReceiver{missingNumbers[i]}", true).FirstOrDefault() as Label;
-                            receiverLabel.Text = shuffledCallNumbers[i + 4].ToString("D3");
-
-                            // Reconnecting the incorrect receiver labels with the events
-                            receiverLabel.MouseDown += SourceLabel_MouseDown;
-                            receiverLabel.DragEnter += Label_DragEnter;
-                            receiverLabel.DragDrop += Label_DragDrop;
-                        }
-                    }
+                    // Generating a new game for the user
+                    GenerateNewGame();
                 }
             }
         }
@@ -704,109 +501,8 @@ namespace PROG7311_POE_PART_1
             callNumberList.Clear();
             linesList.Clear();
 
-            // Class constructor for DictionaryValueGenerator class in the class library
-            DictionaryValueGenerator dvg = new DictionaryValueGenerator(callNumberDictionary, callNumberList);
-            dvg.GenerateCallNumber();
-
-            /*
-             * Shuffling the callNumbersList to display 4 random call numbers from the dictionary
-             * The Enumerable.OrderBy method sorts the elements of a sequence using the specified comparer
-             * This code was taken from Techie Delight at: https://www.techiedelight.com/randomize-a-list-in-csharp/
-            */
-            Random random = new Random();
-            var shuffledCallNumbers = callNumberList.OrderBy(_ => random.Next()).ToList();
-
-            // Randomly generating 4 out of 7 numbers to display for the correct answers
-            List<int> sevenNumberList = new List<int>() { 1, 2, 3, 4, 5, 6, 7 };
-            var shuffledNumbers = sevenNumberList.OrderBy(_ => random.Next()).ToList();
-
-            // Checking if the user wants to match call numbers to descriptions or the other way around
-            if (callNumbers)
-            {
-                // Setting the source label values with the shuffled call numbers
-                for (int i = 0; i < 4; i++)
-                {
-                    Label sourceLabel = Controls.Find($"lblSource{i + 1}", true).FirstOrDefault() as Label;
-                    sourceLabel.Text = shuffledCallNumbers[i].ToString("D3");
-
-                    // Reconnecting the source labels with the events
-                    sourceLabel.MouseDown += SourceLabel_MouseDown;
-                    sourceLabel.DragEnter += Label_DragEnter;
-                    sourceLabel.DragDrop += Label_DragDrop;
-                }
-
-                // Setting the correct receiver label values
-                List<int> usedNumbersList = new List<int>();
-                for (int i = 0; i < 4; i++)
-                {
-                    Label receiverLabel = Controls.Find($"lblReceiver{shuffledNumbers[i]}", true).FirstOrDefault() as Label;
-                    usedNumbersList.Add(shuffledNumbers[i]);
-                    receiverLabel.Text = callNumberDictionary[shuffledCallNumbers[i].ToString("D3")];
-
-                    // Reconnecting the correct receiver labels with the events
-                    receiverLabel.MouseDown += SourceLabel_MouseDown;
-                    receiverLabel.DragEnter += Label_DragEnter;
-                    receiverLabel.DragDrop += Label_DragDrop;
-                }
-
-                // Creating a list to store the 3 numbers that were not used, to fill in the missing labels with the "incorrect" values
-                var missingNumbers = sevenNumberList.Except(usedNumbersList).ToList();
-
-                // Setting the incorrect receiver label values
-                for (int i = 0; i < missingNumbers.Count; i++)
-                {
-                    Label receiverLabel = Controls.Find($"lblReceiver{missingNumbers[i]}", true).FirstOrDefault() as Label;
-                    receiverLabel.Text = callNumberDictionary[shuffledCallNumbers[i + 4].ToString("D3")];
-
-                    // Reconnecting the incorrect receiver labels with the events
-                    receiverLabel.MouseDown += SourceLabel_MouseDown;
-                    receiverLabel.DragEnter += Label_DragEnter;
-                    receiverLabel.DragDrop += Label_DragDrop;
-                }
-            }
-            else if (!callNumbers)
-            {
-                // Setting the source label values with the shuffled descriptions
-                for (int i = 0; i < 4; i++)
-                {
-                    Label sourceLabel = Controls.Find($"lblSource{i + 1}", true).FirstOrDefault() as Label;
-                    sourceLabel.Text = callNumberDictionary[shuffledCallNumbers[i].ToString("D3")];
-
-                    // Reconnecting the source labels with the events
-                    sourceLabel.MouseDown += SourceLabel_MouseDown;
-                    sourceLabel.DragEnter += Label_DragEnter;
-                    sourceLabel.DragDrop += Label_DragDrop;
-                }
-
-                // Setting the correct receiver label values
-                List<int> usedNumbersList = new List<int>();
-                for (int i = 0; i < 4; i++)
-                {
-                    Label receiverLabel = Controls.Find($"lblReceiver{shuffledNumbers[i]}", true).FirstOrDefault() as Label;
-                    usedNumbersList.Add(shuffledNumbers[i]);
-                    receiverLabel.Text = shuffledCallNumbers[i].ToString("D3");
-
-                    // Reconnecting the correct receiver labels with the events
-                    receiverLabel.MouseDown += SourceLabel_MouseDown;
-                    receiverLabel.DragEnter += Label_DragEnter;
-                    receiverLabel.DragDrop += Label_DragDrop;
-                }
-
-                // Creating a list to store the 3 numbers that were not used, to fill in the missing labels with the "incorrect" values
-                var missingNumbers = sevenNumberList.Except(usedNumbersList).ToList();
-
-                // Setting the incorrect receiver label values
-                for (int i = 0; i < missingNumbers.Count; i++)
-                {
-                    Label receiverLabel = Controls.Find($"lblReceiver{missingNumbers[i]}", true).FirstOrDefault() as Label;
-                    receiverLabel.Text = shuffledCallNumbers[i + 4].ToString("D3");
-
-                    // Reconnecting the incorrect receiver labels with the events
-                    receiverLabel.MouseDown += SourceLabel_MouseDown;
-                    receiverLabel.DragEnter += Label_DragEnter;
-                    receiverLabel.DragDrop += Label_DragDrop;
-                }
-            }
+            // Generating a new game for the user
+            GenerateNewGame();
 
             // Invalidating the main panel to trigger a repaint
             pnlMainMatches.Invalidate();
@@ -851,6 +547,7 @@ namespace PROG7311_POE_PART_1
                 lblCurrentLevel.Text = "Current Level: Casual";
                 elapsedTime = 0;                
 
+                // Setting the level to casual
                 level = "casual";
 
                 // Checking if the user stopped the application during the countdown
@@ -864,109 +561,8 @@ namespace PROG7311_POE_PART_1
                     callNumberList.Clear();
                     linesList.Clear();
 
-                    // Class constructor for DictionaryValueGenerator class in the class library
-                    DictionaryValueGenerator dvg = new DictionaryValueGenerator(callNumberDictionary, callNumberList);
-                    dvg.GenerateCallNumber();
-
-                    /*
-                     * Shuffling the callNumbersList to display 4 random call numbers from the dictionary
-                     * The Enumerable.OrderBy method sorts the elements of a sequence using the specified comparer
-                     * This code was taken from Techie Delight at: https://www.techiedelight.com/randomize-a-list-in-csharp/
-                    */
-                    Random random = new Random();
-                    var shuffledCallNumbers = callNumberList.OrderBy(_ => random.Next()).ToList();
-
-                    // Randomly generating 4 out of 7 numbers to display for the correct answers
-                    List<int> sevenNumberList = new List<int>() { 1, 2, 3, 4, 5, 6, 7 };
-                    var shuffledNumbers = sevenNumberList.OrderBy(_ => random.Next()).ToList();
-
-                    // Checking if the user wants to match call numbers to descriptions or the other way around
-                    if (callNumbers)
-                    {
-                        // Setting the source label values with the shuffled call numbers
-                        for (int i = 0; i < 4; i++)
-                        {
-                            Label sourceLabel = Controls.Find($"lblSource{i + 1}", true).FirstOrDefault() as Label;
-                            sourceLabel.Text = shuffledCallNumbers[i].ToString("D3");
-
-                            // Reconnecting the source labels with the events
-                            sourceLabel.MouseDown += SourceLabel_MouseDown;
-                            sourceLabel.DragEnter += Label_DragEnter;
-                            sourceLabel.DragDrop += Label_DragDrop;
-                        }
-
-                        // Setting the correct receiver label values
-                        List<int> usedNumbersList = new List<int>();
-                        for (int i = 0; i < 4; i++)
-                        {
-                            Label receiverLabel = Controls.Find($"lblReceiver{shuffledNumbers[i]}", true).FirstOrDefault() as Label;
-                            usedNumbersList.Add(shuffledNumbers[i]);
-                            receiverLabel.Text = callNumberDictionary[shuffledCallNumbers[i].ToString("D3")];
-
-                            // Reconnecting the correct receiver labels with the events
-                            receiverLabel.MouseDown += SourceLabel_MouseDown;
-                            receiverLabel.DragEnter += Label_DragEnter;
-                            receiverLabel.DragDrop += Label_DragDrop;
-                        }
-
-                        // Creating a list to store the 3 numbers that were not used, to fill in the missing labels with the "incorrect" values
-                        var missingNumbers = sevenNumberList.Except(usedNumbersList).ToList();
-
-                        // Setting the incorrect receiver label values
-                        for (int i = 0; i < missingNumbers.Count; i++)
-                        {
-                            Label receiverLabel = Controls.Find($"lblReceiver{missingNumbers[i]}", true).FirstOrDefault() as Label;
-                            receiverLabel.Text = callNumberDictionary[shuffledCallNumbers[i + 4].ToString("D3")];
-
-                            // Reconnecting the incorrect receiver labels with the events
-                            receiverLabel.MouseDown += SourceLabel_MouseDown;
-                            receiverLabel.DragEnter += Label_DragEnter;
-                            receiverLabel.DragDrop += Label_DragDrop;
-                        }
-                    }
-                    else if (!callNumbers)
-                    {
-                        // Setting the source label values with the shuffled descriptions
-                        for (int i = 0; i < 4; i++)
-                        {
-                            Label sourceLabel = Controls.Find($"lblSource{i + 1}", true).FirstOrDefault() as Label;
-                            sourceLabel.Text = callNumberDictionary[shuffledCallNumbers[i].ToString("D3")];
-
-                            // Reconnecting the source labels with the events
-                            sourceLabel.MouseDown += SourceLabel_MouseDown;
-                            sourceLabel.DragEnter += Label_DragEnter;
-                            sourceLabel.DragDrop += Label_DragDrop;
-                        }
-
-                        // Setting the correct receiver label values
-                        List<int> usedNumbersList = new List<int>();
-                        for (int i = 0; i < 4; i++)
-                        {
-                            Label receiverLabel = Controls.Find($"lblReceiver{shuffledNumbers[i]}", true).FirstOrDefault() as Label;
-                            usedNumbersList.Add(shuffledNumbers[i]);
-                            receiverLabel.Text = shuffledCallNumbers[i].ToString("D3");
-
-                            // Reconnecting the correct receiver labels with the events
-                            receiverLabel.MouseDown += SourceLabel_MouseDown;
-                            receiverLabel.DragEnter += Label_DragEnter;
-                            receiverLabel.DragDrop += Label_DragDrop;
-                        }
-
-                        // Creating a list to store the 3 numbers that were not used, to fill in the missing labels with the "incorrect" values
-                        var missingNumbers = sevenNumberList.Except(usedNumbersList).ToList();
-
-                        // Setting the incorrect receiver label values
-                        for (int i = 0; i < missingNumbers.Count; i++)
-                        {
-                            Label receiverLabel = Controls.Find($"lblReceiver{missingNumbers[i]}", true).FirstOrDefault() as Label;
-                            receiverLabel.Text = shuffledCallNumbers[i + 4].ToString("D3");
-
-                            // Reconnecting the incorrect receiver labels with the events
-                            receiverLabel.MouseDown += SourceLabel_MouseDown;
-                            receiverLabel.DragEnter += Label_DragEnter;
-                            receiverLabel.DragDrop += Label_DragDrop;
-                        }
-                    }
+                    // Generating a new game for the user
+                    GenerateNewGame();
                 }
             }       
         }
@@ -996,7 +592,7 @@ namespace PROG7311_POE_PART_1
             DialogResult dialogResult = DialogResult.No;
             level = "levelOne";
 
-            // Runs a method from the class library
+            // Runs a method from the class library to display a message at the beginning of the level
             BeginLevelMessage blm = new BeginLevelMessage(dialogResult, level, amountPlayed, completedLevelThree);
             dialogResult = blm.DisplayMessage();
             
@@ -1079,7 +675,7 @@ namespace PROG7311_POE_PART_1
             DialogResult dialogResult = DialogResult.No;
             level = "levelTwo";
 
-            // Method that runs from the class library
+            // Method that runs from the class library to display a message at the beginning of the level
             BeginLevelMessage blm = new BeginLevelMessage(dialogResult, level, amountPlayed, completedLevelThree);
             dialogResult = blm.DisplayMessage();
 
@@ -1162,7 +758,7 @@ namespace PROG7311_POE_PART_1
             DialogResult dialogResult = DialogResult.No;
             level = "levelThree";
 
-            // Method that runs from the class library
+            // Method that runs from the class library to display a message at the beginning of the level
             BeginLevelMessage blm = new BeginLevelMessage(dialogResult, level, amountPlayed, completedLevelThree);
             dialogResult = blm.DisplayMessage();
 
@@ -1355,6 +951,123 @@ namespace PROG7311_POE_PART_1
                 foreach (var line in linesList)
                 {
                     e.Graphics.DrawLine(pen, line.sourceLabelLocation, line.receiverLabelLocation);
+                }
+            }
+        }
+
+        #endregion
+
+        //----------------------------------------------------------------------------------------------------------------------------------//
+
+        /// <summary>
+        /// Generates a new game for the user by displaying new call numbers and descriptions to match
+        /// </summary>
+
+        #region GenerateNewGame_Method
+
+        public void GenerateNewGame()
+        {
+            // Class constructor for DictionaryValueGenerator class in the class library
+            DictionaryValueGenerator dvg = new DictionaryValueGenerator(callNumberDictionary, callNumberList);
+            dvg.GenerateCallNumber();
+
+            /*
+             * Shuffling the callNumbersList to display 4 random call numbers from the dictionary
+             * The Enumerable.OrderBy method sorts the elements of a sequence using the specified comparer
+             * This code was taken from Techie Delight at: https://www.techiedelight.com/randomize-a-list-in-csharp/
+            */
+            Random random = new Random();
+            var shuffledCallNumbers = callNumberList.OrderBy(_ => random.Next()).ToList();
+
+            // Randomly generating 4 out of 7 numbers to display for the correct answers
+            List<int> sevenNumberList = new List<int>() { 1, 2, 3, 4, 5, 6, 7 };
+            var shuffledNumbers = sevenNumberList.OrderBy(_ => random.Next()).ToList();
+
+            // Checking if the user wants to match call numbers to descriptions or the other way around
+            if (callNumbers)
+            {
+                // Setting the source label values with the shuffled call numbers
+                for (int i = 0; i < 4; i++)
+                {
+                    Label sourceLabel = Controls.Find($"lblSource{i + 1}", true).FirstOrDefault() as Label;
+                    sourceLabel.Text = shuffledCallNumbers[i].ToString("D3");
+
+                    // Reconnecting the source labels with the events
+                    sourceLabel.MouseDown += SourceLabel_MouseDown;
+                    sourceLabel.DragEnter += Label_DragEnter;
+                    sourceLabel.DragDrop += Label_DragDrop;
+                }
+
+                // Setting the correct receiver label values
+                List<int> usedNumbersList = new List<int>();
+                for (int i = 0; i < 4; i++)
+                {
+                    Label receiverLabel = Controls.Find($"lblReceiver{shuffledNumbers[i]}", true).FirstOrDefault() as Label;
+                    usedNumbersList.Add(shuffledNumbers[i]);
+                    receiverLabel.Text = callNumberDictionary[shuffledCallNumbers[i].ToString("D3")];
+
+                    // Reconnecting the correct receiver labels with the events
+                    receiverLabel.MouseDown += SourceLabel_MouseDown;
+                    receiverLabel.DragEnter += Label_DragEnter;
+                    receiverLabel.DragDrop += Label_DragDrop;
+                }
+
+                // Creating a list to store the 3 numbers that were not used, to fill in the missing labels with the "incorrect" values
+                var missingNumbers = sevenNumberList.Except(usedNumbersList).ToList();
+
+                // Setting the incorrect receiver label values
+                for (int i = 0; i < missingNumbers.Count; i++)
+                {
+                    Label receiverLabel = Controls.Find($"lblReceiver{missingNumbers[i]}", true).FirstOrDefault() as Label;
+                    receiverLabel.Text = callNumberDictionary[shuffledCallNumbers[i + 4].ToString("D3")];
+
+                    // Reconnecting the incorrect receiver labels with the events
+                    receiverLabel.MouseDown += SourceLabel_MouseDown;
+                    receiverLabel.DragEnter += Label_DragEnter;
+                    receiverLabel.DragDrop += Label_DragDrop;
+                }
+            }
+            else if (!callNumbers)
+            {
+                // Setting the source label values with the shuffled descriptions
+                for (int i = 0; i < 4; i++)
+                {
+                    Label sourceLabel = Controls.Find($"lblSource{i + 1}", true).FirstOrDefault() as Label;
+                    sourceLabel.Text = callNumberDictionary[shuffledCallNumbers[i].ToString("D3")];
+
+                    // Reconnecting the source labels with the events
+                    sourceLabel.MouseDown += SourceLabel_MouseDown;
+                    sourceLabel.DragEnter += Label_DragEnter;
+                    sourceLabel.DragDrop += Label_DragDrop;
+                }
+
+                // Setting the correct receiver label values
+                List<int> usedNumbersList = new List<int>();
+                for (int i = 0; i < 4; i++)
+                {
+                    Label receiverLabel = Controls.Find($"lblReceiver{shuffledNumbers[i]}", true).FirstOrDefault() as Label;
+                    usedNumbersList.Add(shuffledNumbers[i]);
+                    receiverLabel.Text = shuffledCallNumbers[i].ToString("D3");
+
+                    // Reconnecting the correct receiver labels with the events
+                    receiverLabel.MouseDown += SourceLabel_MouseDown;
+                    receiverLabel.DragEnter += Label_DragEnter;
+                    receiverLabel.DragDrop += Label_DragDrop;
+                }
+
+                // Creating a list to store the 3 numbers that were not used, to fill in the missing labels with the "incorrect" values
+                var missingNumbers = sevenNumberList.Except(usedNumbersList).ToList();
+
+                // Setting the incorrect receiver label values
+                for (int i = 0; i < missingNumbers.Count; i++)
+                {
+                    Label receiverLabel = Controls.Find($"lblReceiver{missingNumbers[i]}", true).FirstOrDefault() as Label;
+                    receiverLabel.Text = shuffledCallNumbers[i + 4].ToString("D3");
+
+                    // Reconnecting the incorrect receiver labels with the events
+                    receiverLabel.MouseDown += SourceLabel_MouseDown;
+                    receiverLabel.DragEnter += Label_DragEnter;
+                    receiverLabel.DragDrop += Label_DragDrop;
                 }
             }
         }
@@ -1613,112 +1326,11 @@ namespace PROG7311_POE_PART_1
             // Clearing all previous values
             callNumberDictionary.Clear();
             callNumberList.Clear();
-            linesList.Clear();            
+            linesList.Clear();
 
-            // Class constructor for DictionaryValueGenerator class in the class library
-            DictionaryValueGenerator dvg = new DictionaryValueGenerator(callNumberDictionary, callNumberList);
-            dvg.GenerateCallNumber();
+            GenerateNewGame();
 
-            /*
-             * Shuffling the callNumbersList to display 4 random call numbers from the dictionary
-             * The Enumerable.OrderBy method sorts the elements of a sequence using the specified comparer
-             * This code was taken from Techie Delight at: https://www.techiedelight.com/randomize-a-list-in-csharp/
-            */
-            Random random = new Random();
-            var shuffledCallNumbers = callNumberList.OrderBy(_ => random.Next()).ToList();
-
-            // Randomly generating 4 out of 7 numbers to display for the correct answers
-            List<int> sevenNumberList = new List<int>() { 1, 2, 3, 4, 5, 6, 7 };
-            var shuffledNumbers = sevenNumberList.OrderBy(_ => random.Next()).ToList();
-
-            // Checking if the user wants to match call numbers to descriptions or the other way around
-            if (callNumbers)
-            {
-                // Setting the source label values with the shuffled call numbers
-                for (int i = 0; i < 4; i++)
-                {
-                    Label sourceLabel = Controls.Find($"lblSource{i + 1}", true).FirstOrDefault() as Label;
-                    sourceLabel.Text = shuffledCallNumbers[i].ToString("D3");
-
-                    // Reconnecting the source labels with the events
-                    sourceLabel.MouseDown += SourceLabel_MouseDown;
-                    sourceLabel.DragEnter += Label_DragEnter;
-                    sourceLabel.DragDrop += Label_DragDrop;
-                }
-
-                // Setting the correct receiver label values
-                List<int> usedNumbersList = new List<int>();
-                for (int i = 0; i < 4; i++)
-                {
-                    Label receiverLabel = Controls.Find($"lblReceiver{shuffledNumbers[i]}", true).FirstOrDefault() as Label;
-                    usedNumbersList.Add(shuffledNumbers[i]);
-                    receiverLabel.Text = callNumberDictionary[shuffledCallNumbers[i].ToString("D3")];
-
-                    // Reconnecting the correct receiver labels with the events
-                    receiverLabel.MouseDown += SourceLabel_MouseDown;
-                    receiverLabel.DragEnter += Label_DragEnter;
-                    receiverLabel.DragDrop += Label_DragDrop;
-                }
-
-                // Creating a list to store the 3 numbers that were not used, to fill in the missing labels with the "incorrect" values
-                var missingNumbers = sevenNumberList.Except(usedNumbersList).ToList();
-
-                // Setting the incorrect receiver label values
-                for (int i = 0; i < missingNumbers.Count; i++)
-                {
-                    Label receiverLabel = Controls.Find($"lblReceiver{missingNumbers[i]}", true).FirstOrDefault() as Label;
-                    receiverLabel.Text = callNumberDictionary[shuffledCallNumbers[i + 4].ToString("D3")];
-
-                    // Reconnecting the incorrect receiver labels with the events
-                    receiverLabel.MouseDown += SourceLabel_MouseDown;
-                    receiverLabel.DragEnter += Label_DragEnter;
-                    receiverLabel.DragDrop += Label_DragDrop;
-                }
-            }
-            else if (!callNumbers)
-            {
-                // Setting the source label values with the shuffled descriptions
-                for (int i = 0; i < 4; i++)
-                {
-                    Label sourceLabel = Controls.Find($"lblSource{i + 1}", true).FirstOrDefault() as Label;
-                    sourceLabel.Text = callNumberDictionary[shuffledCallNumbers[i].ToString("D3")];
-
-                    // Reconnecting the source labels with the events
-                    sourceLabel.MouseDown += SourceLabel_MouseDown;
-                    sourceLabel.DragEnter += Label_DragEnter;
-                    sourceLabel.DragDrop += Label_DragDrop;
-                }
-
-                // Setting the correct receiver label values
-                List<int> usedNumbersList = new List<int>();
-                for (int i = 0; i < 4; i++)
-                {
-                    Label receiverLabel = Controls.Find($"lblReceiver{shuffledNumbers[i]}", true).FirstOrDefault() as Label;
-                    usedNumbersList.Add(shuffledNumbers[i]);
-                    receiverLabel.Text = shuffledCallNumbers[i].ToString("D3");
-
-                    // Reconnecting the correct receiver labels with the events
-                    receiverLabel.MouseDown += SourceLabel_MouseDown;
-                    receiverLabel.DragEnter += Label_DragEnter;
-                    receiverLabel.DragDrop += Label_DragDrop;
-                }
-
-                // Creating a list to store the 3 numbers that were not used, to fill in the missing labels with the "incorrect" values
-                var missingNumbers = sevenNumberList.Except(usedNumbersList).ToList();
-
-                // Setting the incorrect receiver label values
-                for (int i = 0; i < missingNumbers.Count; i++)
-                {
-                    Label receiverLabel = Controls.Find($"lblReceiver{missingNumbers[i]}", true).FirstOrDefault() as Label;
-                    receiverLabel.Text = shuffledCallNumbers[i + 4].ToString("D3");
-
-                    // Reconnecting the incorrect receiver labels with the events
-                    receiverLabel.MouseDown += SourceLabel_MouseDown;
-                    receiverLabel.DragEnter += Label_DragEnter;
-                    receiverLabel.DragDrop += Label_DragDrop;
-                }
-            }
-
+            // Setting the timer depending on which level the user has selected
             if (level == "levelOne")
             {
                 elapsedTime = 20;

@@ -34,6 +34,26 @@
             this.btnSort = new System.Windows.Forms.Button();
             this.btnGenerate = new System.Windows.Forms.Button();
             this.pnlSourceMain = new System.Windows.Forms.Panel();
+            this.pnlSource10 = new System.Windows.Forms.Panel();
+            this.lblSource10 = new System.Windows.Forms.Label();
+            this.pnlSource9 = new System.Windows.Forms.Panel();
+            this.lblSource9 = new System.Windows.Forms.Label();
+            this.pnlSource8 = new System.Windows.Forms.Panel();
+            this.lblSource8 = new System.Windows.Forms.Label();
+            this.pnlSource7 = new System.Windows.Forms.Panel();
+            this.lblSource7 = new System.Windows.Forms.Label();
+            this.pnlSource6 = new System.Windows.Forms.Panel();
+            this.lblSource6 = new System.Windows.Forms.Label();
+            this.pnlSource5 = new System.Windows.Forms.Panel();
+            this.lblSource5 = new System.Windows.Forms.Label();
+            this.pnlSource4 = new System.Windows.Forms.Panel();
+            this.lblSource4 = new System.Windows.Forms.Label();
+            this.pnlSource3 = new System.Windows.Forms.Panel();
+            this.lblSource3 = new System.Windows.Forms.Label();
+            this.pnlSource2 = new System.Windows.Forms.Panel();
+            this.lblSource2 = new System.Windows.Forms.Label();
+            this.pnlSource1 = new System.Windows.Forms.Panel();
+            this.lblSource1 = new System.Windows.Forms.Label();
             this.lblProgressBar = new System.Windows.Forms.Label();
             this.pnlReceiverMain = new System.Windows.Forms.Panel();
             this.pnlReceiver10 = new System.Windows.Forms.Panel();
@@ -59,31 +79,21 @@
             this.lblProgressTracker = new System.Windows.Forms.Label();
             this.btnReset = new System.Windows.Forms.Button();
             this.btnInstructions = new System.Windows.Forms.Button();
-            this.pnlSource10 = new System.Windows.Forms.Panel();
-            this.lblSource10 = new System.Windows.Forms.Label();
-            this.pnlSource9 = new System.Windows.Forms.Panel();
-            this.lblSource9 = new System.Windows.Forms.Label();
-            this.pnlSource8 = new System.Windows.Forms.Panel();
-            this.lblSource8 = new System.Windows.Forms.Label();
-            this.pnlSource7 = new System.Windows.Forms.Panel();
-            this.lblSource7 = new System.Windows.Forms.Label();
-            this.pnlSource6 = new System.Windows.Forms.Panel();
-            this.lblSource6 = new System.Windows.Forms.Label();
-            this.pnlSource5 = new System.Windows.Forms.Panel();
-            this.lblSource5 = new System.Windows.Forms.Label();
-            this.pnlSource4 = new System.Windows.Forms.Panel();
-            this.lblSource4 = new System.Windows.Forms.Label();
-            this.pnlSource3 = new System.Windows.Forms.Panel();
-            this.lblSource3 = new System.Windows.Forms.Label();
-            this.pnlSource2 = new System.Windows.Forms.Panel();
-            this.lblSource2 = new System.Windows.Forms.Label();
-            this.pnlSource1 = new System.Windows.Forms.Panel();
-            this.lblSource1 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.chkTimer = new System.Windows.Forms.CheckBox();
             this.lblTimer = new System.Windows.Forms.Label();
             this.btnMainMenu = new System.Windows.Forms.Button();
             this.pnlSourceMain.SuspendLayout();
+            this.pnlSource10.SuspendLayout();
+            this.pnlSource9.SuspendLayout();
+            this.pnlSource8.SuspendLayout();
+            this.pnlSource7.SuspendLayout();
+            this.pnlSource6.SuspendLayout();
+            this.pnlSource5.SuspendLayout();
+            this.pnlSource4.SuspendLayout();
+            this.pnlSource3.SuspendLayout();
+            this.pnlSource2.SuspendLayout();
+            this.pnlSource1.SuspendLayout();
             this.pnlReceiverMain.SuspendLayout();
             this.pnlReceiver10.SuspendLayout();
             this.pnlReceiver9.SuspendLayout();
@@ -95,16 +105,6 @@
             this.pnlReceiver3.SuspendLayout();
             this.pnlReceiver2.SuspendLayout();
             this.pnlReceiver1.SuspendLayout();
-            this.pnlSource10.SuspendLayout();
-            this.pnlSource9.SuspendLayout();
-            this.pnlSource8.SuspendLayout();
-            this.pnlSource7.SuspendLayout();
-            this.pnlSource6.SuspendLayout();
-            this.pnlSource5.SuspendLayout();
-            this.pnlSource4.SuspendLayout();
-            this.pnlSource3.SuspendLayout();
-            this.pnlSource2.SuspendLayout();
-            this.pnlSource1.SuspendLayout();
             this.SuspendLayout();
             // 
             // progressBar
@@ -154,6 +154,298 @@
             this.pnlSourceMain.Name = "pnlSourceMain";
             this.pnlSourceMain.Size = new System.Drawing.Size(1244, 192);
             this.pnlSourceMain.TabIndex = 3;
+            // 
+            // pnlSource10
+            // 
+            this.pnlSource10.AllowDrop = true;
+            this.pnlSource10.BackColor = System.Drawing.Color.SandyBrown;
+            this.pnlSource10.BackgroundImage = global::PROG7311_POE_PART_1.Properties.Resources.bookBlack;
+            this.pnlSource10.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pnlSource10.Controls.Add(this.lblSource10);
+            this.pnlSource10.Location = new System.Drawing.Point(1117, 22);
+            this.pnlSource10.Name = "pnlSource10";
+            this.pnlSource10.Size = new System.Drawing.Size(104, 149);
+            this.pnlSource10.TabIndex = 1;
+            this.pnlSource10.DragDrop += new System.Windows.Forms.DragEventHandler(this.pnlItems_DragDrop);
+            this.pnlSource10.DragEnter += new System.Windows.Forms.DragEventHandler(this.pnlItems_DragEnter);
+            this.pnlSource10.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SourcePanel_MouseDown);
+            // 
+            // lblSource10
+            // 
+            this.lblSource10.AllowDrop = true;
+            this.lblSource10.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblSource10.BackColor = System.Drawing.Color.White;
+            this.lblSource10.Location = new System.Drawing.Point(1, 113);
+            this.lblSource10.Name = "lblSource10";
+            this.lblSource10.Size = new System.Drawing.Size(101, 16);
+            this.lblSource10.TabIndex = 8;
+            this.lblSource10.Text = "BUTTON";
+            this.lblSource10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // pnlSource9
+            // 
+            this.pnlSource9.AllowDrop = true;
+            this.pnlSource9.BackColor = System.Drawing.Color.SandyBrown;
+            this.pnlSource9.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pnlSource9.BackgroundImage")));
+            this.pnlSource9.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pnlSource9.Controls.Add(this.lblSource9);
+            this.pnlSource9.Location = new System.Drawing.Point(995, 22);
+            this.pnlSource9.Name = "pnlSource9";
+            this.pnlSource9.Size = new System.Drawing.Size(104, 149);
+            this.pnlSource9.TabIndex = 1;
+            this.pnlSource9.DragDrop += new System.Windows.Forms.DragEventHandler(this.pnlItems_DragDrop);
+            this.pnlSource9.DragEnter += new System.Windows.Forms.DragEventHandler(this.pnlItems_DragEnter);
+            this.pnlSource9.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SourcePanel_MouseDown);
+            // 
+            // lblSource9
+            // 
+            this.lblSource9.AllowDrop = true;
+            this.lblSource9.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblSource9.BackColor = System.Drawing.Color.White;
+            this.lblSource9.Location = new System.Drawing.Point(1, 113);
+            this.lblSource9.Name = "lblSource9";
+            this.lblSource9.Size = new System.Drawing.Size(101, 16);
+            this.lblSource9.TabIndex = 8;
+            this.lblSource9.Text = "GENERATE";
+            this.lblSource9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // pnlSource8
+            // 
+            this.pnlSource8.AllowDrop = true;
+            this.pnlSource8.BackColor = System.Drawing.Color.SandyBrown;
+            this.pnlSource8.BackgroundImage = global::PROG7311_POE_PART_1.Properties.Resources.bookBrown;
+            this.pnlSource8.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pnlSource8.Controls.Add(this.lblSource8);
+            this.pnlSource8.Location = new System.Drawing.Point(873, 22);
+            this.pnlSource8.Name = "pnlSource8";
+            this.pnlSource8.Size = new System.Drawing.Size(104, 149);
+            this.pnlSource8.TabIndex = 1;
+            this.pnlSource8.DragDrop += new System.Windows.Forms.DragEventHandler(this.pnlItems_DragDrop);
+            this.pnlSource8.DragEnter += new System.Windows.Forms.DragEventHandler(this.pnlItems_DragEnter);
+            this.pnlSource8.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SourcePanel_MouseDown);
+            // 
+            // lblSource8
+            // 
+            this.lblSource8.AllowDrop = true;
+            this.lblSource8.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblSource8.BackColor = System.Drawing.Color.White;
+            this.lblSource8.Location = new System.Drawing.Point(1, 113);
+            this.lblSource8.Name = "lblSource8";
+            this.lblSource8.Size = new System.Drawing.Size(101, 16);
+            this.lblSource8.TabIndex = 7;
+            this.lblSource8.Text = "THE";
+            this.lblSource8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // pnlSource7
+            // 
+            this.pnlSource7.AllowDrop = true;
+            this.pnlSource7.BackColor = System.Drawing.Color.SandyBrown;
+            this.pnlSource7.BackgroundImage = global::PROG7311_POE_PART_1.Properties.Resources.bookPurple;
+            this.pnlSource7.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pnlSource7.Controls.Add(this.lblSource7);
+            this.pnlSource7.Location = new System.Drawing.Point(751, 22);
+            this.pnlSource7.Name = "pnlSource7";
+            this.pnlSource7.Size = new System.Drawing.Size(104, 149);
+            this.pnlSource7.TabIndex = 1;
+            this.pnlSource7.DragDrop += new System.Windows.Forms.DragEventHandler(this.pnlItems_DragDrop);
+            this.pnlSource7.DragEnter += new System.Windows.Forms.DragEventHandler(this.pnlItems_DragEnter);
+            this.pnlSource7.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SourcePanel_MouseDown);
+            // 
+            // lblSource7
+            // 
+            this.lblSource7.AllowDrop = true;
+            this.lblSource7.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblSource7.BackColor = System.Drawing.Color.White;
+            this.lblSource7.Location = new System.Drawing.Point(1, 113);
+            this.lblSource7.Name = "lblSource7";
+            this.lblSource7.Size = new System.Drawing.Size(101, 16);
+            this.lblSource7.TabIndex = 6;
+            this.lblSource7.Text = "CLICK";
+            this.lblSource7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // pnlSource6
+            // 
+            this.pnlSource6.AllowDrop = true;
+            this.pnlSource6.BackColor = System.Drawing.Color.SandyBrown;
+            this.pnlSource6.BackgroundImage = global::PROG7311_POE_PART_1.Properties.Resources.bookPink;
+            this.pnlSource6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pnlSource6.Controls.Add(this.lblSource6);
+            this.pnlSource6.Location = new System.Drawing.Point(629, 22);
+            this.pnlSource6.Name = "pnlSource6";
+            this.pnlSource6.Size = new System.Drawing.Size(104, 149);
+            this.pnlSource6.TabIndex = 1;
+            this.pnlSource6.DragDrop += new System.Windows.Forms.DragEventHandler(this.pnlItems_DragDrop);
+            this.pnlSource6.DragEnter += new System.Windows.Forms.DragEventHandler(this.pnlItems_DragEnter);
+            this.pnlSource6.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SourcePanel_MouseDown);
+            // 
+            // lblSource6
+            // 
+            this.lblSource6.AllowDrop = true;
+            this.lblSource6.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblSource6.BackColor = System.Drawing.Color.White;
+            this.lblSource6.Location = new System.Drawing.Point(1, 113);
+            this.lblSource6.Name = "lblSource6";
+            this.lblSource6.Size = new System.Drawing.Size(101, 16);
+            this.lblSource6.TabIndex = 5;
+            this.lblSource6.Text = "START";
+            this.lblSource6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // pnlSource5
+            // 
+            this.pnlSource5.AllowDrop = true;
+            this.pnlSource5.BackColor = System.Drawing.Color.SandyBrown;
+            this.pnlSource5.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pnlSource5.BackgroundImage")));
+            this.pnlSource5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pnlSource5.Controls.Add(this.lblSource5);
+            this.pnlSource5.Location = new System.Drawing.Point(507, 22);
+            this.pnlSource5.Name = "pnlSource5";
+            this.pnlSource5.Size = new System.Drawing.Size(104, 149);
+            this.pnlSource5.TabIndex = 1;
+            this.pnlSource5.DragDrop += new System.Windows.Forms.DragEventHandler(this.pnlItems_DragDrop);
+            this.pnlSource5.DragEnter += new System.Windows.Forms.DragEventHandler(this.pnlItems_DragEnter);
+            this.pnlSource5.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SourcePanel_MouseDown);
+            // 
+            // lblSource5
+            // 
+            this.lblSource5.AllowDrop = true;
+            this.lblSource5.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblSource5.BackColor = System.Drawing.Color.White;
+            this.lblSource5.Location = new System.Drawing.Point(1, 113);
+            this.lblSource5.Name = "lblSource5";
+            this.lblSource5.Size = new System.Drawing.Size(101, 16);
+            this.lblSource5.TabIndex = 4;
+            this.lblSource5.Text = "TO";
+            this.lblSource5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // pnlSource4
+            // 
+            this.pnlSource4.AllowDrop = true;
+            this.pnlSource4.BackColor = System.Drawing.Color.SandyBrown;
+            this.pnlSource4.BackgroundImage = global::PROG7311_POE_PART_1.Properties.Resources.bookGreen;
+            this.pnlSource4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pnlSource4.Controls.Add(this.lblSource4);
+            this.pnlSource4.Location = new System.Drawing.Point(385, 22);
+            this.pnlSource4.Name = "pnlSource4";
+            this.pnlSource4.Size = new System.Drawing.Size(104, 149);
+            this.pnlSource4.TabIndex = 1;
+            this.pnlSource4.DragDrop += new System.Windows.Forms.DragEventHandler(this.pnlItems_DragDrop);
+            this.pnlSource4.DragEnter += new System.Windows.Forms.DragEventHandler(this.pnlItems_DragEnter);
+            this.pnlSource4.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SourcePanel_MouseDown);
+            // 
+            // lblSource4
+            // 
+            this.lblSource4.AllowDrop = true;
+            this.lblSource4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblSource4.BackColor = System.Drawing.Color.White;
+            this.lblSource4.Location = new System.Drawing.Point(1, 113);
+            this.lblSource4.Name = "lblSource4";
+            this.lblSource4.Size = new System.Drawing.Size(101, 16);
+            this.lblSource4.TabIndex = 3;
+            this.lblSource4.Text = "READY";
+            this.lblSource4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // pnlSource3
+            // 
+            this.pnlSource3.AllowDrop = true;
+            this.pnlSource3.BackColor = System.Drawing.Color.SandyBrown;
+            this.pnlSource3.BackgroundImage = global::PROG7311_POE_PART_1.Properties.Resources.bookYellow;
+            this.pnlSource3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pnlSource3.Controls.Add(this.lblSource3);
+            this.pnlSource3.Location = new System.Drawing.Point(263, 22);
+            this.pnlSource3.Name = "pnlSource3";
+            this.pnlSource3.Size = new System.Drawing.Size(104, 149);
+            this.pnlSource3.TabIndex = 1;
+            this.pnlSource3.DragDrop += new System.Windows.Forms.DragEventHandler(this.pnlItems_DragDrop);
+            this.pnlSource3.DragEnter += new System.Windows.Forms.DragEventHandler(this.pnlItems_DragEnter);
+            this.pnlSource3.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SourcePanel_MouseDown);
+            // 
+            // lblSource3
+            // 
+            this.lblSource3.AllowDrop = true;
+            this.lblSource3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblSource3.BackColor = System.Drawing.Color.White;
+            this.lblSource3.Location = new System.Drawing.Point(1, 113);
+            this.lblSource3.Name = "lblSource3";
+            this.lblSource3.Size = new System.Drawing.Size(101, 16);
+            this.lblSource3.TabIndex = 2;
+            this.lblSource3.Text = "ARE";
+            this.lblSource3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // pnlSource2
+            // 
+            this.pnlSource2.AllowDrop = true;
+            this.pnlSource2.BackColor = System.Drawing.Color.SandyBrown;
+            this.pnlSource2.BackgroundImage = global::PROG7311_POE_PART_1.Properties.Resources.bookOrange;
+            this.pnlSource2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pnlSource2.Controls.Add(this.lblSource2);
+            this.pnlSource2.Location = new System.Drawing.Point(141, 22);
+            this.pnlSource2.Name = "pnlSource2";
+            this.pnlSource2.Size = new System.Drawing.Size(104, 149);
+            this.pnlSource2.TabIndex = 1;
+            this.pnlSource2.DragDrop += new System.Windows.Forms.DragEventHandler(this.pnlItems_DragDrop);
+            this.pnlSource2.DragEnter += new System.Windows.Forms.DragEventHandler(this.pnlItems_DragEnter);
+            this.pnlSource2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SourcePanel_MouseDown);
+            // 
+            // lblSource2
+            // 
+            this.lblSource2.AllowDrop = true;
+            this.lblSource2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblSource2.BackColor = System.Drawing.Color.White;
+            this.lblSource2.Location = new System.Drawing.Point(1, 113);
+            this.lblSource2.Name = "lblSource2";
+            this.lblSource2.Size = new System.Drawing.Size(101, 16);
+            this.lblSource2.TabIndex = 1;
+            this.lblSource2.Text = "YOU";
+            this.lblSource2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // pnlSource1
+            // 
+            this.pnlSource1.AllowDrop = true;
+            this.pnlSource1.BackColor = System.Drawing.Color.SandyBrown;
+            this.pnlSource1.BackgroundImage = global::PROG7311_POE_PART_1.Properties.Resources.bookRed;
+            this.pnlSource1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pnlSource1.Controls.Add(this.lblSource1);
+            this.pnlSource1.Location = new System.Drawing.Point(19, 22);
+            this.pnlSource1.Name = "pnlSource1";
+            this.pnlSource1.Size = new System.Drawing.Size(104, 149);
+            this.pnlSource1.TabIndex = 0;
+            this.pnlSource1.Tag = "";
+            this.pnlSource1.DragDrop += new System.Windows.Forms.DragEventHandler(this.pnlItems_DragDrop);
+            this.pnlSource1.DragEnter += new System.Windows.Forms.DragEventHandler(this.pnlItems_DragEnter);
+            this.pnlSource1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SourcePanel_MouseDown);
+            // 
+            // lblSource1
+            // 
+            this.lblSource1.AllowDrop = true;
+            this.lblSource1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblSource1.BackColor = System.Drawing.Color.White;
+            this.lblSource1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSource1.Location = new System.Drawing.Point(1, 113);
+            this.lblSource1.Name = "lblSource1";
+            this.lblSource1.Size = new System.Drawing.Size(101, 16);
+            this.lblSource1.TabIndex = 0;
+            this.lblSource1.Text = "IF";
+            this.lblSource1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblProgressBar
             // 
@@ -463,298 +755,6 @@
             this.btnInstructions.UseVisualStyleBackColor = true;
             this.btnInstructions.Click += new System.EventHandler(this.btnInstructions_Click);
             // 
-            // pnlSource10
-            // 
-            this.pnlSource10.AllowDrop = true;
-            this.pnlSource10.BackColor = System.Drawing.Color.SandyBrown;
-            this.pnlSource10.BackgroundImage = global::PROG7311_POE_PART_1.Properties.Resources.bookBlack;
-            this.pnlSource10.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pnlSource10.Controls.Add(this.lblSource10);
-            this.pnlSource10.Location = new System.Drawing.Point(1117, 22);
-            this.pnlSource10.Name = "pnlSource10";
-            this.pnlSource10.Size = new System.Drawing.Size(104, 149);
-            this.pnlSource10.TabIndex = 1;
-            this.pnlSource10.DragDrop += new System.Windows.Forms.DragEventHandler(this.pnlItems_DragDrop);
-            this.pnlSource10.DragEnter += new System.Windows.Forms.DragEventHandler(this.pnlItems_DragEnter);
-            this.pnlSource10.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SourcePanel_MouseDown);
-            // 
-            // lblSource10
-            // 
-            this.lblSource10.AllowDrop = true;
-            this.lblSource10.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblSource10.BackColor = System.Drawing.Color.White;
-            this.lblSource10.Location = new System.Drawing.Point(1, 113);
-            this.lblSource10.Name = "lblSource10";
-            this.lblSource10.Size = new System.Drawing.Size(101, 16);
-            this.lblSource10.TabIndex = 8;
-            this.lblSource10.Text = "BUTTON";
-            this.lblSource10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // pnlSource9
-            // 
-            this.pnlSource9.AllowDrop = true;
-            this.pnlSource9.BackColor = System.Drawing.Color.SandyBrown;
-            this.pnlSource9.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pnlSource9.BackgroundImage")));
-            this.pnlSource9.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pnlSource9.Controls.Add(this.lblSource9);
-            this.pnlSource9.Location = new System.Drawing.Point(995, 22);
-            this.pnlSource9.Name = "pnlSource9";
-            this.pnlSource9.Size = new System.Drawing.Size(104, 149);
-            this.pnlSource9.TabIndex = 1;
-            this.pnlSource9.DragDrop += new System.Windows.Forms.DragEventHandler(this.pnlItems_DragDrop);
-            this.pnlSource9.DragEnter += new System.Windows.Forms.DragEventHandler(this.pnlItems_DragEnter);
-            this.pnlSource9.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SourcePanel_MouseDown);
-            // 
-            // lblSource9
-            // 
-            this.lblSource9.AllowDrop = true;
-            this.lblSource9.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblSource9.BackColor = System.Drawing.Color.White;
-            this.lblSource9.Location = new System.Drawing.Point(1, 113);
-            this.lblSource9.Name = "lblSource9";
-            this.lblSource9.Size = new System.Drawing.Size(101, 16);
-            this.lblSource9.TabIndex = 8;
-            this.lblSource9.Text = "GENERATE";
-            this.lblSource9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // pnlSource8
-            // 
-            this.pnlSource8.AllowDrop = true;
-            this.pnlSource8.BackColor = System.Drawing.Color.SandyBrown;
-            this.pnlSource8.BackgroundImage = global::PROG7311_POE_PART_1.Properties.Resources.bookBrown;
-            this.pnlSource8.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pnlSource8.Controls.Add(this.lblSource8);
-            this.pnlSource8.Location = new System.Drawing.Point(873, 22);
-            this.pnlSource8.Name = "pnlSource8";
-            this.pnlSource8.Size = new System.Drawing.Size(104, 149);
-            this.pnlSource8.TabIndex = 1;
-            this.pnlSource8.DragDrop += new System.Windows.Forms.DragEventHandler(this.pnlItems_DragDrop);
-            this.pnlSource8.DragEnter += new System.Windows.Forms.DragEventHandler(this.pnlItems_DragEnter);
-            this.pnlSource8.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SourcePanel_MouseDown);
-            // 
-            // lblSource8
-            // 
-            this.lblSource8.AllowDrop = true;
-            this.lblSource8.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblSource8.BackColor = System.Drawing.Color.White;
-            this.lblSource8.Location = new System.Drawing.Point(1, 113);
-            this.lblSource8.Name = "lblSource8";
-            this.lblSource8.Size = new System.Drawing.Size(101, 16);
-            this.lblSource8.TabIndex = 7;
-            this.lblSource8.Text = "THE";
-            this.lblSource8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // pnlSource7
-            // 
-            this.pnlSource7.AllowDrop = true;
-            this.pnlSource7.BackColor = System.Drawing.Color.SandyBrown;
-            this.pnlSource7.BackgroundImage = global::PROG7311_POE_PART_1.Properties.Resources.bookPurple;
-            this.pnlSource7.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pnlSource7.Controls.Add(this.lblSource7);
-            this.pnlSource7.Location = new System.Drawing.Point(751, 22);
-            this.pnlSource7.Name = "pnlSource7";
-            this.pnlSource7.Size = new System.Drawing.Size(104, 149);
-            this.pnlSource7.TabIndex = 1;
-            this.pnlSource7.DragDrop += new System.Windows.Forms.DragEventHandler(this.pnlItems_DragDrop);
-            this.pnlSource7.DragEnter += new System.Windows.Forms.DragEventHandler(this.pnlItems_DragEnter);
-            this.pnlSource7.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SourcePanel_MouseDown);
-            // 
-            // lblSource7
-            // 
-            this.lblSource7.AllowDrop = true;
-            this.lblSource7.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblSource7.BackColor = System.Drawing.Color.White;
-            this.lblSource7.Location = new System.Drawing.Point(1, 113);
-            this.lblSource7.Name = "lblSource7";
-            this.lblSource7.Size = new System.Drawing.Size(101, 16);
-            this.lblSource7.TabIndex = 6;
-            this.lblSource7.Text = "CLICK";
-            this.lblSource7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // pnlSource6
-            // 
-            this.pnlSource6.AllowDrop = true;
-            this.pnlSource6.BackColor = System.Drawing.Color.SandyBrown;
-            this.pnlSource6.BackgroundImage = global::PROG7311_POE_PART_1.Properties.Resources.bookPink;
-            this.pnlSource6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pnlSource6.Controls.Add(this.lblSource6);
-            this.pnlSource6.Location = new System.Drawing.Point(629, 22);
-            this.pnlSource6.Name = "pnlSource6";
-            this.pnlSource6.Size = new System.Drawing.Size(104, 149);
-            this.pnlSource6.TabIndex = 1;
-            this.pnlSource6.DragDrop += new System.Windows.Forms.DragEventHandler(this.pnlItems_DragDrop);
-            this.pnlSource6.DragEnter += new System.Windows.Forms.DragEventHandler(this.pnlItems_DragEnter);
-            this.pnlSource6.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SourcePanel_MouseDown);
-            // 
-            // lblSource6
-            // 
-            this.lblSource6.AllowDrop = true;
-            this.lblSource6.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblSource6.BackColor = System.Drawing.Color.White;
-            this.lblSource6.Location = new System.Drawing.Point(1, 113);
-            this.lblSource6.Name = "lblSource6";
-            this.lblSource6.Size = new System.Drawing.Size(101, 16);
-            this.lblSource6.TabIndex = 5;
-            this.lblSource6.Text = "START";
-            this.lblSource6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // pnlSource5
-            // 
-            this.pnlSource5.AllowDrop = true;
-            this.pnlSource5.BackColor = System.Drawing.Color.SandyBrown;
-            this.pnlSource5.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pnlSource5.BackgroundImage")));
-            this.pnlSource5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pnlSource5.Controls.Add(this.lblSource5);
-            this.pnlSource5.Location = new System.Drawing.Point(507, 22);
-            this.pnlSource5.Name = "pnlSource5";
-            this.pnlSource5.Size = new System.Drawing.Size(104, 149);
-            this.pnlSource5.TabIndex = 1;
-            this.pnlSource5.DragDrop += new System.Windows.Forms.DragEventHandler(this.pnlItems_DragDrop);
-            this.pnlSource5.DragEnter += new System.Windows.Forms.DragEventHandler(this.pnlItems_DragEnter);
-            this.pnlSource5.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SourcePanel_MouseDown);
-            // 
-            // lblSource5
-            // 
-            this.lblSource5.AllowDrop = true;
-            this.lblSource5.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblSource5.BackColor = System.Drawing.Color.White;
-            this.lblSource5.Location = new System.Drawing.Point(1, 113);
-            this.lblSource5.Name = "lblSource5";
-            this.lblSource5.Size = new System.Drawing.Size(101, 16);
-            this.lblSource5.TabIndex = 4;
-            this.lblSource5.Text = "TO";
-            this.lblSource5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // pnlSource4
-            // 
-            this.pnlSource4.AllowDrop = true;
-            this.pnlSource4.BackColor = System.Drawing.Color.SandyBrown;
-            this.pnlSource4.BackgroundImage = global::PROG7311_POE_PART_1.Properties.Resources.bookGreen;
-            this.pnlSource4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pnlSource4.Controls.Add(this.lblSource4);
-            this.pnlSource4.Location = new System.Drawing.Point(385, 22);
-            this.pnlSource4.Name = "pnlSource4";
-            this.pnlSource4.Size = new System.Drawing.Size(104, 149);
-            this.pnlSource4.TabIndex = 1;
-            this.pnlSource4.DragDrop += new System.Windows.Forms.DragEventHandler(this.pnlItems_DragDrop);
-            this.pnlSource4.DragEnter += new System.Windows.Forms.DragEventHandler(this.pnlItems_DragEnter);
-            this.pnlSource4.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SourcePanel_MouseDown);
-            // 
-            // lblSource4
-            // 
-            this.lblSource4.AllowDrop = true;
-            this.lblSource4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblSource4.BackColor = System.Drawing.Color.White;
-            this.lblSource4.Location = new System.Drawing.Point(1, 113);
-            this.lblSource4.Name = "lblSource4";
-            this.lblSource4.Size = new System.Drawing.Size(101, 16);
-            this.lblSource4.TabIndex = 3;
-            this.lblSource4.Text = "READY";
-            this.lblSource4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // pnlSource3
-            // 
-            this.pnlSource3.AllowDrop = true;
-            this.pnlSource3.BackColor = System.Drawing.Color.SandyBrown;
-            this.pnlSource3.BackgroundImage = global::PROG7311_POE_PART_1.Properties.Resources.bookYellow;
-            this.pnlSource3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pnlSource3.Controls.Add(this.lblSource3);
-            this.pnlSource3.Location = new System.Drawing.Point(263, 22);
-            this.pnlSource3.Name = "pnlSource3";
-            this.pnlSource3.Size = new System.Drawing.Size(104, 149);
-            this.pnlSource3.TabIndex = 1;
-            this.pnlSource3.DragDrop += new System.Windows.Forms.DragEventHandler(this.pnlItems_DragDrop);
-            this.pnlSource3.DragEnter += new System.Windows.Forms.DragEventHandler(this.pnlItems_DragEnter);
-            this.pnlSource3.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SourcePanel_MouseDown);
-            // 
-            // lblSource3
-            // 
-            this.lblSource3.AllowDrop = true;
-            this.lblSource3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblSource3.BackColor = System.Drawing.Color.White;
-            this.lblSource3.Location = new System.Drawing.Point(1, 113);
-            this.lblSource3.Name = "lblSource3";
-            this.lblSource3.Size = new System.Drawing.Size(101, 16);
-            this.lblSource3.TabIndex = 2;
-            this.lblSource3.Text = "ARE";
-            this.lblSource3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // pnlSource2
-            // 
-            this.pnlSource2.AllowDrop = true;
-            this.pnlSource2.BackColor = System.Drawing.Color.SandyBrown;
-            this.pnlSource2.BackgroundImage = global::PROG7311_POE_PART_1.Properties.Resources.bookOrange;
-            this.pnlSource2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pnlSource2.Controls.Add(this.lblSource2);
-            this.pnlSource2.Location = new System.Drawing.Point(141, 22);
-            this.pnlSource2.Name = "pnlSource2";
-            this.pnlSource2.Size = new System.Drawing.Size(104, 149);
-            this.pnlSource2.TabIndex = 1;
-            this.pnlSource2.DragDrop += new System.Windows.Forms.DragEventHandler(this.pnlItems_DragDrop);
-            this.pnlSource2.DragEnter += new System.Windows.Forms.DragEventHandler(this.pnlItems_DragEnter);
-            this.pnlSource2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SourcePanel_MouseDown);
-            // 
-            // lblSource2
-            // 
-            this.lblSource2.AllowDrop = true;
-            this.lblSource2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblSource2.BackColor = System.Drawing.Color.White;
-            this.lblSource2.Location = new System.Drawing.Point(1, 113);
-            this.lblSource2.Name = "lblSource2";
-            this.lblSource2.Size = new System.Drawing.Size(101, 16);
-            this.lblSource2.TabIndex = 1;
-            this.lblSource2.Text = "YOU";
-            this.lblSource2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // pnlSource1
-            // 
-            this.pnlSource1.AllowDrop = true;
-            this.pnlSource1.BackColor = System.Drawing.Color.SandyBrown;
-            this.pnlSource1.BackgroundImage = global::PROG7311_POE_PART_1.Properties.Resources.bookRed;
-            this.pnlSource1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pnlSource1.Controls.Add(this.lblSource1);
-            this.pnlSource1.Location = new System.Drawing.Point(19, 22);
-            this.pnlSource1.Name = "pnlSource1";
-            this.pnlSource1.Size = new System.Drawing.Size(104, 149);
-            this.pnlSource1.TabIndex = 0;
-            this.pnlSource1.Tag = "";
-            this.pnlSource1.DragDrop += new System.Windows.Forms.DragEventHandler(this.pnlItems_DragDrop);
-            this.pnlSource1.DragEnter += new System.Windows.Forms.DragEventHandler(this.pnlItems_DragEnter);
-            this.pnlSource1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SourcePanel_MouseDown);
-            // 
-            // lblSource1
-            // 
-            this.lblSource1.AllowDrop = true;
-            this.lblSource1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblSource1.BackColor = System.Drawing.Color.White;
-            this.lblSource1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSource1.Location = new System.Drawing.Point(1, 113);
-            this.lblSource1.Name = "lblSource1";
-            this.lblSource1.Size = new System.Drawing.Size(101, 16);
-            this.lblSource1.TabIndex = 0;
-            this.lblSource1.Text = "IF";
-            this.lblSource1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // timer1
             // 
             this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
@@ -815,6 +815,16 @@
             this.Text = "Replace Books";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ReplaceBooks_FormClosing);
             this.pnlSourceMain.ResumeLayout(false);
+            this.pnlSource10.ResumeLayout(false);
+            this.pnlSource9.ResumeLayout(false);
+            this.pnlSource8.ResumeLayout(false);
+            this.pnlSource7.ResumeLayout(false);
+            this.pnlSource6.ResumeLayout(false);
+            this.pnlSource5.ResumeLayout(false);
+            this.pnlSource4.ResumeLayout(false);
+            this.pnlSource3.ResumeLayout(false);
+            this.pnlSource2.ResumeLayout(false);
+            this.pnlSource1.ResumeLayout(false);
             this.pnlReceiverMain.ResumeLayout(false);
             this.pnlReceiver10.ResumeLayout(false);
             this.pnlReceiver9.ResumeLayout(false);
@@ -826,16 +836,6 @@
             this.pnlReceiver3.ResumeLayout(false);
             this.pnlReceiver2.ResumeLayout(false);
             this.pnlReceiver1.ResumeLayout(false);
-            this.pnlSource10.ResumeLayout(false);
-            this.pnlSource9.ResumeLayout(false);
-            this.pnlSource8.ResumeLayout(false);
-            this.pnlSource7.ResumeLayout(false);
-            this.pnlSource6.ResumeLayout(false);
-            this.pnlSource5.ResumeLayout(false);
-            this.pnlSource4.ResumeLayout(false);
-            this.pnlSource3.ResumeLayout(false);
-            this.pnlSource2.ResumeLayout(false);
-            this.pnlSource1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 

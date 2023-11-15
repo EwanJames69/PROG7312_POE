@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using System.Media;
+using DeweyDecimalClassLibrary;
 
 namespace PROG7311_POE_PART_1
 {
@@ -47,21 +48,10 @@ namespace PROG7311_POE_PART_1
         public ReplaceBooks()
         {
             InitializeComponent();
-
-            // Clearing all the current images stored in the list
-            backgroundImageList.Clear();
-
-            // Initializing the list with background images for the book panels
-            backgroundImageList.Add(Properties.Resources.bookRed);
-            backgroundImageList.Add(Properties.Resources.bookOrange);
-            backgroundImageList.Add(Properties.Resources.bookYellow);
-            backgroundImageList.Add(Properties.Resources.bookGreen);
-            backgroundImageList.Add(Properties.Resources.bookBlue);
-            backgroundImageList.Add(Properties.Resources.bookPink);
-            backgroundImageList.Add(Properties.Resources.bookPurple);
-            backgroundImageList.Add(Properties.Resources.bookBrown);
-            backgroundImageList.Add(Properties.Resources.bookGrey);
-            backgroundImageList.Add(Properties.Resources.bookBlack);
+            
+            // Initializing the background images for the panels
+            CallNumberGenerator callNumberGenerator = new CallNumberGenerator();
+            backgroundImageList = callNumberGenerator.FillBackroundImages(backgroundImageList);
 
             // Disconnecting the panels from all the events for exception handling
             for (int i = 1; i <= 10; i++)
@@ -98,6 +88,7 @@ namespace PROG7311_POE_PART_1
         private void btnGenerate_Click(object sender, EventArgs e)
         {
             Random random = new Random();
+            CallNumberGenerator callNumberGenerator = new CallNumberGenerator();
 
             // Clearing the lists previous values
             currentCallNumbers.Clear();
@@ -130,9 +121,8 @@ namespace PROG7311_POE_PART_1
                 receiverLabel.Text = "";
                 receiverLabel.BackColor = Color.SandyBrown;
 
-                // Generating a random call number
-                // Uses a format specifier (D3 and D2) to make sure it follows the format "XXX.YY AAA" as it adds leading zeros to the number if necessary
-                string callNumber = $"{random.Next(1, 1000):D3}.{random.Next(1, 100):D2} {(char)random.Next('A', 'Z' + 1)}{(char)random.Next('A', 'Z' + 1)}{(char)random.Next('A', 'Z' + 1)}";
+                // Calling the CallNumberGenerator method from the class library to generate a random call number             
+                var callNumber = callNumberGenerator.GenerateCallNumber();
 
                 // Setting the back color and font of the source labels
                 sourceLabel.BackColor = Color.White;
@@ -148,14 +138,8 @@ namespace PROG7311_POE_PART_1
                 currentCallNumbers.Add(callNumber);
             }
 
-            /*
-             *  Storing the sorted call numbers in a list for comparison             
-             *  (cn => cn) is a lambda expression that serves as the sorting key. It defines how the elements in the list should be evaluated for sorting. 
-             *  In this case, cn is a parameter that represents each element in the list, and cn => cn essentially means "sort the elements based on themselves."
-             *  In other words, it's sorting the elements in their natural order (lexicographical order for strings)
-             *  This code was constructed with help of GeeksforGeeks at: https://www.geeksforgeeks.org/lambda-expressions-in-c-sharp/
-            */
-            sortedCallNumbers = currentCallNumbers.OrderBy(cn => cn).ToList();
+            // Calling the SortCallNumbers method from the class library to sort the call numbers that were generated
+            sortedCallNumbers = callNumberGenerator.SortCallNumbers(currentCallNumbers);
 
             // For loop to iterate through all the panels
             for(int i = 1; i <= 10; i++)
@@ -384,7 +368,7 @@ namespace PROG7311_POE_PART_1
         private void UpdateProgressBar()
         {
             // Runs the CalculatePercentageCorrectlySorted() method to calculate the amount of placed books are correct
-            double percentageCorrect = CalculatePercentageCorrectlySorted();
+            var percentageCorrect = CalculatePercentageCorrectlySorted();
 
             // Setting the progress bars value to the calculated amount
             progressBar.Value = (int)percentageCorrect;
@@ -604,11 +588,11 @@ namespace PROG7311_POE_PART_1
 
         private double CalculatePercentageCorrectlySorted()
         {
-            // Storing the total amount of call numbers (always 10 unless changed in future)
-            int totalCallNumbers = currentCallNumbers.Count;
+            // Storing the total amount of call numbers (alw  6ays 10 unless changed in future)
+            var totalCallNumbers = currentCallNumbers.Count;         
 
-            // Setting the already coreectly sorted amount of books to 0
-            int correctlySorted = 0;
+            // Setting the already correctly sorted amount of books to 0
+            var correctlySorted = 0;
 
             if (currentCallNumbers != null && sortedCallNumbers.Count == totalCallNumbers)
             {

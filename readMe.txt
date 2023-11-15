@@ -16,6 +16,8 @@ The three options on the home form are as follows:
 - Find Call Numbers (Coming soon)
 The user can only click on the Replace Books game button as it is the only game that has been developed so far. Once clicked, the user will be taken to the Replace Books game
 
+************************************ REPLACE BOOKS GAME ************************************
+
 *** Replace Books Form ***
 The replace books form is the form where the user plays the replace books game. Once the generate button is clicked, the user is able to drag books from the top panel to 
 the bottom panel with the goal of sorting the books by their call numbers (ascending order, left panel to right panel). Once sorted correctly, the game will stop and
@@ -33,6 +35,8 @@ is displayed to the user once the game is complete.
 *** Replace Books Instructions Form ***
 This form is just to inform the user on how to play the game. It gives out the instructions for the user to read and provides a continue button once the user is finished
 reading. Four basic instructions are given to help the user get a hang of the application quicker rather than just going in blind.
+
+************************************ MATCH COLUMNS GAME ************************************
 
 *** Match Columns Form ***
 This is the from which displays the match-the-columns game. The user is presented with 4 boxes on the left and 7 on the right. They have to correctly match the call numbers to
@@ -52,6 +56,10 @@ what anything does. This helps the application become more usable and user-frien
 This form just shows a photo to the user on what each call numbers description is. Instead of looking it up on the internet, this just helps them as they can study it before
 playing the game to fully grasp the concept of the dewey decimal system.
 
+********************************* FINDING CALL NUMBERS GAME ************************************
+
+
+
 That is the complete description of the application.
 
 -----------------------------------------------------------------------------------------
@@ -65,7 +73,7 @@ Open up visual studio and click on "Open project or solution"
 
 Find the folder that this application is stored in and open the folder. Click on the application inside and then it will direct you to the 
 application in visual studio. Once the application has finished loading and you can see the solution explorer for the project, click the "run application" button to
-start the application (next to the green arrow on the top of visual studio).
+start the application (next to the green arrow on the top of visual studio HUD).
 
 Once running, the application will start compiling. You will then be taken to the home form of the application.
 
@@ -77,7 +85,7 @@ This is an exact step by step guide on what to do:
 1 - Navigate to the file where the project is stored
 2 - Open up the "PROG7311_POE_PART_1" folder
 3 - Find all the files that end in .resx
-4 - Right click on all the files 1 by 1 and find tick the "Unblock" check box/button.
+4 - Right click on all the files 1 by 1 and find and tick the "Unblock" check box/button.
 5 - Once all .resx files have been unblocked, rebuild the application in visual studios
 6 - Run the application (Everything should be fixed now)
 
