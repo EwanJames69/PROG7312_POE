@@ -52,6 +52,20 @@ namespace PROG7311_POE_PART_1
 
         //----------------------------------------------------------------------------------------------------------------------------------//
 
+        /// <summary>
+        /// Event that runs when the findCallNumbers button is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnFindCallNumbers_Click(object sender, EventArgs e)
+        {
+            Hide();
+            FindingCallNumbers findingCallNumbers = new FindingCallNumbers();
+            findingCallNumbers.Show();
+        }
+
+        //----------------------------------------------------------------------------------------------------------------------------------//
+
         #region Replace_Books_Events
 
         /// <summary>
@@ -149,6 +163,6 @@ namespace PROG7311_POE_PART_1
             Application.Exit();
         }
 
-        #endregion
+        #endregion        
     }
 }

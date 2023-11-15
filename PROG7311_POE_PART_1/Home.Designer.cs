@@ -32,7 +32,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnReplaceBooks = new System.Windows.Forms.Button();
             this.btnIdentifyAreas = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.btnFindCallNumbers = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -73,15 +73,16 @@
             this.btnIdentifyAreas.MouseEnter += new System.EventHandler(this.btnIdentifyAreas_MouseEnter);
             this.btnIdentifyAreas.MouseLeave += new System.EventHandler(this.btnIdentifyAreas_MouseLeave);
             // 
-            // button3
+            // btnFindCallNumbers
             // 
-            this.button3.BackgroundImage = global::PROG7311_POE_PART_1.Properties.Resources.bwFindCallNumbersLogo;
-            this.button3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button3.Location = new System.Drawing.Point(645, 290);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(232, 290);
-            this.button3.TabIndex = 3;
-            this.button3.UseVisualStyleBackColor = true;
+            this.btnFindCallNumbers.BackgroundImage = global::PROG7311_POE_PART_1.Properties.Resources.bwFindCallNumbersLogo;
+            this.btnFindCallNumbers.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnFindCallNumbers.Location = new System.Drawing.Point(645, 290);
+            this.btnFindCallNumbers.Name = "btnFindCallNumbers";
+            this.btnFindCallNumbers.Size = new System.Drawing.Size(232, 290);
+            this.btnFindCallNumbers.TabIndex = 3;
+            this.btnFindCallNumbers.UseVisualStyleBackColor = true;
+            this.btnFindCallNumbers.Click += new System.EventHandler(this.btnFindCallNumbers_Click);
             // 
             // Home
             // 
@@ -90,7 +91,7 @@
             this.BackColor = System.Drawing.Color.White;
             this.BackgroundImage = global::PROG7311_POE_PART_1.Properties.Resources.deweyBackground;
             this.ClientSize = new System.Drawing.Size(889, 592);
-            this.Controls.Add(this.button3);
+            this.Controls.Add(this.btnFindCallNumbers);
             this.Controls.Add(this.btnIdentifyAreas);
             this.Controls.Add(this.btnReplaceBooks);
             this.Controls.Add(this.pictureBox1);
@@ -110,6 +111,6 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button btnReplaceBooks;
         private System.Windows.Forms.Button btnIdentifyAreas;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btnFindCallNumbers;
     }
 }

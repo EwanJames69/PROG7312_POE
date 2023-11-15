@@ -61,6 +61,12 @@
     <Compile Include="DeweyDecimalPictureUserControl.Designer.cs">
       <DependentUpon>DeweyDecimalPictureUserControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="FindingCallNumbers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FindingCallNumbers.Designer.cs">
+      <DependentUpon>FindingCallNumbers.cs</DependentUpon>
+    </Compile>
     <Compile Include="IdentifyAreasInstructions.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -115,6 +121,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DeweyDecimalPictureUserControl.resx">
       <DependentUpon>DeweyDecimalPictureUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FindingCallNumbers.resx">
+      <DependentUpon>FindingCallNumbers.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="IdentifyAreasInstructions.resx">
       <DependentUpon>IdentifyAreasInstructions.cs</DependentUpon>
