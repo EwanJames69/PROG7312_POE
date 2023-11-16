@@ -28,57 +28,44 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lblCallNumber = new System.Windows.Forms.Label();
-            this.lblDescription = new System.Windows.Forms.Label();
-            this.lblLevel = new System.Windows.Forms.Label();
+            this.lblTest = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // lblCallNumber
+            // lblTest
             // 
-            this.lblCallNumber.AutoSize = true;
-            this.lblCallNumber.Location = new System.Drawing.Point(109, 74);
-            this.lblCallNumber.Name = "lblCallNumber";
-            this.lblCallNumber.Size = new System.Drawing.Size(44, 16);
-            this.lblCallNumber.TabIndex = 0;
-            this.lblCallNumber.Text = "label1";
+            this.lblTest.Location = new System.Drawing.Point(98, 87);
+            this.lblTest.Name = "lblTest";
+            this.lblTest.Size = new System.Drawing.Size(601, 156);
+            this.lblTest.TabIndex = 0;
+            this.lblTest.Text = "label1";
             // 
-            // lblDescription
+            // button1
             // 
-            this.lblDescription.AutoSize = true;
-            this.lblDescription.Location = new System.Drawing.Point(109, 166);
-            this.lblDescription.Name = "lblDescription";
-            this.lblDescription.Size = new System.Drawing.Size(44, 16);
-            this.lblDescription.TabIndex = 1;
-            this.lblDescription.Text = "label2";
-            // 
-            // lblLevel
-            // 
-            this.lblLevel.AutoSize = true;
-            this.lblLevel.Location = new System.Drawing.Point(109, 252);
-            this.lblLevel.Name = "lblLevel";
-            this.lblLevel.Size = new System.Drawing.Size(44, 16);
-            this.lblLevel.TabIndex = 2;
-            this.lblLevel.Text = "label3";
+            this.button1.Location = new System.Drawing.Point(125, 286);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // FindingCallNumbers
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.lblLevel);
-            this.Controls.Add(this.lblDescription);
-            this.Controls.Add(this.lblCallNumber);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.lblTest);
             this.Name = "FindingCallNumbers";
             this.Text = "FindingCallNumbers";
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Label lblCallNumber;
-        private System.Windows.Forms.Label lblDescription;
-        private System.Windows.Forms.Label lblLevel;
+        private System.Windows.Forms.Label lblTest;
+        private System.Windows.Forms.Button button1;
     }
 }

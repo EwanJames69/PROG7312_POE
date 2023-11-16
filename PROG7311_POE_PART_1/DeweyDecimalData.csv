@@ -1,0 +1,261 @@
+CallNumber,Description,Level
+000,General Knowledge,1
+010,Bibliography,2
+012,Bibliographies of individuals,3
+013,Bibliographies of works by specific classes of authors,3
+015,Bibliographies of works from specific places,3
+018,Catalogues arranged by author & date,3
+020,Library & information sciences,2
+030,General encyclopaedic works,2
+031,General encyclopaedic works — American,3
+034,General encyclopaedic works in French, Provencal, Catalan,3
+038,General encyclopaedic works in Scandinavian languages,3
+039,General encyclopaedic works in other languages,3
+040,Not assigned or no longer used,2
+050,General serials & their indexes,2
+060,General organization & museology,2
+070,News media, journalism, publishing,2
+074,News media, journalism, publishing In France & Monaco,3
+075,News media, journalism, publishing In Italy & adjacent territories,3
+077,News media, journalism, publishing In eastern Europe In Soviet Union,3
+079,News media, journalism, publishing In other languages,3
+080,General collections,2
+082,General collections In English,3
+084,General collections In French, Provencal, Catalan,3
+086,General collections In Spanish & Portuguese,3
+087,General collections In Slavic languages,3
+090,Manuscripts & rare books,2
+100,Philosophy & psychology,1
+110,Metaphysics,2
+120,Epistemology, causation, humankind,2
+122,Causation,3
+124,Teleology,3
+126,The self,3
+128,Humankind,3
+130,Paranormal phenomena,2
+140,Specific philosophical schools,2
+150,Psychology,2
+153,Mental processes & intelligence,3
+154,Subconscious & altered states,3
+156,Comparative psychology,3
+158,Applied psychology,3
+160,Logic,2
+161,Induction,3
+165,Fallacies & sources of error,3
+166,Syllogisms,3
+169,Analogy,3
+170,Ethics (Moral philosophy),2
+180,Ancient, medieval, Oriental philosophy,2
+182,Pre-Socratic Greek philosophies,3
+184,Platonic philosophy,3
+185,Aristotelian philosophy,3
+189,Medieval Western philosophy,3
+190,Modern Western philosophy,2
+200,Religion,1
+210,Natural theology,2
+220,Bible,2
+230,Christian theology,2
+231,God,3
+232,Jesus Christ & his family,3
+233,Humankind,3
+239,Apologetics & polemics,3
+240,Christian moral & devotional theology,2
+250,Christian orders & local church,2
+251,Preaching (Homiletics),3
+252,Texts of sermons,3
+255,Religious congregations & orders,3
+259,Activities of the local church,3
+260,Christian social theology,2
+270,Christian church history,2
+273,Heresies in church history,3
+275,Christian church in Asia,3
+277,Christian church in North America,3
+278,Christian church in South America,3
+280,Christian denominations & sects,2
+290,Other & comparative religions,2
+291,Comparative religion,3
+293,Germanic religion,3
+294,Religions of Indic origin,3
+297,Islam & religions originating in it,3
+300,Social sciences,1
+310,General statistics,2
+320,Political science,2
+322,Relation of state to organized groups,3
+323,Civil & political rights,3
+325,International migration & colonization,3
+326,Slavery & emancipation,3
+330,Economics,2
+340,Law,2
+341,International law,3
+345,Criminal law,3
+347,Civil procedure & courts,3
+349,Law of specific jurisdictions & areas,3
+350,Public administration,2
+360,Social services; association,2
+363,Other social problems & services,3
+364,Criminology,3
+366,Association,3
+368,Insurance,3
+370,Education,2
+380,Commerce, communications, transport,2
+381,Internal commerce (Domestic trade),3
+383,Postal communication,3
+387,Water, air, space transportation,3
+388,Transportation Ground transportation,3
+390,Customs, etiquette, folklore,2
+400,Language,1
+410,Linguistics,2
+413,Dictionaries,3
+414,Phonology,3
+417,Dialectology & historical linguistics,3
+418,Standard usage Applied linguistics,3
+420,English & Old English,2
+421,English writing system & phonology,3
+422,English etymology,3
+423,English dictionaries,3
+427,English language variations,3
+430,Germanic languages German,2
+440,Romance languages French,2
+450,Italian, Romanian, Rhaeto-Romantic,2
+455,Italian grammar,3
+456,Italian language variations,3
+458,Standard Italian usage,3
+459,Romanian & Rhaeto-Romanic,3
+460,Spanish & Portuguese languages,2
+462,Spanish etymology,3
+464,Spanish grammar,3
+466,Spanish language variations,3
+468,Standard Spanish usage,3
+470,Italic Latin,2
+480,Hellenic languages Classical Greek,2
+490,Other languages,2
+500,Science,1
+510,Mathematics,2
+520,Astronomy & allied sciences,2
+530,Physics,2
+533,Gas mechanics,3
+534,Sound & related vibrations,3
+536,Heat,3
+538,Magnetism,3
+540,Chemistry & allied sciences,2
+550,Earth sciences,2
+560,Palaeontology Paleozoology,2
+563,Fossil primitive phyla,3
+564,Fossil Mollusca & Molluscoidea,3
+567,Fossil cold-blooded vertebrates,3
+568,Fossil Aves (Fossil birds),3
+570,Life sciences,2
+572,Biochemistry,3
+573,Physical anthropology,3
+575,Evolution & genetics,3
+579,Collection and preservation,3
+580,Botanical sciences,2
+590,Zoological sciences,2
+593,Protozoa, Echinodermata, related phyla,3
+594,Mollusca & Molluscoidea,3
+595,Other invertebrates,3
+597,Cold-blooded vertebrates Fishes,3
+600,Technology,1
+610,Medical sciences Medicine,2
+620,Engineering & allied operations,2
+630,Agriculture,2
+631,Techniques, equipment, materials,3
+634,Orchards, fruits, forestry,3
+636,Animal husbandry,3
+637,Processing dairy & related products,3
+640,Home economics & family living,2
+642,Meals & table service,3
+643,Housing & household equipment,3
+645,Household utilities,3
+649,Child rearing & home care of sick,3
+650,Management & auxiliary services,2
+660,Chemical engineering,2
+670,Manufacturing,2
+672,Iron, steel, other iron alloys,3
+675,Lumber processing, wood products, cork,3
+676,Pulp & paper technology,3
+679,Other products of specific materials,3
+680,Manufacture for specific uses,2
+690,Buildings,2
+691,Building materials,3
+694,Wood construction Carpentry,3
+695,Roof covering,3
+697,Heating, ventilating, air-conditioning,3
+700,Arts & Recreation,1
+710,Civic & landscape art,2
+720,Architecture,2
+721,Architectural structure,3
+725,Public structures,3
+726,Buildings for religious purposes,3
+729,Design & decoration,3
+730,Plastic arts Sculpture,2
+740,Drawing & decorative arts,2
+742,Perspective,3
+744,Decorative arts,3
+746,Textile arts,3
+747,Interior decoration,3
+750,Painting & paintings,2
+760,Graphic arts Printmaking & prints,2
+770,Photography & photographs,2
+771,Techniques, equipment, materials,3
+774,Holography,3
+778,Fields & kinds of photography,3
+779,Photographs,3
+780,Music,2
+785,Chamber music,3
+786,Keyboard & other instruments,3
+787,Stringed instruments (Chordophones),3
+788,Wind instruments (Aerophones),3
+790,Recreational & performing arts,2
+800,Literature,1
+802,Miscellany,3
+803,Dictionaries & encyclopaedias,3
+805,Serial publications,3
+806,Organizations,3
+810,American literature in English,2
+820,English & Old English literatures,2
+830,Literatures of Germanic languages,2
+832,Reformation, etc. 1517-1750,3
+833,Classic period, 1750-1830,3
+834,Post classic & modern, 1830-1940/50,3
+838,German miscellaneous writings,3
+840,Literatures of Romance languages,2
+841,Literatures of Romance languages,3
+842,Transition & renaissance periods, 1400-1600,3
+845,Revolution to present, 1789-1940/50,3
+847,French Canadian,3
+850,Italian, Romanian, Rhaeto-Romanic,2
+860,Spanish & Portuguese literatures,2
+870,General works on Latin literature,2
+871,Latin Authors,3
+872,Collections of Latin prose or poetry,3
+875,Medieval and modern Latin literature, 500 A.D. – date,3
+879,Classical literature-History and criticism,3
+880,Hellenic literatures Classical Greek,2
+890,Literatures of other specific languages,2
+900,Geography & History,1
+910,Geography & travel,2
+911,Historical geography,3
+914,Europe,3
+915,Asia,3
+918,South America,3
+920,Biography, genealogy, insignia,2
+930,History of ancient world,2
+933,History of ancient world Palestine,3
+934,History of ancient world India,3
+937,History of ancient world Italy & adjacent territories,3
+938,History of ancient world Greece,3
+940,General history of Europe,2
+950,General history of Asia,2
+960,General history of Africa,2
+961,General history of Africa Tunisia & Libya,3
+965,General history of Africa Algeria,3
+968,General history of Africa Southern Africa,3
+969,General history of Africa South Indian Ocean islands,3
+970,General history of North America,2
+980,General history of South America,2
+990,General history of other areas,2
+993,General history of other areas New Zealand,3
+994,General history of other areas Australia,3
+995,General history of other areas Melanesia New Guinea,3
+997,General history of other areas Atlantic Ocean islands,3

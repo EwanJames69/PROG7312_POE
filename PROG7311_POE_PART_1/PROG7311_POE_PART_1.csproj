@@ -36,6 +36,7 @@
     <Reference Include="DeweyDecimalClassLibrary">
       <HintPath>..\DeweyDecimalClassLibrary\bin\Debug\DeweyDecimalClassLibrary.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -151,6 +152,9 @@
     <EmbeddedResource Include="ReplaceBooksInstructions.resx">
       <DependentUpon>ReplaceBooksInstructions.cs</DependentUpon>
     </EmbeddedResource>
+    <Content Include="DeweyDecimalData.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
