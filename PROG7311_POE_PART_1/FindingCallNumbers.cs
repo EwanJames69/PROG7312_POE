@@ -17,55 +17,53 @@ namespace PROG7311_POE_PART_1
     {
         string filePath = "DeweyDecimalData.csv";
 
+        private DeweyDecimalTree deweyTree = new DeweyDecimalTree();
+        private int counter;
+
         public FindingCallNumbers()
         {
-            InitializeComponent();            
+            InitializeComponent();          
         }
 
-        static string[] ReadFirstThreeLines(string filePath)
+        private void ReadDataFromFileAndDisplayTree(string filePath)
         {
             try
             {
                 using (StreamReader reader = new StreamReader(filePath))
                 {
-                    // Reading the first three lines
-                    string[] firstThreeLines = new string[3];
-                    for (int i = 0; i < 3 && !reader.EndOfStream; i++)
-                    {
-                        firstThreeLines[i] = reader.ReadLine();
-                    }
+                    // Skip the header line
+                    reader.ReadLine();                    
 
-                    return firstThreeLines;
+                    while (!reader.EndOfStream)
+                    {
+                        counter++;
+                        string line = reader.ReadLine();
+                        string[] parts = line.Split(',');
+
+                        string callNumber = parts[0];
+                        string description = parts[1];
+                        int level = int.Parse(parts[2]);
+
+                        // Display information directly, no need to create nodes
+                        DisplayTreeInfo(callNumber, description, level);
+                    }
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"An error occurred while reading the file: {ex.Message}");
-                return null;
+                lblTest.Text = ($"An error occurred while reading the file: {ex.Message} " + $"{counter}");
             }
+        }
+
+        private void DisplayTreeInfo(string callNumber, string description, int level)
+        {
+            // Display information about the current node
+            lblTest.Text += $"{callNumber}: {description}\n";
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            // Method to read the first three lines
-            string[] firstThreeLines = ReadFirstThreeLines(filePath);
-
-            // Displaying the first three lines as a test
-            if (firstThreeLines != null)
-            {
-                StringBuilder displayText = new StringBuilder();
-
-                for (int i = 0; i < firstThreeLines.Length && firstThreeLines[i] != null; i++)
-                {
-                    displayText.AppendLine($"Line {i + 1}: {firstThreeLines[i]}");
-                }
-
-                lblTest.Text = displayText.ToString();
-            }
-            else
-            {
-                lblTest.Text = ("The file is empty or an error occurred while reading.");
-            }
+            ReadDataFromFileAndDisplayTree(filePath);;
         }
     }
 }

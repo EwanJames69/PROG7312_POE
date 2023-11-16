@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="BeginLevelMessage.cs" />
     <Compile Include="CallNumberGenerator.cs" />
+    <Compile Include="DeweyDecimalTree.cs" />
     <Compile Include="DictionaryValueGenerator.cs" />
     <Compile Include="Line.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -53,6 +54,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="TreeNode.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
