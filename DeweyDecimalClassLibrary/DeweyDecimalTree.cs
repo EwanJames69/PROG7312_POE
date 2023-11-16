@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,75 +11,121 @@ namespace DeweyDecimalClassLibrary
 {
     public class DeweyDecimalTree
     {
-        public TreeNode Root { get; private set; }
+        /// <summary>
+        /// Stores the file path to the data file
+        /// </summary>
+        string path = "DeweyDecimalData.csv";
 
-        public DeweyDecimalTree()
-        {
-            // Root node
-            Root = new TreeNode("Root", "Dewey Decimal System");
-        }
+        /// <summary>
+        /// Class constructor
+        /// </summary>
+        public DeweyDecimalTree() { }        
 
-        public void AddNode(string callNumber, string description, int level)
-        {
-            AddNodeRecursive(Root, callNumber, description, level);
-        }
+        //----------------------------------------------------------------------------------------------------------------------------------//
 
-        private void AddNodeRecursive(TreeNode parentNode, string callNumber, string description, int level)
+        /// <summary>
+        /// Method to populate the tree with the values from the csv data file in the class library
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+
+        #region PopulateTree_Method
+
+        public Node PopulateTree(string filePath)
         {
-            // Check if the level is valid
-            if (level <= 0)
+            // Reading all the lines in the data file using the file path
+            string[] lines = File.ReadAllLines(filePath);
+
+            // Checking if the application read from the data file correctly (returning null if there was an error)
+            if (lines.Length == 0)
             {
-                Console.WriteLine($"Invalid level for {callNumber} - {description}");
-                return;
+                return null;
             }
 
-            // Find the parent node based on the call number
-            TreeNode parent;
+            // Getting the characters length of the root leading tab and creating the root
+            int rootTabLength = lines[0].TakeWhile(c => c == '\t').Count();            
+            Node root = new Node(lines[0].Trim());
 
-            if (level == 1)
+            // Creating a list to hold the nodes and their corresponding tab characters lengths
+            List<Tuple<Node, int>> nodesAndLengths = new List<Tuple<Node, int>>
             {
-                // For level 1, add as a child of the root
-                parent = parentNode;
-            }
-            else
+                // Adding the root to the nodes list with its tab characters length
+                new Tuple<Node, int>(root, rootTabLength)
+            };
+
+            for (var i = 1; i < lines.Length; i++)
             {
-                // For levels 2 and 3, find the parent based on the call number
-                string parentCallNumber = callNumber.Substring(0, level - 1);
+                // Creating the node and retrieving its tab characters length
+                Node node = new Node(lines[i].Trim());
+                int nodeTabLength = lines[i].TakeWhile(c => c == '\t').Count();
 
-                parent = parentNode.Children.FirstOrDefault(c => c.CallNumber == parentCallNumber);
-
-                if (parent == null)
+                // Checking if the node is a root (there can't be more than 2 roots in one tree structure)
+                if (nodeTabLength <= rootTabLength)
                 {
-                    Console.WriteLine($"Parent not found for {callNumber} - {description}");
-                    return;
+                    throw new Exception("There cannot be more than one root, please change the data provided");
+                }
+
+                // Finding the node parent in the nodes list using LINQ then adding it to its corresponding parent
+                Node parent = nodesAndLengths.Last(nodeAndLength => nodeAndLength.Item2 < nodeTabLength).Item1;
+                parent.Children.Add(node);
+
+                // Adding the node to the node list
+                nodesAndLengths.Add(new Tuple<Node, int>(node, nodeTabLength));                
+            }
+            return root;
+        }
+
+        #endregion
+
+        //----------------------------------------------------------------------------------------------------------------------------------//
+
+        public (Node node, string text) FindNodeByCallNumber(Node node, string targetCallNumber)
+        {
+            // Check if the current node's value starts with the target call number
+            if (node.Value.StartsWith(targetCallNumber))
+            {
+                // Extract the text after the call number
+                string nodeText = node.Value.Substring(targetCallNumber.Length).Trim();
+
+                return (node, nodeText);
+            }
+
+            // Recursively search in the children nodes
+            foreach (var child in node.Children)
+            {
+                var foundNode = FindNodeByCallNumber(child, targetCallNumber);
+                if (foundNode.node != null)
+                {
+                    return foundNode;
                 }
             }
 
-            // Add the current node as a child of the parent
-            TreeNode currentNode = new TreeNode(callNumber, description);
-            parent.Children.Add(currentNode);
+            return (null, null);
         }
 
-        public string GetTreeData()
+        public Node FindParent(Node rootNode, Node targetNode)
         {
-            StringBuilder displayText = new StringBuilder();
-            DisplayTree(Root, ref displayText);
-            return displayText.ToString();
-        }
-
-        private void DisplayTree(TreeNode node, ref StringBuilder displayText, string indent = "")
-        {
-            if (node != null)
+            if (rootNode == null || targetNode == null || rootNode == targetNode)
             {
-                // Display information about the current node
-                displayText.AppendLine($"{indent}{node.CallNumber}: {node.Description}");
+                return null; // No parent for the root or if targetNode is null or the root itself
+            }
 
-                // Traverse children
-                foreach (var child in node.Children)
+            foreach (var child in rootNode.Children)
+            {
+                if (child == targetNode)
                 {
-                    DisplayTree(child, ref displayText, indent + "  ");
+                    return rootNode; // Found the parent
+                }
+
+                Node parent = FindParent(child, targetNode);
+                if (parent != null)
+                {
+                    return parent;
                 }
             }
+
+            return null; // Node not found in the tree
         }
     }
 }

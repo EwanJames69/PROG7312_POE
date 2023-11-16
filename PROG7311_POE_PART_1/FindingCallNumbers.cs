@@ -10,60 +10,33 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace PROG7311_POE_PART_1
 {
     public partial class FindingCallNumbers : Form
     {
-        string filePath = "DeweyDecimalData.csv";
+        /// <summary>
+        /// Stores the file path to the data file
+        /// </summary>
+        string path = "DeweyDecimalData.csv";
 
-        private DeweyDecimalTree deweyTree = new DeweyDecimalTree();
-        private int counter;
+        /// <summary>
+        /// Class object for the DeweyDecimalTree class in the class library
+        /// </summary>
+        private DeweyDecimalTree deweyDecimalTree = new DeweyDecimalTree();
+
+        /// <summary>
+        /// Stores the root of the tree (named "Root" unless changed in data file)
+        /// </summary>
+        private Node root = null;
 
         public FindingCallNumbers()
         {
-            InitializeComponent();          
-        }
+            InitializeComponent();
 
-        private void ReadDataFromFileAndDisplayTree(string filePath)
-        {
-            try
-            {
-                using (StreamReader reader = new StreamReader(filePath))
-                {
-                    // Skip the header line
-                    reader.ReadLine();                    
-
-                    while (!reader.EndOfStream)
-                    {
-                        counter++;
-                        string line = reader.ReadLine();
-                        string[] parts = line.Split(',');
-
-                        string callNumber = parts[0];
-                        string description = parts[1];
-                        int level = int.Parse(parts[2]);
-
-                        // Display information directly, no need to create nodes
-                        DisplayTreeInfo(callNumber, description, level);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                lblTest.Text = ($"An error occurred while reading the file: {ex.Message} " + $"{counter}");
-            }
-        }
-
-        private void DisplayTreeInfo(string callNumber, string description, int level)
-        {
-            // Display information about the current node
-            lblTest.Text += $"{callNumber}: {description}\n";
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            ReadDataFromFileAndDisplayTree(filePath);;
-        }
+            // Populating the tree with the data from the data list (code in class library)         
+            root = deweyDecimalTree.PopulateTree(path);
+        }        
     }
 }
