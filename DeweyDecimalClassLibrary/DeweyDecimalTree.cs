@@ -14,7 +14,7 @@ namespace DeweyDecimalClassLibrary
         /// <summary>
         /// Stores the file path to the data file
         /// </summary>
-        string path = "DeweyDecimalData.csv";
+        string path = "DeweyDecimalData.txt";
 
         /// <summary>
         /// Class constructor
@@ -80,6 +80,15 @@ namespace DeweyDecimalClassLibrary
 
         //----------------------------------------------------------------------------------------------------------------------------------//
 
+        /// <summary>
+        /// Method to find the nodes that the call number is connected to, to retrieve the values of its parent nodes later on
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="targetCallNumber"></param>
+        /// <returns></returns>
+
+        #region FindNodeByCallNumber_Method
+
         public (Node node, string text) FindNodeByCallNumber(Node node, string targetCallNumber)
         {
             // Check if the current node's value starts with the target call number
@@ -104,6 +113,21 @@ namespace DeweyDecimalClassLibrary
             return (null, null);
         }
 
+        //----------------------------------------------------------------------------------------------------------------------------------//
+
+        #endregion
+
+        //----------------------------------------------------------------------------------------------------------------------------------//
+
+        /// <summary>
+        /// Method to find the parent nodes of a certain call numbers node to check for right and wrong answers
+        /// </summary>
+        /// <param name="rootNode"></param>
+        /// <param name="targetNode"></param>
+        /// <returns></returns>
+
+        #region FindParent
+
         public Node FindParent(Node rootNode, Node targetNode)
         {
             if (rootNode == null || targetNode == null || rootNode == targetNode)
@@ -127,5 +151,7 @@ namespace DeweyDecimalClassLibrary
 
             return null; // Node not found in the tree
         }
+
+        #endregion
     }
 }

@@ -23,7 +23,7 @@ namespace PROG7311_POE_PART_1
         //----------------------------------------------------------------------------------------------------------------------------------//
 
         /// <summary>
-        /// FormClosing event double checks if the user wants to exit the application, this event is present in all forms
+        /// FormClosing event exits the application, this event is present in all forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
