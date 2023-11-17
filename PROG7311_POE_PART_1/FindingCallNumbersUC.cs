@@ -29,6 +29,16 @@ namespace PROG7311_POE_PART_1.UserControls
         /// </summary>
         private Node root = null;
 
+        /// <summary>
+        /// Stores the amount of times the user has started the quiz
+        /// </summary>
+        private int counter = 0;
+
+        /// <summary>
+        /// Stores the current level of the quiz the user is currently attempting
+        /// </summary>
+        private int currentLevel = 0;
+
         //----------------------------------------------------------------------------------------------------------------------------------//
 
         /// <summary>
@@ -56,6 +66,131 @@ namespace PROG7311_POE_PART_1.UserControls
         }
 
         #endregion
+
+        //----------------------------------------------------------------------------------------------------------------------------------//
+
+        /// <summary>
+        /// Event that runs when the start button is clicked
+        /// Starts the quiz by retrieving a random "3rd-level" call number and displaying the correct and incorrect answers
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+
+        #region Start_Button_Click
+
+        private void btnStart_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = DialogResult.No;
+
+            // Reminding the user to read the instructions before attempting the quiz for the first time
+            if (counter == 0)
+            {
+                dialogResult = MessageBox.Show("Do you wish to start the quiz?\n" +
+                                                            "Please make sure you have read and understood the instructions before continuing",
+                                                            "Confirmation", MessageBoxButtons.YesNo);
+            }
+            
+            if (dialogResult == DialogResult.Yes || counter > 0) 
+            {
+                // Disabling the start button once the quiz has started, incrementing the counter and setting the level to level 1
+                btnStart.Enabled = false;
+                counter++;
+                currentLevel = 1;
+
+                // Starting the first part of the quiz (displaying call numbers in the 100s range)
+                CreateQuiz();
+            }
+        }
+
+        #endregion
+
+        //----------------------------------------------------------------------------------------------------------------------------------//
+
+        /// <summary>
+        /// Event that runs when the user clicks on a label
+        /// Gathers the text of the label the user clicked on, to be used to compare the text with the correct answer
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+
+        #region AnswerLabel_Click
+
+        private void AnswerLabel_Click(object sender, EventArgs e)
+        {
+            Label clickedLabel = sender as Label;
+
+            if (clickedLabel != null)
+            {
+                // Getting the text of the clicked label and storing it
+                string answerLabelText = clickedLabel.Text;
+                CheckCorrectAnswer(answerLabelText);
+            }
+        }
+
+        #endregion
+
+        //----------------------------------------------------------------------------------------------------------------------------------//
+
+        /// <summary>
+        /// Creating the quiz for the user to play (Generating a random call number then displaying the answers for the user to choose)
+        /// </summary>
+
+        #region CreateQuiz_Method
+
+        public void CreateQuiz()
+        {
+            // Stores the for loop initialization and condition depending on what level the user is currently attempting
+            int initializer = 1;
+            int condition = 5;
+
+            // Stores the back color of the label (colors differ depending on the users current level)
+            Color labelBackColor = Color.MistyRose;
+
+            if (currentLevel == 2)
+            {
+                initializer = 5;
+                condition = 9;
+                labelBackColor = Color.IndianRed;
+            }
+            else if (currentLevel == 3)
+            {
+                initializer = 9;
+                condition = 13;
+                labelBackColor= Color.Brown;
+            }
+
+            for (int i = initializer; i < condition; i++)
+            {
+                // Retrieving the labels that need to display values for the users current level
+                Label answerLabel = Controls.Find($"lblAnswer{i}", true).FirstOrDefault() as Label;
+
+
+
+                // Setting the labels values and connecting it to the click event
+                answerLabel.BackColor = labelBackColor;
+                answerLabel.Click += AnswerLabel_Click;
+
+                if (currentLevel == 2 || currentLevel == 3)
+                {
+                    // Disconnecting the previous labels click events and colors
+                    Label previousAnswerLabel = Controls.Find($"lblAnswer{i - 4}", true).FirstOrDefault() as Label;
+                    previousAnswerLabel.BackColor = Color.Transparent;
+                    previousAnswerLabel.Click -= AnswerLabel_Click;
+                    previousAnswerLabel.Text = "";
+                }
+            }
+        }
+
+        #endregion
+
+        //----------------------------------------------------------------------------------------------------------------------------------//
+
+        public bool CheckCorrectAnswer(string answerLabelText)
+        {
+            bool isCorrect = false;
+
+            return isCorrect;
+        }
 
         //----------------------------------------------------------------------------------------------------------------------------------//
 
@@ -96,6 +231,6 @@ namespace PROG7311_POE_PART_1.UserControls
             }
         }
 
-        #endregion
+        #endregion        
     }
 }

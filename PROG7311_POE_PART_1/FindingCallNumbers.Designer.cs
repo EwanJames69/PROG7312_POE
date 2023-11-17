@@ -28,13 +28,23 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.findingCallNumbersUC1 = new PROG7311_POE_PART_1.UserControls.FindingCallNumbersUC();
             this.SuspendLayout();
+            // 
+            // findingCallNumbersUC1
+            // 
+            this.findingCallNumbersUC1.BackColor = System.Drawing.Color.BurlyWood;
+            this.findingCallNumbersUC1.Location = new System.Drawing.Point(0, 0);
+            this.findingCallNumbersUC1.Name = "findingCallNumbersUC1";
+            this.findingCallNumbersUC1.Size = new System.Drawing.Size(1057, 585);
+            this.findingCallNumbersUC1.TabIndex = 0;
             // 
             // FindingCallNumbers
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(977, 645);
+            this.ClientSize = new System.Drawing.Size(1057, 585);
+            this.Controls.Add(this.findingCallNumbersUC1);
             this.Name = "FindingCallNumbers";
             this.Text = "FindingCallNumbers";
             this.ResumeLayout(false);
@@ -42,5 +52,7 @@
         }
 
         #endregion
+
+        private UserControls.FindingCallNumbersUC findingCallNumbersUC1;
     }
 }

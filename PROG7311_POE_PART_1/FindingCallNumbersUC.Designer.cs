@@ -58,6 +58,7 @@
             this.btnStart.TabIndex = 4;
             this.btnStart.Text = "Start Quiz";
             this.btnStart.UseVisualStyleBackColor = true;
+            this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
             // 
             // btnStop
             // 
@@ -88,7 +89,6 @@
             // 
             // lblAnswer2
             // 
-            this.lblAnswer2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblAnswer2.BackColor = System.Drawing.Color.Transparent;
             this.lblAnswer2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAnswer2.Location = new System.Drawing.Point(272, 14);
@@ -99,7 +99,6 @@
             // 
             // lblAnswer3
             // 
-            this.lblAnswer3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblAnswer3.BackColor = System.Drawing.Color.Transparent;
             this.lblAnswer3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAnswer3.Location = new System.Drawing.Point(532, 14);
@@ -110,7 +109,6 @@
             // 
             // lblAnswer4
             // 
-            this.lblAnswer4.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblAnswer4.BackColor = System.Drawing.Color.Transparent;
             this.lblAnswer4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAnswer4.Location = new System.Drawing.Point(795, 14);
@@ -141,7 +139,6 @@
             // 
             // lblAnswer1
             // 
-            this.lblAnswer1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblAnswer1.BackColor = System.Drawing.Color.Transparent;
             this.lblAnswer1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAnswer1.Location = new System.Drawing.Point(10, 14);
@@ -152,7 +149,6 @@
             // 
             // lblAnswer5
             // 
-            this.lblAnswer5.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblAnswer5.BackColor = System.Drawing.Color.Transparent;
             this.lblAnswer5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAnswer5.Location = new System.Drawing.Point(10, 152);
@@ -163,7 +159,6 @@
             // 
             // lblAnswer9
             // 
-            this.lblAnswer9.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblAnswer9.BackColor = System.Drawing.Color.Transparent;
             this.lblAnswer9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAnswer9.Location = new System.Drawing.Point(10, 290);
@@ -174,7 +169,6 @@
             // 
             // lblAnswer6
             // 
-            this.lblAnswer6.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblAnswer6.BackColor = System.Drawing.Color.Transparent;
             this.lblAnswer6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAnswer6.Location = new System.Drawing.Point(272, 152);
@@ -185,7 +179,6 @@
             // 
             // lblAnswer7
             // 
-            this.lblAnswer7.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblAnswer7.BackColor = System.Drawing.Color.Transparent;
             this.lblAnswer7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAnswer7.Location = new System.Drawing.Point(532, 152);
@@ -196,7 +189,6 @@
             // 
             // lblAnswer8
             // 
-            this.lblAnswer8.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblAnswer8.BackColor = System.Drawing.Color.Transparent;
             this.lblAnswer8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAnswer8.Location = new System.Drawing.Point(795, 152);
@@ -207,7 +199,6 @@
             // 
             // lblAnswer10
             // 
-            this.lblAnswer10.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblAnswer10.BackColor = System.Drawing.Color.Transparent;
             this.lblAnswer10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAnswer10.Location = new System.Drawing.Point(272, 290);
@@ -218,7 +209,6 @@
             // 
             // lblAnswer11
             // 
-            this.lblAnswer11.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblAnswer11.BackColor = System.Drawing.Color.Transparent;
             this.lblAnswer11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAnswer11.Location = new System.Drawing.Point(532, 290);
@@ -229,7 +219,6 @@
             // 
             // lblAnswer12
             // 
-            this.lblAnswer12.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblAnswer12.BackColor = System.Drawing.Color.Transparent;
             this.lblAnswer12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAnswer12.Location = new System.Drawing.Point(795, 290);
