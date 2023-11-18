@@ -171,16 +171,17 @@ namespace PROG7311_POE_PART_1.UserControls
                 initializer = 9;
                 condition = 13;
                 labelBackColor= Color.Brown;
-            }            
+            }
+
+            // Retrieving the parent node information to be used for the quiz as the correct answer
+            var result = deweyDecimalTree.FindCallNumber(root, randomCallNumber);
+            TreeNodeClass parentNode = deweyDecimalTree.FindParentNode(root, result.node);
+            TreeNodeClass parentParentNode = deweyDecimalTree.FindParentNode(root, parentNode);
 
             for (int i = initializer; i < condition; i++)
             {
                 // Retrieving the labels that need to display values for the users current level
-                Label answerLabel = Controls.Find($"lblAnswer{i}", true).FirstOrDefault() as Label;
-
-                var result = deweyDecimalTree.FindCallNumber(root, randomCallNumber);
-                TreeNodeClass parentNode = deweyDecimalTree.FindParentNode(root, result.node);
-                TreeNodeClass parentParentNode = deweyDecimalTree.FindParentNode(root, parentNode);
+                Label answerLabel = Controls.Find($"lblAnswer{i}", true).FirstOrDefault() as Label;                
 
                 // currentLevelFourAnswer = randomCallNumber;
                 lblAnswer1.Text = randomCallNumber;
