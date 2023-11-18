@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.LinkLabel;
 
 namespace PROG7311_POE_PART_1.UserControls
 {
@@ -27,7 +28,7 @@ namespace PROG7311_POE_PART_1.UserControls
         /// <summary>
         /// Stores the root of the tree (named "Root" unless changed in data file)
         /// </summary>
-        private Node root = null;
+        private TreeNodeClass root = null;
 
         /// <summary>
         /// Stores the amount of times the user has started the quiz
@@ -97,8 +98,12 @@ namespace PROG7311_POE_PART_1.UserControls
                 counter++;
                 currentLevel = 1;
 
+                // Retrieving a random call number from the 4th level of the tree structure (any number not in the 100s or 10s range)
+                // Method is from class library in the DeweyDecimalTree class
+                string randomCallNumber = deweyDecimalTree.RandomValueGenerator();
+
                 // Starting the first part of the quiz (displaying call numbers in the 100s range)
-                CreateQuiz();
+                CreateQuiz(randomCallNumber);
             }
         }
 
@@ -137,7 +142,7 @@ namespace PROG7311_POE_PART_1.UserControls
 
         #region CreateQuiz_Method
 
-        public void CreateQuiz()
+        public void CreateQuiz(string randomCallNumber)
         {
             // Stores the for loop initialization and condition depending on what level the user is currently attempting
             int initializer = 1;

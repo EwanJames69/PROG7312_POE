@@ -7,26 +7,26 @@ using System.Xml.Linq;
 
 namespace DeweyDecimalClassLibrary
 {
-    public class Node
+    public class TreeNodeClass
     {
         /// <summary>
-        /// 
+        /// Stores the values of the nodes in the tree structure
         /// </summary>
         public string Value { get; }
 
         /// <summary>
-        /// 
+        /// Stores the children nodes
         /// </summary>
-        public List<Node> Children { get; }
+        public List<TreeNodeClass> Children { get; }
 
         /// <summary>
         /// Class constructor
         /// </summary>
         /// <param name="value"></param>
-        public Node(string value)
+        public TreeNodeClass(string value)
         {
             Value = value;
-            Children = new List<Node>();
+            Children = new List<TreeNodeClass>();
         }
     }
 }
