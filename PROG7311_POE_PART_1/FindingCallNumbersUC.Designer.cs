@@ -48,11 +48,12 @@
             this.lblAnswer10 = new System.Windows.Forms.Label();
             this.lblAnswer11 = new System.Windows.Forms.Label();
             this.lblAnswer12 = new System.Windows.Forms.Label();
+            this.lblCallNumberToGet = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnStart
             // 
-            this.btnStart.Location = new System.Drawing.Point(13, 526);
+            this.btnStart.Location = new System.Drawing.Point(13, 604);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(124, 40);
             this.btnStart.TabIndex = 4;
@@ -62,7 +63,7 @@
             // 
             // btnStop
             // 
-            this.btnStop.Location = new System.Drawing.Point(153, 526);
+            this.btnStop.Location = new System.Drawing.Point(156, 604);
             this.btnStop.Name = "btnStop";
             this.btnStop.Size = new System.Drawing.Size(124, 40);
             this.btnStop.TabIndex = 9;
@@ -71,7 +72,7 @@
             // 
             // btnMainMenu
             // 
-            this.btnMainMenu.Location = new System.Drawing.Point(773, 526);
+            this.btnMainMenu.Location = new System.Drawing.Point(774, 604);
             this.btnMainMenu.Name = "btnMainMenu";
             this.btnMainMenu.Size = new System.Drawing.Size(124, 40);
             this.btnMainMenu.TabIndex = 13;
@@ -80,7 +81,7 @@
             // 
             // btnInstructionsMatch
             // 
-            this.btnInstructionsMatch.Location = new System.Drawing.Point(913, 526);
+            this.btnInstructionsMatch.Location = new System.Drawing.Point(913, 604);
             this.btnInstructionsMatch.Name = "btnInstructionsMatch";
             this.btnInstructionsMatch.Size = new System.Drawing.Size(124, 40);
             this.btnInstructionsMatch.TabIndex = 14;
@@ -121,7 +122,7 @@
             // 
             this.lblProgressBar.AutoSize = true;
             this.lblProgressBar.Font = new System.Drawing.Font("Tahoma", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblProgressBar.Location = new System.Drawing.Point(8, 431);
+            this.lblProgressBar.Location = new System.Drawing.Point(10, 513);
             this.lblProgressBar.Name = "lblProgressBar";
             this.lblProgressBar.Size = new System.Drawing.Size(332, 28);
             this.lblProgressBar.TabIndex = 19;
@@ -131,7 +132,7 @@
             // 
             this.progressBar.BackColor = System.Drawing.Color.DimGray;
             this.progressBar.ForeColor = System.Drawing.SystemColors.Info;
-            this.progressBar.Location = new System.Drawing.Point(13, 471);
+            this.progressBar.Location = new System.Drawing.Point(13, 554);
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(1024, 34);
             this.progressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
@@ -227,11 +228,21 @@
             this.lblAnswer12.TabIndex = 28;
             this.lblAnswer12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // lblCallNumberToGet
+            // 
+            this.lblCallNumberToGet.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCallNumberToGet.Location = new System.Drawing.Point(243, 431);
+            this.lblCallNumberToGet.Name = "lblCallNumberToGet";
+            this.lblCallNumberToGet.Size = new System.Drawing.Size(557, 71);
+            this.lblCallNumberToGet.TabIndex = 29;
+            this.lblCallNumberToGet.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // FindingCallNumbersUC
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.BurlyWood;
+            this.Controls.Add(this.lblCallNumberToGet);
             this.Controls.Add(this.lblAnswer12);
             this.Controls.Add(this.lblAnswer11);
             this.Controls.Add(this.lblAnswer10);
@@ -251,7 +262,7 @@
             this.Controls.Add(this.btnStop);
             this.Controls.Add(this.btnStart);
             this.Name = "FindingCallNumbersUC";
-            this.Size = new System.Drawing.Size(1057, 585);
+            this.Size = new System.Drawing.Size(1057, 656);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -278,5 +289,6 @@
         private System.Windows.Forms.Label lblAnswer10;
         private System.Windows.Forms.Label lblAnswer11;
         private System.Windows.Forms.Label lblAnswer12;
+        private System.Windows.Forms.Label lblCallNumberToGet;
     }
 }

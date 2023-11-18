@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 using static System.Windows.Forms.LinkLabel;
 
 namespace PROG7311_POE_PART_1.UserControls
@@ -29,6 +30,13 @@ namespace PROG7311_POE_PART_1.UserControls
         /// Stores the root of the tree (named "Root" unless changed in data file)
         /// </summary>
         private TreeNodeClass root = null;
+
+        /// <summary>
+        /// Stores the answers for the quiz, to be compared to with the users choice
+        /// </summary>
+        private string currentLevelFourAnswer = null;
+        private string currentLevelThreeAnswer = null;
+        private string currentLevelTwoAnswer = null;
 
         /// <summary>
         /// Stores the amount of times the user has started the quiz
@@ -99,7 +107,7 @@ namespace PROG7311_POE_PART_1.UserControls
                 currentLevel = 1;
 
                 // Retrieving a random call number from the 4th level of the tree structure (any number not in the 100s or 10s range)
-                // Method is from class library in the DeweyDecimalTree class
+                // RandomValueGenerator method is from class library in the DeweyDecimalTree class
                 string randomCallNumber = deweyDecimalTree.RandomValueGenerator();
 
                 // Starting the first part of the quiz (displaying call numbers in the 100s range)
@@ -147,6 +155,7 @@ namespace PROG7311_POE_PART_1.UserControls
             // Stores the for loop initialization and condition depending on what level the user is currently attempting
             int initializer = 1;
             int condition = 5;
+            string messageForLabel = "Find the call number for this description:\n";
 
             // Stores the back color of the label (colors differ depending on the users current level)
             Color labelBackColor = Color.MistyRose;
@@ -162,14 +171,26 @@ namespace PROG7311_POE_PART_1.UserControls
                 initializer = 9;
                 condition = 13;
                 labelBackColor= Color.Brown;
-            }
+            }            
 
             for (int i = initializer; i < condition; i++)
             {
                 // Retrieving the labels that need to display values for the users current level
                 Label answerLabel = Controls.Find($"lblAnswer{i}", true).FirstOrDefault() as Label;
 
+                var result = deweyDecimalTree.FindCallNumber(root, randomCallNumber);
+                TreeNodeClass parentNode = deweyDecimalTree.FindParentNode(root, result.node);
+                TreeNodeClass parentParentNode = deweyDecimalTree.FindParentNode(root, parentNode);
 
+                // currentLevelFourAnswer = randomCallNumber;
+                lblAnswer1.Text = randomCallNumber;
+                lblAnswer6.Text = root.ToString();
+                lblAnswer2.Text = randomCallNumber.Substring(4).TrimStart();
+                lblAnswer3.Text = $"Parent of that: {parentNode}";
+                lblAnswer4.Text = $"The parent of that parent: {parentParentNode}";
+                string test = result.text;
+                lblAnswer5.Text = test;
+                lblCallNumberToGet.Text = messageForLabel + randomCallNumber.Substring(4).TrimStart(); ;
 
                 // Setting the labels values and connecting it to the click event
                 answerLabel.BackColor = labelBackColor;

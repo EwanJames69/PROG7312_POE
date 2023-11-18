@@ -98,13 +98,13 @@ namespace DeweyDecimalClassLibrary
 
         public (TreeNodeClass node, string text) FindCallNumber(TreeNodeClass node, string randomlyGeneratedCallNumber)
         {
-            // This "if loop" code was developed with the help of ChatGPT
             // Checking if the current node's value starts with the randomly generated call number
             if (node.Value.StartsWith(randomlyGeneratedCallNumber))
             {
                 // Retrieving the description of the call number
                 string nodeText = node.Value.Substring(randomlyGeneratedCallNumber.Length).Trim();
 
+                // Returning the description of the call number to display on the quiz
                 return (node, nodeText);
             }
 
@@ -120,8 +120,6 @@ namespace DeweyDecimalClassLibrary
 
             return (null, null);
         }
-
-        //----------------------------------------------------------------------------------------------------------------------------------//
 
         #endregion
 
