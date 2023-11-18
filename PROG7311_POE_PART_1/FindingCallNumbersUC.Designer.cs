@@ -231,9 +231,9 @@
             // lblCallNumberToGet
             // 
             this.lblCallNumberToGet.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCallNumberToGet.Location = new System.Drawing.Point(243, 431);
+            this.lblCallNumberToGet.Location = new System.Drawing.Point(83, 431);
             this.lblCallNumberToGet.Name = "lblCallNumberToGet";
-            this.lblCallNumberToGet.Size = new System.Drawing.Size(557, 71);
+            this.lblCallNumberToGet.Size = new System.Drawing.Size(900, 71);
             this.lblCallNumberToGet.TabIndex = 29;
             this.lblCallNumberToGet.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 

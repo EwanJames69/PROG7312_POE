@@ -19,7 +19,7 @@ namespace PROG7311_POE_PART_1.UserControls
         /// <summary>
         /// Stores the file path to the data file
         /// </summary>
-        private static string fileName = "DeweyDecimalData.txt";
+        private static string path = "DeweyDecimalData.txt";
 
         /// <summary>
         /// Class object for the DeweyDecimalTree class in the class library
@@ -62,7 +62,7 @@ namespace PROG7311_POE_PART_1.UserControls
             InitializeComponent();
 
             // Populating the tree with the data from the data list (code in class library)         
-            root = deweyDecimalTree.PopulateTree(fileName);
+            root = deweyDecimalTree.PopulateTree(path);
 
             // Setting the label's decorations for when the quiz is not currently happening
             SetLabelDecorations();
@@ -171,27 +171,17 @@ namespace PROG7311_POE_PART_1.UserControls
                 initializer = 9;
                 condition = 13;
                 labelBackColor= Color.Brown;
-            }
+            }          
 
-            // Retrieving the parent node information to be used for the quiz as the correct answer
-            var result = deweyDecimalTree.FindCallNumber(root, randomCallNumber);
-            TreeNodeClass parentNode = deweyDecimalTree.FindParentNode(root, result.node);
-            TreeNodeClass parentParentNode = deweyDecimalTree.FindParentNode(root, parentNode);
+            // Making all the labels transparent
+            MakeLabelsTransparent();
 
             for (int i = initializer; i < condition; i++)
             {
                 // Retrieving the labels that need to display values for the users current level
-                Label answerLabel = Controls.Find($"lblAnswer{i}", true).FirstOrDefault() as Label;                
+                Label answerLabel = Controls.Find($"lblAnswer{i}", true).FirstOrDefault() as Label;
 
-                // currentLevelFourAnswer = randomCallNumber;
-                lblAnswer1.Text = randomCallNumber;
-                lblAnswer6.Text = root.ToString();
-                lblAnswer2.Text = randomCallNumber.Substring(4).TrimStart();
-                lblAnswer3.Text = $"Parent of that: {parentNode}";
-                lblAnswer4.Text = $"The parent of that parent: {parentParentNode}";
-                string test = result.text;
-                lblAnswer5.Text = test;
-                lblCallNumberToGet.Text = messageForLabel + randomCallNumber.Substring(4).TrimStart(); ;
+                deweyDecimalTree.GatherAnswers(randomCallNumber, currentLevel, root);
 
                 // Setting the labels values and connecting it to the click event
                 answerLabel.BackColor = labelBackColor;
@@ -255,6 +245,25 @@ namespace PROG7311_POE_PART_1.UserControls
                     answerLabel.BackColor = Color.Brown;
                     if (i + 1 == 8) { answerLabel.Text = "Click Start To Begin"; }
                 }
+            }
+        }
+
+        #endregion
+
+        //----------------------------------------------------------------------------------------------------------------------------------//
+
+        /// <summary>
+        /// Sets the labels back color to be transparent while the quiz is happening
+        /// </summary>
+
+        #region MakeLabelsTransparent_Method
+
+        private void MakeLabelsTransparent()
+        {
+            for (int i = 1; i < 13; i++)
+            {
+                Label answerLabel = Controls.Find($"lblAnswer{i}", true).FirstOrDefault() as Label;
+                answerLabel.BackColor = Color.Transparent;
             }
         }
 

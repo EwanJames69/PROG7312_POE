@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace DeweyDecimalClassLibrary
 {
@@ -254,5 +255,52 @@ namespace DeweyDecimalClassLibrary
         }
 
         #endregion
+
+        //----------------------------------------------------------------------------------------------------------------------------------//
+
+        public List<string> GatherAnswers(string randomCallNumber, int currentLevel, TreeNodeClass root)
+        {
+            // Receiving the random call numbers node and values
+            var result = FindCallNumber(root, randomCallNumber);
+
+            // Retrieving the parent node information to be used for the quiz as the "correct answer"
+            TreeNodeClass parentNode = FindParentNode(root, result.node);
+            TreeNodeClass CategoryNode = FindParentNode(root, parentNode);
+
+            // List to store the correct answer along with three incorrect answers
+            List<string> answers = new List<string>();
+
+            if (currentLevel == 1)
+            {
+                // Adding the correct answer to the list
+                answers.Add(CategoryNode?.Value);
+
+                // Randomly generating 3 wrong answers for the category nodes in the tree
+
+
+                return answers;
+            }
+            else if (currentLevel == 2)
+            {
+                // Adding the correct answer to the list
+                answers.Add(parentNode?.Value);
+
+                // Randomly generating 3 wrong answers for the category nodes in the tree
+
+
+                return answers;
+            }
+            else if (currentLevel == 3)
+            {
+                // Adding the correct answer to the list (retrieving the call number)
+                answers.Add(randomCallNumber.Substring(0, 3));
+
+                // Randomly generating 3 wrong answers for the category nodes in the tree
+
+
+                return answers;
+            }
+            return null;
+        }
     }
 }
