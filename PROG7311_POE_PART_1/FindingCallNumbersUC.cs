@@ -303,7 +303,6 @@ namespace PROG7311_POE_PART_1.UserControls
                 if (randomCallNumber.Substring(0, 3) == answerLabelText)
                 {
                     isCorrect = true;
-                    amountCorrect++;
                 }
             }
 
@@ -330,8 +329,8 @@ namespace PROG7311_POE_PART_1.UserControls
                 {
                     quizLevelCounter++;
                     amountCorrect++;
-                    ReadyUpQuiz();
-                    // Progress bar update method here
+                    UpdateProgressBar();
+                    ReadyUpQuiz();                    
                 }
             }
         }
@@ -348,7 +347,7 @@ namespace PROG7311_POE_PART_1.UserControls
 
         private void ReadyUpQuiz()
         {
-            if (quizLevelCounter < 6)
+            if (quizLevelCounter < 5)
             {
                 // Making all the labels transparent and clearing their text
                 MakeLabelsTransparent();
@@ -369,6 +368,13 @@ namespace PROG7311_POE_PART_1.UserControls
                 parentNode = deweyDecimalTree.FindParentNode(root, result.node);
                 categoryNode = deweyDecimalTree.FindParentNode(root, parentNode);
 
+                for (int i = 1; i < 13; i++)
+                {
+                    // Retrieving the labels to disconnect them from the click event before the quiz starts (for error handling)
+                    Label answerLabel = Controls.Find($"lblAnswer{i}", true).FirstOrDefault() as Label;
+                    answerLabel.Click -= AnswerLabel_Click;
+                }
+
                 // Starting the first part of the quiz (displaying call numbers in the 100s range)
                 CreateQuiz();
             }
@@ -377,27 +383,66 @@ namespace PROG7311_POE_PART_1.UserControls
                 // Message to display to the user and differs in words depending on how the user did
                 string message = "";
 
-                if (amountCorrect < 3)
+                if (amountCorrect <= 2)
                 {
-                    message = "Not the best attempt, but with practise, comes perfection! Keep trying, you got this\n" +
+                    message = "Not the best attempt, but with practise, comes perfection! Keep trying, you got this!\n" +
                               $"Your score was: {amountCorrect}/5";
                 }
-                else if (amountCorrect > 3 && amountCorrect < 5)
+                else if (amountCorrect > 2 && amountCorrect < 5)
                 {
-                    message = "Almost there! You almost achieved 100%. Keep going, you were so close!" +
+                    message = "Almost there! You almost achieved 100%. Keep going, you were so close!\n" +
                               $"Your score was: {amountCorrect}/5";
                 }
                 else if (amountCorrect == 5)
                 {
                     message = "Well done! You have beaten the game, but remember, just because you have beaten it, does not mean you have mastered it. " +
-                              "Always feel free to try again. Maybe even try and get 5 perfect scores in a row?" +
+                              "Always feel free to try again. Maybe even try and get 5 perfect scores in a row?\n" +
                               $"Your score was: {amountCorrect}/5";
                 }
+                MessageBox.Show($"{message}", "Quiz Completed", MessageBoxButtons.OK);
+
+                // Disconnecting all the labels from their click events
+                for (int i = 1; i < 13; i++)
+                {
+                    // Retrieving the labels to disconnect them from the click event before the quiz starts (for error handling)
+                    Label answerLabel = Controls.Find($"lblAnswer{i}", true).FirstOrDefault() as Label;
+                    answerLabel.Click -= AnswerLabel_Click;
+                }
+
+                // Incrementing the games played counter, resetting the call number label and changing the button enabled values
                 counter++;
+                lblCallNumberToGet.Text = "";
+                amountCorrect = 0;
+                quizLevelCounter = 0;
+                btnStart.Enabled = true;
+                btnStop.Enabled = false;
+                progressBar.Value = 0;
 
                 // Setting the application to display the decorative labels again once the quiz has been completed
                 SetLabelDecorations();
             }
+        }
+
+        #endregion
+
+        //----------------------------------------------------------------------------------------------------------------------------------//
+
+        /// <summary>
+        /// Updates the progress bar depending on how many answers the user has gotten correct during a quiz
+        /// </summary>
+
+        #region UpdateProgressBar_Method
+
+        public void UpdateProgressBar()
+        {
+            // Calculating the new value for the progress bar based on the percentage completed
+            int progressBarValue = (amountCorrect * 20);
+
+            // Updating the progress bar value
+            progressBar.Value = progressBarValue;
+
+            // If you want to display the percentage, you can set the Text property as well
+            progressBar.Text = $"{progressBarValue}%";
         }
 
         #endregion

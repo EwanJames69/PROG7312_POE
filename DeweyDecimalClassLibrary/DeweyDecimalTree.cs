@@ -356,7 +356,7 @@ namespace DeweyDecimalClassLibrary
                 finalAnswers.Add(randomCallNumber.Substring(0, 3));
 
                 string beginningTwoNumbers = randomCallNumber.Substring(0, 2);
-                for (int i = 0; i < 9; i++)
+                for (int i = 1; i < 9; i++)
                 {
                     if (!finalAnswers.Contains(beginningTwoNumbers + i))
                     {

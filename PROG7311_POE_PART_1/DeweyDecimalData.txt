@@ -716,7 +716,7 @@ Root
 			824 English essays
 			825 English speeches
 			826 English letters
-			827 English satire & humour
+			827 English satire && humour
 			828 English miscellaneous writings
 			829 Old English (Anglo-Saxon)
 		830 Literatures of Germanic languages	
