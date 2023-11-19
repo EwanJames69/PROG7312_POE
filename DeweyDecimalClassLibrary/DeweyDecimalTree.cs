@@ -352,41 +352,19 @@ namespace DeweyDecimalClassLibrary
             }
             else if (currentLevel == 3)
             {
-                // Adding the correct answer to the lists (retrieving the call number)
-                answers.Add(randomCallNumber.Substring(0, 3));
+                // Adding the correct answer to the lists (retrieving the call number)                
                 finalAnswers.Add(randomCallNumber.Substring(0, 3));
 
-                // Randomly generating 3 wrong answers for the call number nodes in the tree
-                List<TreeNodeClass> parentNodes = GetNodes(root);
-                AddRandomWrongAnswers(answers, parentNodes);
-
-                // This foreach has a lot of code, but it is ALL to check if the value in the node is a call number value (in the 1s range)
-                // Each line has been given a comment to make it easier to understand and each line makes sure that the value is a call number
-                foreach (var value in answers)
+                string beginningTwoNumbers = randomCallNumber.Substring(0, 2);
+                for (int i = 0; i < 9; i++)
                 {
-                    // Retrieving the call number only and counting how many zeros the call number has
-                    string callNumberOnly = value.Substring(0, Math.Min(3, value.Length));
-
-                    bool meetsCondition = (!finalAnswers.Contains(value)) &&   // Checking if the value is already in the list
-                                          value != parentNode?.Value &&        // Checking if the value equals the answer
-                                          !randomCallNumber.EndsWith("0")      // All numbers that dont end in 0 are the ones the application need
-                                          && !randomCallNumber.EndsWith("01"); // Making sure they dont end in 01 as 001...901 are all parent node values
-
-                    if (meetsCondition)
+                    if (!finalAnswers.Contains(beginningTwoNumbers + i))
                     {
-                        finalAnswers.Add(value);
-                    }
+                        finalAnswers.Add(beginningTwoNumbers + i);
+                    }                    
+                }                
 
-                    for (int i = 0; i < finalAnswers.Count; i++)
-                    {
-                        if (!finalAnswers[i].StartsWith(randomCallNumber.Substring(0, 2)))
-                        {
-                            finalAnswers.RemoveAt(i);
-                        }
-                    }
-                }
-
-                return answers;
+                return finalAnswers;
             }
             return null;
         }

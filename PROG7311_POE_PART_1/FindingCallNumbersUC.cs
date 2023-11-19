@@ -49,6 +49,11 @@ namespace PROG7311_POE_PART_1.UserControls
         private int counter = 0;
 
         /// <summary>
+        /// Stores the amount of quizzes the user has gotten correct during the current quiz
+        /// </summary>
+        private int amountCorrect = 0;
+
+        /// <summary>
         /// Stores the quiz level the user is on (the quiz stops after 5 different questions)
         /// </summary>
         private int quizLevelCounter = 0;
@@ -229,10 +234,7 @@ namespace PROG7311_POE_PART_1.UserControls
 
                 // Comparing integers
                 return xNumericValue.CompareTo(yNumericValue);
-            });
-
-            // Making all the labels transparent and clearing their text
-            MakeLabelsTransparent();
+            });            
 
             // Setting the label to display the answer that the user needs to get to
             lblCallNumberToGet.Text = messageForLabel + randomCallNumber.Substring(4).TrimStart();
@@ -253,6 +255,12 @@ namespace PROG7311_POE_PART_1.UserControls
                     Label previousAnswerLabel = Controls.Find($"lblAnswer{i - 4}", true).FirstOrDefault() as Label;                    
                     previousAnswerLabel.Click -= AnswerLabel_Click;                    
                 }
+                if (currentLevel == 1)
+                {
+                    // Disconnecting the previous labels click events (but from the previous rounds labels)
+                    Label previousAnswerLabel = Controls.Find($"lblAnswer{i + 8}", true).FirstOrDefault() as Label;
+                    previousAnswerLabel.Click -= AnswerLabel_Click;
+                }
             }
         }
 
@@ -269,12 +277,14 @@ namespace PROG7311_POE_PART_1.UserControls
         public void CheckCorrectAnswer()
         {
             bool isCorrect = false;
+
+            // Coloring in the labels backgrounds
+            DisplayLabelColours();
             
             if (currentLevel == 1)
             {
-                lblAnswer10.Text = categoryNode?.Value;
                 // Checking if the answer was correct for level 1
-                if (categoryNode?.Value == answerLabelText)
+                if (categoryNode?.Value.Trim() == answerLabelText.Trim())
                 {
                     isCorrect = true;
                 }
@@ -290,9 +300,10 @@ namespace PROG7311_POE_PART_1.UserControls
             else if (currentLevel == 3)
             {
                 // Checking if the answer was correct for level 3
-                if (randomCallNumber == answerLabelText)
+                if (randomCallNumber.Substring(0, 3) == answerLabelText)
                 {
                     isCorrect = true;
+                    amountCorrect++;
                 }
             }
 
@@ -318,7 +329,9 @@ namespace PROG7311_POE_PART_1.UserControls
                 else
                 {
                     quizLevelCounter++;
+                    amountCorrect++;
                     ReadyUpQuiz();
+                    // Progress bar update method here
                 }
             }
         }
@@ -337,10 +350,12 @@ namespace PROG7311_POE_PART_1.UserControls
         {
             if (quizLevelCounter < 6)
             {
+                // Making all the labels transparent and clearing their text
+                MakeLabelsTransparent();
+
                 // Disabling the start button once the quiz has started, incrementing the counter and setting the level to level 1
                 btnStart.Enabled = false;
-                btnStop.Enabled = true;
-                counter++;
+                btnStop.Enabled = true;                
                 currentLevel = 1;
 
                 // Retrieving a random call number from the 4th level of the tree structure (any number not in the 100s or 10s range)
@@ -356,7 +371,33 @@ namespace PROG7311_POE_PART_1.UserControls
 
                 // Starting the first part of the quiz (displaying call numbers in the 100s range)
                 CreateQuiz();
-            }            
+            }
+            else
+            {
+                // Message to display to the user and differs in words depending on how the user did
+                string message = "";
+
+                if (amountCorrect < 3)
+                {
+                    message = "Not the best attempt, but with practise, comes perfection! Keep trying, you got this\n" +
+                              $"Your score was: {amountCorrect}/5";
+                }
+                else if (amountCorrect > 3 && amountCorrect < 5)
+                {
+                    message = "Almost there! You almost achieved 100%. Keep going, you were so close!" +
+                              $"Your score was: {amountCorrect}/5";
+                }
+                else if (amountCorrect == 5)
+                {
+                    message = "Well done! You have beaten the game, but remember, just because you have beaten it, does not mean you have mastered it. " +
+                              "Always feel free to try again. Maybe even try and get 5 perfect scores in a row?" +
+                              $"Your score was: {amountCorrect}/5";
+                }
+                counter++;
+
+                // Setting the application to display the decorative labels again once the quiz has been completed
+                SetLabelDecorations();
+            }
         }
 
         #endregion
@@ -376,6 +417,8 @@ namespace PROG7311_POE_PART_1.UserControls
             {
                 // Retrieving the labels from the designer to change its values
                 Label answerLabel = Controls.Find($"lblAnswer{i + 1}", true).FirstOrDefault() as Label;
+                answerLabel.Click -= AnswerLabel_Click;
+                answerLabel.Text = "";
 
                 if (i + 1 == 1)
                 {
@@ -417,6 +460,60 @@ namespace PROG7311_POE_PART_1.UserControls
                 Label answerLabel = Controls.Find($"lblAnswer{i}", true).FirstOrDefault() as Label;
                 answerLabel.BackColor = Color.Transparent;
                 answerLabel.Text = "";
+            }
+        }
+
+        #endregion
+
+        //----------------------------------------------------------------------------------------------------------------------------------//
+
+        /// <summary>
+        /// Sets the correct labels back colour green and the incorrect ones red
+        /// </summary>
+
+        #region DisplayLabelColours_Method
+
+        public void DisplayLabelColours()
+        {
+            if (currentLevel == 1)
+            {
+                for (int i = 1; i < 5; i++)
+                {
+                    // Retrieving the labels to change their back colours
+                    Label answerLabel = Controls.Find($"lblAnswer{i}", true).FirstOrDefault() as Label;
+                    
+                    // Checking which answer was correct
+                    if (answerLabel.Text == categoryNode?.Value)
+                    {
+                        // Making the label that held the correct answer back colour green
+                        answerLabel.BackColor = Color.Green;
+                    }
+                    else
+                    {
+                        // All the incorrect labels get the red back colour because no one likes them (Go away, you bad label)
+                        answerLabel.BackColor = Color.Red;
+                    }
+                }
+            }
+            else if (currentLevel == 2)
+            {
+                for (int i = 5; i < 9; i++)
+                {
+                    // Retrieving the labels to change their back colours
+                    Label answerLabel = Controls.Find($"lblAnswer{i}", true).FirstOrDefault() as Label;
+
+                    // Checking which answer was correct
+                    if (answerLabel.Text == parentNode?.Value)
+                    {
+                        // Making the label that held the correct answer back colour green
+                        answerLabel.BackColor = Color.Green;
+                    }
+                    else
+                    {
+                        // All the incorrect labels get the red back colour because no one likes them (Go away, you bad label)
+                        answerLabel.BackColor = Color.Red;
+                    }
+                }
             }
         }
 
