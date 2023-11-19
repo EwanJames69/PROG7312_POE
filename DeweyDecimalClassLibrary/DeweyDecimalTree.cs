@@ -258,6 +258,16 @@ namespace DeweyDecimalClassLibrary
 
         //----------------------------------------------------------------------------------------------------------------------------------//
 
+        /// <summary>
+        /// Checks which part of the quiz the user is on, and returns the correct and incorrect answers in a list (values taken from the tree structure)
+        /// </summary>
+        /// <param name="randomCallNumber"></param>
+        /// <param name="currentLevel"></param>
+        /// <param name="root"></param>
+        /// <returns></returns>
+        
+        #region GatherAnswers_Method
+
         public List<string> GatherAnswers(string randomCallNumber, int currentLevel, TreeNodeClass root)
         {
             // Receiving the random call numbers node and values
@@ -269,16 +279,16 @@ namespace DeweyDecimalClassLibrary
 
             // List to store the correct answer along with the incorrect answers
             List<string> answers = new List<string>();
-            List<string> categoryNodeAnswers = new List<string>();
+            List<string> finalAnswers = new List<string>();            
 
             if (currentLevel == 1)
             {
                 // Adding the correct answer to the lists
                 answers.Add(CategoryNode?.Value);
-                categoryNodeAnswers.Add(CategoryNode?.Value);
+                finalAnswers.Add(CategoryNode?.Value);
 
                 // Randomly generating 3 wrong answers for the category nodes in the tree
-                List<TreeNodeClass> categoryNodes = GetCategoryNodes(root);
+                List<TreeNodeClass> categoryNodes = GetNodes(root);
                 AddRandomWrongAnswers(answers, categoryNodes);
 
                 // This foreach has a lot of code, but it is ALL to check if the value in the node is a category value (in the 100s range)
@@ -286,7 +296,7 @@ namespace DeweyDecimalClassLibrary
                 foreach (var value in answers)
                 {
                     string callNumberOnly = value.Substring(0, Math.Min(3, value.Length));
-                    bool meetsCondition = (!categoryNodeAnswers.Contains(value)) &&   // Checking if the value is already in the list
+                    bool meetsCondition = (!finalAnswers.Contains(value)) &&          // Checking if the value is already in the list
                                           (callNumberOnly.EndsWith("00")              // Checking if the value ends in "00" (eg. 100, 200, we want this)
                                           && !callNumberOnly.StartsWith("0")          // Checking if the value starts with "0" (eg. 070, 090, we don't want this)
                                           && value != CategoryNode?.Value             // Checking if the value equals the answer                                          
@@ -294,45 +304,124 @@ namespace DeweyDecimalClassLibrary
 
                     if (meetsCondition)
                     {
-                        categoryNodeAnswers.Add(value);
+                        finalAnswers.Add(value);
                     }
                 }
 
                 // Sends back all the category nodes
-                return categoryNodeAnswers;
+                return finalAnswers;
             }
             else if (currentLevel == 2)
             {
-                // Adding the correct answer to the list
+                // Adding the correct answer to the lists
                 answers.Add(parentNode?.Value);
+                finalAnswers.Add(parentNode?.Value);
 
-                // Randomly generating 3 wrong answers for the category nodes in the tree
+                // Randomly generating 3 wrong answers for the parent nodes in the tree
+                List<TreeNodeClass> parentNodes = GetNodes(root);
+                AddRandomWrongAnswers(answers, parentNodes);
 
+                // This foreach has a lot of code, but it is ALL to check if the value in the node is a category value (in the 10s range)
+                // Each line has been given a comment to make it easier to understand and each line makes sure that the value is a parent node
+                foreach (var value in answers)
+                {
+                    // Retrieving the call number only and counting how many zeros the call number has
+                    string callNumberOnly = value.Substring(0, Math.Min(3, value.Length));
+                    bool containsTwoZeros = value.Count(c => c == '0') == 2;
 
-                return answers;
+                    bool meetsCondition = (!finalAnswers.Contains(value)) &&                   // Checking if the value is already in the list
+                                          ((callNumberOnly.EndsWith("0") && !containsTwoZeros) // Checking if the value ends in "0" (eg. 010, 020, 210, 990) and does not contain 2 zeros
+                                          || (callNumberOnly.StartsWith("0") && callNumberOnly.EndsWith("0") && containsTwoZeros)) // Checking if it ends and starts with "0"
+                                          && (value != parentNode?.Value) || callNumberOnly.Equals("001"); // Checking if the value equals the answer and if it eqauls 001                                   
+
+                    if (meetsCondition)
+                    {
+                        finalAnswers.Add(value);
+                    }
+
+                    for (int i = 0; i < finalAnswers.Count; i++)
+                    {
+                        if (!finalAnswers[i].StartsWith(randomCallNumber.Substring(0, 1)))
+                        {
+                            finalAnswers.RemoveAt(i);
+                        }
+                    }
+                }
+
+                return finalAnswers;
             }
             else if (currentLevel == 3)
             {
-                // Adding the correct answer to the list (retrieving the call number)
+                // Adding the correct answer to the lists (retrieving the call number)
                 answers.Add(randomCallNumber.Substring(0, 3));
+                finalAnswers.Add(randomCallNumber.Substring(0, 3));
 
-                // Randomly generating 3 wrong answers for the category nodes in the tree
+                // Randomly generating 3 wrong answers for the call number nodes in the tree
+                List<TreeNodeClass> parentNodes = GetNodes(root);
+                AddRandomWrongAnswers(answers, parentNodes);
 
+                // This foreach has a lot of code, but it is ALL to check if the value in the node is a call number value (in the 1s range)
+                // Each line has been given a comment to make it easier to understand and each line makes sure that the value is a call number
+                foreach (var value in answers)
+                {
+                    // Retrieving the call number only and counting how many zeros the call number has
+                    string callNumberOnly = value.Substring(0, Math.Min(3, value.Length));
+
+                    bool meetsCondition = (!finalAnswers.Contains(value)) &&   // Checking if the value is already in the list
+                                          value != parentNode?.Value &&        // Checking if the value equals the answer
+                                          !randomCallNumber.EndsWith("0")      // All numbers that dont end in 0 are the ones the application need
+                                          && !randomCallNumber.EndsWith("01"); // Making sure they dont end in 01 as 001...901 are all parent node values
+
+                    if (meetsCondition)
+                    {
+                        finalAnswers.Add(value);
+                    }
+
+                    for (int i = 0; i < finalAnswers.Count; i++)
+                    {
+                        if (!finalAnswers[i].StartsWith(randomCallNumber.Substring(0, 2)))
+                        {
+                            finalAnswers.RemoveAt(i);
+                        }
+                    }
+                }
 
                 return answers;
             }
             return null;
         }
 
-        // Helper method to get a list of category nodes
-        private List<TreeNodeClass> GetCategoryNodes(TreeNodeClass root)
+        #endregion
+
+        //----------------------------------------------------------------------------------------------------------------------------------//
+
+        /// <summary>
+        /// Helper method to get a list of all the nodes
+        /// </summary>
+        /// <param name="root"></param>
+        /// <returns></returns>
+
+        #region GetNodes_Method
+
+        private List<TreeNodeClass> GetNodes(TreeNodeClass root)
         {
             List<TreeNodeClass> categoryNodes = new List<TreeNodeClass>();
             TraverseCategoryNodes(root, categoryNodes);
             return categoryNodes;
         }
 
-        // Helper method to traverse the tree and collect category nodes
+        #endregion
+
+        //----------------------------------------------------------------------------------------------------------------------------------//
+
+        /// <summary>
+        /// Helper method to traverse the tree and collect all the nodes
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="categoryNodes"></param>
+
+        #region TraverseCategoryNodes_Method
+
         private void TraverseCategoryNodes(TreeNodeClass node, List<TreeNodeClass> categoryNodes)
         {
             if (node == null)
@@ -350,7 +439,18 @@ namespace DeweyDecimalClassLibrary
             }
         }
 
-        // Helper method to add random wrong answers to the list
+        #endregion
+
+        //----------------------------------------------------------------------------------------------------------------------------------//
+
+        /// <summary>
+        /// Helper method to add random wrong answers to the list
+        /// </summary>
+        /// <param name="answers"></param>
+        /// <param name="categoryNodes"></param>
+
+        #region AddRandomWrongAnswers_Method
+
         private void AddRandomWrongAnswers(List<string> answers, List<TreeNodeClass> categoryNodes)
         {
             Random random = new Random();
@@ -362,5 +462,7 @@ namespace DeweyDecimalClassLibrary
                 answers.Add(filteredNodes[i]?.Value);
             }
         }
+
+        #endregion
     }
 }

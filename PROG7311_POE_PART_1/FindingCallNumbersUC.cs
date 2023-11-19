@@ -22,26 +22,36 @@ namespace PROG7311_POE_PART_1.UserControls
         private static string path = "DeweyDecimalData.txt";
 
         /// <summary>
+        /// Stores the random call number that the user has to get to in the quiz
+        /// </summary>
+        private string randomCallNumber = "";
+
+        /// <summary>
+        /// Stores the answer of the user when they click a label in the quiz
+        /// </summary>
+        private string answerLabelText = "";
+
+        /// <summary>
         /// Class object for the DeweyDecimalTree class in the class library
         /// </summary>
         private DeweyDecimalTree deweyDecimalTree = new DeweyDecimalTree();
 
         /// <summary>
-        /// Stores the root of the tree (named "Root" unless changed in data file)
+        /// Stores the root of the tree (named "Root" unless changed in data file) and its nodes of the current question
         /// </summary>
         private TreeNodeClass root = null;
-
-        /// <summary>
-        /// Stores the answers for the quiz, to be compared to with the users choice
-        /// </summary>
-        private string currentLevelFourAnswer = null;
-        private string currentLevelThreeAnswer = null;
-        private string currentLevelTwoAnswer = null;
+        private TreeNodeClass parentNode = null;
+        private TreeNodeClass categoryNode = null;
 
         /// <summary>
         /// Stores the amount of times the user has started the quiz
         /// </summary>
         private int counter = 0;
+
+        /// <summary>
+        /// Stores the quiz level the user is on (the quiz stops after 5 different questions)
+        /// </summary>
+        private int quizLevelCounter = 0;
 
         /// <summary>
         /// Stores the current level of the quiz the user is currently attempting
@@ -69,9 +79,6 @@ namespace PROG7311_POE_PART_1.UserControls
 
             // Disabling certain buttons before the user begins the quiz
             btnStop.Enabled = false;
-
-            // Setting the timer interval to one second
-            timerAnswer.Interval = 1000;
         }
 
         #endregion
@@ -101,17 +108,8 @@ namespace PROG7311_POE_PART_1.UserControls
             
             if (dialogResult == DialogResult.Yes || counter > 0) 
             {
-                // Disabling the start button once the quiz has started, incrementing the counter and setting the level to level 1
-                btnStart.Enabled = false;
-                counter++;
-                currentLevel = 1;
-
-                // Retrieving a random call number from the 4th level of the tree structure (any number not in the 100s or 10s range)
-                // RandomValueGenerator method is from class library in the DeweyDecimalTree class
-                string randomCallNumber = deweyDecimalTree.RandomValueGenerator();
-
-                // Starting the first part of the quiz (displaying call numbers in the 100s range)
-                CreateQuiz(randomCallNumber);
+                // Running the ReadyUpQuiz method to set all the variables and generate a random call number before the quiz starts
+                ReadyUpQuiz();
             }
         }
 
@@ -161,8 +159,8 @@ namespace PROG7311_POE_PART_1.UserControls
             if (clickedLabel != null)
             {
                 // Getting the text of the clicked label and storing it
-                string answerLabelText = clickedLabel.Text;
-                CheckCorrectAnswer(answerLabelText);
+                answerLabelText = clickedLabel.Text;
+                CheckCorrectAnswer();
             }
         }
 
@@ -176,7 +174,7 @@ namespace PROG7311_POE_PART_1.UserControls
 
         #region CreateQuiz_Method
 
-        public void CreateQuiz(string randomCallNumber)
+        public void CreateQuiz()
         {
             // Stores the for loop initialization and condition depending on what level the user is currently attempting
             int initializer = 1;
@@ -204,24 +202,34 @@ namespace PROG7311_POE_PART_1.UserControls
 
             // Populating the answers list with one correct answer and multiple incorrect answers
             answers = deweyDecimalTree.GatherAnswers(randomCallNumber, currentLevel, root);
-
-            // Extracting the correct answer (first index of the list created in the class library)
             string correctAnswer = answers[0];
 
-            // Creating a new list to store the correct answer and 3 other random answers
-            List<string> finalAnswers = new List<string> { correctAnswer };
+            // Creating a list for the incorrect answers to shuffle then display on the quiz
+            List<string> incorrectAnswers = new List<string>(answers.Skip(1));
 
-            // Shuffling the indices (excluding the correct answer index)
-            List<int> shuffledIndices = Enumerable.Range(1, answers.Count - 1).OrderBy(_ => Guid.NewGuid()).ToList();
+            // Shuffling the indices of incorrectAnswers using the OrderBy query
+            // This code was developed with the help of: ChatGPT
+            Random random = new Random();
+            List<int> shuffledIndices = Enumerable.Range(0, incorrectAnswers.Count).OrderBy(_ => random.Next()).ToList();
 
-            // Taking 3 random answers from the shuffled indices
-            for (int i = 0; i < 3; i++)
+            // Taking the first three indices to get the three incorrect answers then adding the correct one
+            List<string> randomizedAnswers = shuffledIndices.Take(3).Select(index => incorrectAnswers[index]).ToList();
+            randomizedAnswers.Add(correctAnswer);
+
+            // Custom made comparison logic to sort based on the numeric part of the call number
+            randomizedAnswers.Sort((x, y) =>
             {
-                finalAnswers.Add(answers[shuffledIndices[i]]);
-            }
+                // Extracting numeric parts
+                string xNumericPart = x.Substring(0, 3);
+                string yNumericPart = y.Substring(0, 3);
 
-            // Sorting the list in ascending order (code used in my CallNumberGenerator class in the class library)
-            finalAnswers.OrderBy(cn => cn).ToList();
+                // Converting to integers
+                int xNumericValue = int.Parse(xNumericPart);
+                int yNumericValue = int.Parse(yNumericPart);
+
+                // Comparing integers
+                return xNumericValue.CompareTo(yNumericValue);
+            });
 
             // Making all the labels transparent and clearing their text
             MakeLabelsTransparent();
@@ -235,17 +243,15 @@ namespace PROG7311_POE_PART_1.UserControls
                 Label answerLabel = Controls.Find($"lblAnswer{i}", true).FirstOrDefault() as Label;
 
                 // Setting the labels values to display a random answer and enabling the click event
-                answerLabel.Text = finalAnswers[i - 1];
+                answerLabel.Text = randomizedAnswers[i - initializer];
                 answerLabel.BackColor = labelBackColor;
                 answerLabel.Click += AnswerLabel_Click;                
 
                 if (currentLevel == 2 || currentLevel == 3)
                 {
-                    // Disconnecting the previous labels click events and colors
-                    Label previousAnswerLabel = Controls.Find($"lblAnswer{i - 4}", true).FirstOrDefault() as Label;
-                    previousAnswerLabel.BackColor = Color.Transparent;
-                    previousAnswerLabel.Click -= AnswerLabel_Click;
-                    previousAnswerLabel.Text = "";
+                    // Disconnecting the previous labels click events
+                    Label previousAnswerLabel = Controls.Find($"lblAnswer{i - 4}", true).FirstOrDefault() as Label;                    
+                    previousAnswerLabel.Click -= AnswerLabel_Click;                    
                 }
             }
         }
@@ -254,12 +260,106 @@ namespace PROG7311_POE_PART_1.UserControls
 
         //----------------------------------------------------------------------------------------------------------------------------------//
 
-        public bool CheckCorrectAnswer(string answerLabelText)
+        /// <summary>
+        /// Checks if the label text that the user selected matches the current quiz levels answer
+        /// </summary>
+
+        #region CheckCorrectAnswer_Method
+
+        public void CheckCorrectAnswer()
         {
             bool isCorrect = false;
+            
+            if (currentLevel == 1)
+            {
+                lblAnswer10.Text = categoryNode?.Value;
+                // Checking if the answer was correct for level 1
+                if (categoryNode?.Value == answerLabelText)
+                {
+                    isCorrect = true;
+                }
+            }
+            else if (currentLevel == 2)
+            {
+                // Checking if the answer was correct for level 2 
+                if (parentNode?.Value == answerLabelText)
+                {
+                    isCorrect = true;
+                }
+            }
+            else if (currentLevel == 3)
+            {
+                // Checking if the answer was correct for level 3
+                if (randomCallNumber == answerLabelText)
+                {
+                    isCorrect = true;
+                }
+            }
 
-            return isCorrect;
+            // Playing the necessary sounds depending on the users answer
+            if (!isCorrect)
+            {
+                MessageBox.Show("That answer was incorrect\n" +
+                                "Correct Answers:\n" + 
+                                $"Correct category: {categoryNode?.Value}\n" +
+                                $"Correct sub-category: {parentNode?.Value}\n" +
+                                $"Correct answer: {randomCallNumber}\n",
+                                "Confirmation", MessageBoxButtons.OK);
+                quizLevelCounter++;
+                ReadyUpQuiz();
+            }
+            else if (isCorrect)
+            {
+                if (currentLevel != 3)
+                {
+                    currentLevel++;
+                    CreateQuiz();
+                }
+                else
+                {
+                    quizLevelCounter++;
+                    ReadyUpQuiz();
+                }
+            }
         }
+
+        #endregion
+
+        //----------------------------------------------------------------------------------------------------------------------------------//
+
+        /// <summary>
+        /// Sets all the variables and generates a new random call number before the next quiz level starts
+        /// </summary>
+
+        #region ReadyUpQuiz_Method
+
+        private void ReadyUpQuiz()
+        {
+            if (quizLevelCounter < 6)
+            {
+                // Disabling the start button once the quiz has started, incrementing the counter and setting the level to level 1
+                btnStart.Enabled = false;
+                btnStop.Enabled = true;
+                counter++;
+                currentLevel = 1;
+
+                // Retrieving a random call number from the 4th level of the tree structure (any number not in the 100s or 10s range)
+                // RandomValueGenerator method is from class library in the DeweyDecimalTree class
+                randomCallNumber = deweyDecimalTree.RandomValueGenerator();
+
+                // Receiving the random call numbers node and values
+                var result = deweyDecimalTree.FindCallNumber(root, randomCallNumber);
+
+                // Retrieving the parent node information to be used for the quiz as the "correct answers"
+                parentNode = deweyDecimalTree.FindParentNode(root, result.node);
+                categoryNode = deweyDecimalTree.FindParentNode(root, parentNode);
+
+                // Starting the first part of the quiz (displaying call numbers in the 100s range)
+                CreateQuiz();
+            }            
+        }
+
+        #endregion
 
         //----------------------------------------------------------------------------------------------------------------------------------//
 
@@ -320,6 +420,6 @@ namespace PROG7311_POE_PART_1.UserControls
             }
         }
 
-        #endregion        
+        #endregion
     }
 }

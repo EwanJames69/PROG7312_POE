@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.btnStart = new System.Windows.Forms.Button();
             this.btnStop = new System.Windows.Forms.Button();
             this.btnMainMenu = new System.Windows.Forms.Button();
@@ -38,7 +37,6 @@
             this.lblAnswer4 = new System.Windows.Forms.Label();
             this.lblProgressBar = new System.Windows.Forms.Label();
             this.progressBar = new System.Windows.Forms.ProgressBar();
-            this.timerAnswer = new System.Windows.Forms.Timer(this.components);
             this.lblAnswer1 = new System.Windows.Forms.Label();
             this.lblAnswer5 = new System.Windows.Forms.Label();
             this.lblAnswer9 = new System.Windows.Forms.Label();
@@ -232,7 +230,7 @@
             // lblCallNumberToGet
             // 
             this.lblCallNumberToGet.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCallNumberToGet.Location = new System.Drawing.Point(83, 431);
+            this.lblCallNumberToGet.Location = new System.Drawing.Point(77, 432);
             this.lblCallNumberToGet.Name = "lblCallNumberToGet";
             this.lblCallNumberToGet.Size = new System.Drawing.Size(900, 71);
             this.lblCallNumberToGet.TabIndex = 29;
@@ -280,7 +278,6 @@
         private System.Windows.Forms.Label lblAnswer4;
         private System.Windows.Forms.Label lblProgressBar;
         private System.Windows.Forms.ProgressBar progressBar;
-        private System.Windows.Forms.Timer timerAnswer;
         private System.Windows.Forms.Label lblAnswer1;
         private System.Windows.Forms.Label lblAnswer5;
         private System.Windows.Forms.Label lblAnswer9;
