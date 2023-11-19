@@ -34,16 +34,16 @@
             // findingCallNumbersUC1
             // 
             this.findingCallNumbersUC1.BackColor = System.Drawing.Color.BurlyWood;
-            this.findingCallNumbersUC1.Location = new System.Drawing.Point(-1, 1);
+            this.findingCallNumbersUC1.Location = new System.Drawing.Point(-1, 0);
             this.findingCallNumbersUC1.Name = "findingCallNumbersUC1";
-            this.findingCallNumbersUC1.Size = new System.Drawing.Size(1057, 656);
+            this.findingCallNumbersUC1.Size = new System.Drawing.Size(1046, 656);
             this.findingCallNumbersUC1.TabIndex = 0;
             // 
             // FindingCallNumbers
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1057, 657);
+            this.ClientSize = new System.Drawing.Size(1044, 657);
             this.Controls.Add(this.findingCallNumbersUC1);
             this.Name = "FindingCallNumbers";
             this.Text = "FindingCallNumbers";

@@ -28,7 +28,7 @@ Root
 			032 General encyclopaedic works in English
 			034 General encyclopaedic works in French, Provencal, Catalan
 			035 General encyclopaedic works in Italian, Romanian, Rhaeto-Romanic
-			036 General encyclopaedic works in Spanish & Portuguese
+			036 General encyclopaedic works in Spanish && Portuguese
 			037 General encyclopaedic works in Slavic languages
 			038 General encyclopaedic works in Scandinavian languages
 		050 General serials && their indexes	
@@ -36,25 +36,25 @@ Root
 			052 General serials && their indexes In English
 			054 General serials && their indexes In French, Provencal, Catalan
 			055 General serials && their indexes In Italian, Romanian, Rhaeto-Romanic
-			056 General serials && their indexes In Spanish & Portuguese
+			056 General serials && their indexes In Spanish && Portuguese
 			057 General serials && their indexes In Slavic languages
 			058 General serials && their indexes In Scandinavian languages
 		060 General organization && museology	
 			061 General organization && museology In North America
 			062 General organization && museology In British Isles In England
 			063 General organization && museology In central Europe In Germany
-			064 General organization && museology In France & Monaco
-			065 General organization && museology In Italy & adjacent territories
-			066 General organization && museology In Iberian Peninsula & adjacent islands
+			064 General organization && museology In France && Monaco
+			065 General organization && museology In Italy && adjacent territories
+			066 General organization && museology In Iberian Peninsula && adjacent islands
 			067 General organization && museology In eastern Europe In Soviet Union
 			069 Museology (Museum science)
 		070 News media, journalism, publishing	
 			071 News media, journalism, publishing In North America
 			072 News media, journalism, publishing In British Isles In England
 			073 News media, journalism, publishing In central Europe In Germany
-			074 News media, journalism, publishing In France & Monaco
-			075 News media, journalism, publishing In Italy & adjacent territories
-			076 News media, journalism, publishing In Iberian Peninsula & adjacent islands
+			074 News media, journalism, publishing In France && Monaco
+			075 News media, journalism, publishing In Italy && adjacent territories
+			076 News media, journalism, publishing In Iberian Peninsula && adjacent islands
 			077 News media, journalism, publishing In eastern Europe In Soviet Union
 			078 News media, journalism, publishing In Scandinavia
 		080 General collections	
@@ -63,7 +63,7 @@ Root
 			083 General collections In other Germanic languages
 			084 General collections In French, Provencal, Catalan
 			085 General collections In Italian, Romanian, Rhaeto-Romanic
-			086 General collections In Spanish & Portuguese
+			086 General collections In Spanish && Portuguese
 			087 General collections In Slavic languages
 			088 General collections In Scandinavian languages
 		090 Manuscripts && rare books	
@@ -342,7 +342,6 @@ Root
 			399 Customs of war && diplomacy
 	400 Language		
 		401 Philosophy && theory	
-			402 Miscellany
 			403 Dictionaries && encyclopaedias
 			404 Special topics
 			405 Serial publications
@@ -427,7 +426,6 @@ Root
 			499 Miscellaneous languages
 	500 Science and Mathematics		
 		501 Philosophy && theory	
-			502 Miscellany
 			503 Dictionaries && encyclopaedias
 			505 Serial publications
 			506 Organizations && management
@@ -521,7 +519,6 @@ Root
 			599 Mammalia (Mammals)
 	600 Technology		
 		601 Philosophy && theory	
-			602 Miscellany
 			603 Dictionaries && encyclopaedias
 			604 Special topics
 			605 Serial publications
@@ -613,7 +610,6 @@ Root
 			698 Detail finishing
 	700 Arts && Recreation		
 		701 Philosophy && theory	
-			702 Miscellany
 			703 Dictionaries && encyclopaedias
 			704 Special topics
 			705 Serial publications
@@ -698,7 +694,6 @@ Root
 			799 Fishing, hunting, shooting
 	800 Literature		
 		801 Philosophy && theory	
-			802 Miscellany
 			803 Dictionaries && encyclopaedias
 			805 Serial publications
 			806 Organizations
@@ -763,7 +758,6 @@ Root
 			896 North and South American Native Languages
 	900 History && Geography		
 		901 Philosophy && theory	
-			902 Miscellany
 			903 Dictionaries && encyclopaedias
 			904 Collected accounts of events
 			905 Serial publications

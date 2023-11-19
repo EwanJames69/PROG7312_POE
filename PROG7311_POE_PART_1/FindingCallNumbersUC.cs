@@ -120,6 +120,32 @@ namespace PROG7311_POE_PART_1.UserControls
         //----------------------------------------------------------------------------------------------------------------------------------//
 
         /// <summary>
+        /// Event that runs when the main menu button is clicked
+        /// Takes the user back to the main menu
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+
+        #region MainMenu_Button_Click
+
+        private void btnMainMenu_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Are you sure you want to return to the main menu?", "Confirmation", MessageBoxButtons.YesNo);
+
+            if (result == DialogResult.Yes)
+            {
+                Home home = new Home();
+                home.Show();
+                Form mainForm = this.FindForm();
+                mainForm.Hide();
+            }
+        }
+
+        #endregion
+
+        //----------------------------------------------------------------------------------------------------------------------------------//
+
+        /// <summary>
         /// Event that runs when the user clicks on a label
         /// Gathers the text of the label the user clicked on, to be used to compare the text with the correct answer
         /// </summary>
@@ -160,6 +186,9 @@ namespace PROG7311_POE_PART_1.UserControls
             // Stores the back color of the label (colors differ depending on the users current level)
             Color labelBackColor = Color.MistyRose;
 
+            // Stores the answers for the quiz (one correct answer and all the incorrect answers)
+            List<string> answers = new List<string>();
+
             if (currentLevel == 2)
             {
                 initializer = 5;
@@ -171,21 +200,44 @@ namespace PROG7311_POE_PART_1.UserControls
                 initializer = 9;
                 condition = 13;
                 labelBackColor= Color.Brown;
-            }          
+            }
 
-            // Making all the labels transparent
+            // Populating the answers list with one correct answer and multiple incorrect answers
+            answers = deweyDecimalTree.GatherAnswers(randomCallNumber, currentLevel, root);
+
+            // Extracting the correct answer (first index of the list created in the class library)
+            string correctAnswer = answers[0];
+
+            // Creating a new list to store the correct answer and 3 other random answers
+            List<string> finalAnswers = new List<string> { correctAnswer };
+
+            // Shuffling the indices (excluding the correct answer index)
+            List<int> shuffledIndices = Enumerable.Range(1, answers.Count - 1).OrderBy(_ => Guid.NewGuid()).ToList();
+
+            // Taking 3 random answers from the shuffled indices
+            for (int i = 0; i < 3; i++)
+            {
+                finalAnswers.Add(answers[shuffledIndices[i]]);
+            }
+
+            // Sorting the list in ascending order (code used in my CallNumberGenerator class in the class library)
+            finalAnswers.OrderBy(cn => cn).ToList();
+
+            // Making all the labels transparent and clearing their text
             MakeLabelsTransparent();
+
+            // Setting the label to display the answer that the user needs to get to
+            lblCallNumberToGet.Text = messageForLabel + randomCallNumber.Substring(4).TrimStart();
 
             for (int i = initializer; i < condition; i++)
             {
                 // Retrieving the labels that need to display values for the users current level
                 Label answerLabel = Controls.Find($"lblAnswer{i}", true).FirstOrDefault() as Label;
 
-                deweyDecimalTree.GatherAnswers(randomCallNumber, currentLevel, root);
-
-                // Setting the labels values and connecting it to the click event
+                // Setting the labels values to display a random answer and enabling the click event
+                answerLabel.Text = finalAnswers[i - 1];
                 answerLabel.BackColor = labelBackColor;
-                answerLabel.Click += AnswerLabel_Click;
+                answerLabel.Click += AnswerLabel_Click;                
 
                 if (currentLevel == 2 || currentLevel == 3)
                 {
@@ -264,6 +316,7 @@ namespace PROG7311_POE_PART_1.UserControls
             {
                 Label answerLabel = Controls.Find($"lblAnswer{i}", true).FirstOrDefault() as Label;
                 answerLabel.BackColor = Color.Transparent;
+                answerLabel.Text = "";
             }
         }
 

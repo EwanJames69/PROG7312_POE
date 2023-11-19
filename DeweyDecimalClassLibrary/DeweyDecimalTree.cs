@@ -267,18 +267,39 @@ namespace DeweyDecimalClassLibrary
             TreeNodeClass parentNode = FindParentNode(root, result.node);
             TreeNodeClass CategoryNode = FindParentNode(root, parentNode);
 
-            // List to store the correct answer along with three incorrect answers
+            // List to store the correct answer along with the incorrect answers
             List<string> answers = new List<string>();
+            List<string> categoryNodeAnswers = new List<string>();
 
             if (currentLevel == 1)
             {
-                // Adding the correct answer to the list
+                // Adding the correct answer to the lists
                 answers.Add(CategoryNode?.Value);
+                categoryNodeAnswers.Add(CategoryNode?.Value);
 
                 // Randomly generating 3 wrong answers for the category nodes in the tree
+                List<TreeNodeClass> categoryNodes = GetCategoryNodes(root);
+                AddRandomWrongAnswers(answers, categoryNodes);
 
+                // This foreach has a lot of code, but it is ALL to check if the value in the node is a category value (in the 100s range)
+                // Each line has been given a comment to make it easier to understand and each line makes sure that the value is a category node
+                foreach (var value in answers)
+                {
+                    string callNumberOnly = value.Substring(0, Math.Min(3, value.Length));
+                    bool meetsCondition = (!categoryNodeAnswers.Contains(value)) &&   // Checking if the value is already in the list
+                                          (callNumberOnly.EndsWith("00")              // Checking if the value ends in "00" (eg. 100, 200, we want this)
+                                          && !callNumberOnly.StartsWith("0")          // Checking if the value starts with "0" (eg. 070, 090, we don't want this)
+                                          && value != CategoryNode?.Value             // Checking if the value equals the answer                                          
+                                          || callNumberOnly.Equals("000"));           // Checking if the value is 000 (General Knowledge)
 
-                return answers;
+                    if (meetsCondition)
+                    {
+                        categoryNodeAnswers.Add(value);
+                    }
+                }
+
+                // Sends back all the category nodes
+                return categoryNodeAnswers;
             }
             else if (currentLevel == 2)
             {
@@ -301,6 +322,45 @@ namespace DeweyDecimalClassLibrary
                 return answers;
             }
             return null;
+        }
+
+        // Helper method to get a list of category nodes
+        private List<TreeNodeClass> GetCategoryNodes(TreeNodeClass root)
+        {
+            List<TreeNodeClass> categoryNodes = new List<TreeNodeClass>();
+            TraverseCategoryNodes(root, categoryNodes);
+            return categoryNodes;
+        }
+
+        // Helper method to traverse the tree and collect category nodes
+        private void TraverseCategoryNodes(TreeNodeClass node, List<TreeNodeClass> categoryNodes)
+        {
+            if (node == null)
+                return;
+
+            if (node.Children.Count > 0)
+            {
+                // Check if the node is a category node (has children)
+                categoryNodes.Add(node);
+            }
+
+            foreach (var child in node.Children)
+            {
+                TraverseCategoryNodes(child, categoryNodes);
+            }
+        }
+
+        // Helper method to add random wrong answers to the list
+        private void AddRandomWrongAnswers(List<string> answers, List<TreeNodeClass> categoryNodes)
+        {
+            Random random = new Random();
+
+            var filteredNodes = categoryNodes.Where(node => node.Children.Count > 0).ToList();
+
+            for (int i = 0; i < filteredNodes.Count; i++)
+            {
+                answers.Add(filteredNodes[i]?.Value);
+            }
         }
     }
 }
