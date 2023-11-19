@@ -31,7 +31,7 @@
             this.btnStart = new System.Windows.Forms.Button();
             this.btnStop = new System.Windows.Forms.Button();
             this.btnMainMenu = new System.Windows.Forms.Button();
-            this.btnInstructionsMatch = new System.Windows.Forms.Button();
+            this.btnInstructions = new System.Windows.Forms.Button();
             this.lblAnswer2 = new System.Windows.Forms.Label();
             this.lblAnswer3 = new System.Windows.Forms.Label();
             this.lblAnswer4 = new System.Windows.Forms.Label();
@@ -67,6 +67,7 @@
             this.btnStop.TabIndex = 9;
             this.btnStop.Text = "Stop Quiz";
             this.btnStop.UseVisualStyleBackColor = true;
+            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
             // btnMainMenu
             // 
@@ -78,14 +79,15 @@
             this.btnMainMenu.UseVisualStyleBackColor = true;
             this.btnMainMenu.Click += new System.EventHandler(this.btnMainMenu_Click);
             // 
-            // btnInstructionsMatch
+            // btnInstructions
             // 
-            this.btnInstructionsMatch.Location = new System.Drawing.Point(913, 604);
-            this.btnInstructionsMatch.Name = "btnInstructionsMatch";
-            this.btnInstructionsMatch.Size = new System.Drawing.Size(124, 40);
-            this.btnInstructionsMatch.TabIndex = 14;
-            this.btnInstructionsMatch.Text = "Instructions";
-            this.btnInstructionsMatch.UseVisualStyleBackColor = true;
+            this.btnInstructions.Location = new System.Drawing.Point(913, 604);
+            this.btnInstructions.Name = "btnInstructions";
+            this.btnInstructions.Size = new System.Drawing.Size(124, 40);
+            this.btnInstructions.TabIndex = 14;
+            this.btnInstructions.Text = "Instructions";
+            this.btnInstructions.UseVisualStyleBackColor = true;
+            this.btnInstructions.Click += new System.EventHandler(this.btnInstructions_Click);
             // 
             // lblAnswer2
             // 
@@ -256,7 +258,7 @@
             this.Controls.Add(this.lblAnswer3);
             this.Controls.Add(this.lblAnswer2);
             this.Controls.Add(this.lblAnswer1);
-            this.Controls.Add(this.btnInstructionsMatch);
+            this.Controls.Add(this.btnInstructions);
             this.Controls.Add(this.btnMainMenu);
             this.Controls.Add(this.btnStop);
             this.Controls.Add(this.btnStart);
@@ -272,7 +274,7 @@
         private System.Windows.Forms.Button btnStart;
         private System.Windows.Forms.Button btnStop;
         private System.Windows.Forms.Button btnMainMenu;
-        private System.Windows.Forms.Button btnInstructionsMatch;
+        private System.Windows.Forms.Button btnInstructions;
         private System.Windows.Forms.Label lblAnswer2;
         private System.Windows.Forms.Label lblAnswer3;
         private System.Windows.Forms.Label lblAnswer4;

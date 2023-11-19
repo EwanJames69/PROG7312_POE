@@ -62,6 +62,12 @@
     <Compile Include="DeweyDecimalPictureUserControl.Designer.cs">
       <DependentUpon>DeweyDecimalPictureUserControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="FindCallNumbersInstructions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FindCallNumbersInstructions.Designer.cs">
+      <DependentUpon>FindCallNumbersInstructions.cs</DependentUpon>
+    </Compile>
     <Compile Include="FindingCallNumbers.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -128,6 +134,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DeweyDecimalPictureUserControl.resx">
       <DependentUpon>DeweyDecimalPictureUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FindCallNumbersInstructions.resx">
+      <DependentUpon>FindCallNumbersInstructions.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FindingCallNumbers.resx">
       <DependentUpon>FindingCallNumbers.cs</DependentUpon>
@@ -224,6 +233,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\appIcon.ico" />
+    <None Include="Resources\findCallNumbersInstructions.png" />
+    <None Include="Resources\findCallNumbersLogo.png" />
+    <None Include="Resources\bwFindCallNumbersLogo.png" />
     <None Include="Resources\DeweyDecimalPicture.jpg" />
     <None Include="Resources\identifyAreasInstructionsPicture.png" />
     <None Include="Resources\levelCountdown.wav" />
@@ -242,7 +254,6 @@
     <None Include="Resources\bwIdentifyAreasLogo.png" />
     <None Include="Resources\identifyAreasLogo.png" />
     <None Include="Resources\replaceBooksInstructionsPicture.png" />
-    <None Include="Resources\bwFindCallNumbersLogo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

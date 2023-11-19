@@ -75,7 +75,7 @@
             // 
             // btnFindCallNumbers
             // 
-            this.btnFindCallNumbers.BackgroundImage = global::PROG7311_POE_PART_1.Properties.Resources.bwFindCallNumbersLogo;
+            this.btnFindCallNumbers.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnFindCallNumbers.BackgroundImage")));
             this.btnFindCallNumbers.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnFindCallNumbers.Location = new System.Drawing.Point(645, 290);
             this.btnFindCallNumbers.Name = "btnFindCallNumbers";
@@ -83,6 +83,8 @@
             this.btnFindCallNumbers.TabIndex = 3;
             this.btnFindCallNumbers.UseVisualStyleBackColor = true;
             this.btnFindCallNumbers.Click += new System.EventHandler(this.btnFindCallNumbers_Click);
+            this.btnFindCallNumbers.MouseEnter += new System.EventHandler(this.btnFindCallNumbers_MouseEnter);
+            this.btnFindCallNumbers.MouseLeave += new System.EventHandler(this.btnFindCallNumbers_MouseLeave);
             // 
             // Home
             // 

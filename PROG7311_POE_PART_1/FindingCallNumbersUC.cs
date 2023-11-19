@@ -123,6 +123,44 @@ namespace PROG7311_POE_PART_1.UserControls
         //----------------------------------------------------------------------------------------------------------------------------------//
 
         /// <summary>
+        /// Event that runs when the start button is clicked
+        /// Stops the current quiz going on and resets the game back to the decorative form
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+
+        #region Stop_Button_Click
+
+        private void btnStop_Click(object sender, EventArgs e)
+        {
+            // Disconnecting all the labels from their click events
+            for (int i = 1; i < 13; i++)
+            {
+                // Retrieving the labels to disconnect them from the click event before the quiz starts (for error handling)
+                Label answerLabel = Controls.Find($"lblAnswer{i}", true).FirstOrDefault() as Label;
+                answerLabel.Click -= AnswerLabel_Click;
+            }
+
+            // Incrementing the games played counter, resetting the call number label, changing the button enabled values and resetting progress bar
+            lblCallNumberToGet.Text = "";
+            amountCorrect = 0;
+            quizLevelCounter = 0;
+            btnStart.Enabled = true;
+            btnStop.Enabled = false;
+            progressBar.Value = 0;
+
+            // Setting the application to display the decorative labels again once the quiz has been completed
+            SetLabelDecorations();
+
+            // Dislplaying a confirmation message to the user
+            MessageBox.Show("The quiz has been stopped and reset", "Quiz Stopped", MessageBoxButtons.OK);
+        }
+
+        #endregion
+
+        //----------------------------------------------------------------------------------------------------------------------------------//
+
+        /// <summary>
         /// Event that runs when the main menu button is clicked
         /// Takes the user back to the main menu
         /// </summary>
@@ -142,6 +180,27 @@ namespace PROG7311_POE_PART_1.UserControls
                 Form mainForm = this.FindForm();
                 mainForm.Hide();
             }
+        }
+
+        #endregion
+
+        //----------------------------------------------------------------------------------------------------------------------------------//
+
+        /// <summary>
+        /// Event that runs when the instructions button is clicked
+        /// Takes the user to the instructions page for the find call numbers game
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+
+        #region Instructions_Button_Click
+
+        private void btnInstructions_Click(object sender, EventArgs e)
+        {
+            FindCallNumbersInstructions fci = new FindCallNumbersInstructions();
+            fci.Show();
+            Form mainForm = this.FindForm();
+            mainForm.Hide();
         }
 
         #endregion
@@ -562,6 +621,6 @@ namespace PROG7311_POE_PART_1.UserControls
             }
         }
 
-        #endregion
+        #endregion        
     }
 }

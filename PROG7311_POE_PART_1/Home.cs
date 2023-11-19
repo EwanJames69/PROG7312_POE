@@ -48,21 +48,27 @@ namespace PROG7311_POE_PART_1
             mainForm.Show();            
         }
 
-        #endregion        
+        #endregion
 
         //----------------------------------------------------------------------------------------------------------------------------------//
 
         /// <summary>
         /// Event that runs when the findCallNumbers button is clicked
+        /// Takes the user to the finding call numbers game
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
+
+        #region FindCallNumbers_Button_Click
+
         private void btnFindCallNumbers_Click(object sender, EventArgs e)
         {
             Hide();
             FindingCallNumbers findingCallNumbers = new FindingCallNumbers();
             findingCallNumbers.Show();
         }
+
+        #endregion
 
         //----------------------------------------------------------------------------------------------------------------------------------//
 
@@ -142,6 +148,48 @@ namespace PROG7311_POE_PART_1
         {
             // Making the background image black and white
             btnIdentifyAreas.BackgroundImage = Properties.Resources.bwIdentifyAreasLogo;
+        }
+
+        #endregion
+
+        #endregion
+
+        //----------------------------------------------------------------------------------------------------------------------------------//
+
+        #region Find_CallNumbers_Events
+
+        /// <summary>
+        /// Event that runs when the mouse hovers over the finding call numbers game game
+        /// The image turns from black and white to color to give it a more game-like effect
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+
+        #region MouseEnter
+
+        private void btnFindCallNumbers_MouseEnter(object sender, EventArgs e)
+        {
+            // Making the background image colorful
+            btnFindCallNumbers.BackgroundImage = Properties.Resources.findCallNumbersLogo;
+        }
+
+        #endregion
+
+        //----------------------------------------------------------------------------------------------------------------------------------//
+
+        /// <summary>
+        /// Event that runs when the mouse leaves the finding call numbers games area
+        /// The image turns from colorful back to black and white
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+
+        #region MouseLeave        
+
+        private void btnFindCallNumbers_MouseLeave(object sender, EventArgs e)
+        {
+            // Making the background image black and white
+            btnFindCallNumbers.BackgroundImage = Properties.Resources.bwFindCallNumbersLogo;
         }
 
         #endregion

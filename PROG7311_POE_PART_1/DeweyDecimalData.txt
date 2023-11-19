@@ -359,7 +359,7 @@ Root
 			418 Standard usage Applied linguistics
 			419 Verbal language not spoken or written
 		420 English && Old English	
-			421 English writing system & phonology
+			421 English writing system && phonology
 			422 English etymology
 			423 English dictionaries
 			425 English grammar

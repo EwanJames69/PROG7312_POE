@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FindingCallNumbers));
             this.findingCallNumbersUC1 = new PROG7311_POE_PART_1.UserControls.FindingCallNumbersUC();
             this.SuspendLayout();
             // 
@@ -45,8 +46,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1044, 657);
             this.Controls.Add(this.findingCallNumbersUC1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FindingCallNumbers";
-            this.Text = "FindingCallNumbers";
+            this.Text = "Finding Call Numbers";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.ResumeLayout(false);
 
         }
