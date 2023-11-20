@@ -6,14 +6,14 @@ various subject areas. However, the challenge arises in making the learning proc
 less than captivating. The objective of this software application is to transform the "often-dry" process of learning about the Dewey Decimal Classification system 
 into an enjoyable and engaging experience.
 
-Below is a description of all the forms within the application (Currently):
+Below is a description of all the forms within the application (Final Version):
 
 *** Home Form ***
 The application starts off in the home form. The user will be presented with three options of games to choose from, but for now, the user only has access to one game.
 The three options on the home form are as follows:
 - Replace Books game
 - Identify Areas
-- Find Call Numbers (Coming soon)
+- Find Call Numbers
 The user can only click on the Replace Books game button as it is the only game that has been developed so far. Once clicked, the user will be taken to the Replace Books game
 
 ************************************ REPLACE BOOKS GAME ************************************
@@ -56,9 +56,23 @@ what anything does. This helps the application become more usable and user-frien
 This form just shows a photo to the user on what each call numbers description is. Instead of looking it up on the internet, this just helps them as they can study it before
 playing the game to fully grasp the concept of the dewey decimal system.
 
-********************************* FINDING CALL NUMBERS GAME ************************************
+********************************* FIND CALL NUMBERS GAME ************************************
 
+*** Find Call Numbers Form ***
+This is the main form for the finding call numbers game. The user is presented with a quiz where they have to find the specific call number for the descripton given to them. Once the
+user begins the quiz by clicking te start button, they can stop the quiz at anytime by clicking the stop button. In the beginning of the quiz, the user is presented with the description
+that they must find the call number for. The answers that the user chooses from is structured like follows:
+- 4 answers from the category list (000 - General Knowledge, 200 Religion etc. with one of the answers being correct)
+- If the user manages to choose the correct category, they will be presented with 4 sub-categories (010 - ..., 020 - ... etc. with one of them being correct)
+- For the last part of the quiz, the user is only presented with the call numbers where they then have to choose the correct call number that matches the description given to them.
+Throughout the quiz, the user gets 5 different descriptions to match and again, that can be stopped at anytime. All answers are displayed in ascending order according to teh call
+number as well to make the application more usable. From this form, the user can return to the home page by clicking the main menu button, or the user can view the instructions by
+clicking on the instructions button.
 
+*** Find Call Numbers Instructions Form ***
+This instruction form gives the user a short breakdown of the game, and how the game works. It can be quite confusing for the user if no instructions are provided and they just start
+the quiz, that is why the application prompts the user to read the instructions before playing the game for their first time. On this page, the user will get a better undersanding
+of how the quiz works, so that they are not lost and start with no knowledge of what to do. I added this just to make the applciation a little more usable
 
 That is the complete description of the application.
 
@@ -100,7 +114,7 @@ going to make this application fun and engaging.
 
 --------------------------------------------------------------------------------------------------------------------------------------------
 
-Personal opinion for PART 2
+Personal opinion for PART 2:
 Let me start off by saying that this application was much more difficult for me in terms of designing and creating the application than part 1. The designs took me much longer,
 along with all the source code. I now implemented user controls into my application, but it was tough using it all on one form because I already had made other forms without
 user controls, but for my next big project, I am going to be using user controls to its full capacity. Other than that, it was still a very fun application to make, and I am
@@ -108,3 +122,12 @@ proud of what I did in the little time I had. I really think this application lo
 engaging, especially because of what I did with level 3. Goodluck!
 
 --------------------------------------------------------------------------------------------------------------------------------------------
+
+Personal opinion for PART 3:
+I am not going to lie to you, this was for me, by FAR! The toughest final POE I have done. I understood little to nothing about tree structures, and how nodes work, but after
+many many hours of working, testing and researching, I managed to make some progress and finally finish this amazing application. I am super proud of this application and the
+progress I have made from PART 1 all the way to PART 3. Learning more and more about c# every year has been so fun, and now I am sad because this is my last ever assignment that
+I am going to submit for Varsity College for my bachelors degree. This is it :(. You know what though, I am not sad because it is over, I am happy because it happened, and I am
+so blessed to have had this experience with the amazing lecturers and friends I have made along the way. I will forever miss this, and I will never forget it. To whoever is reading
+this right now, just remember, life moves fast, very very fast. Dont be afraid to stop and look around once in a while, because you never know when youll be in this moment again. Thank
+you for everything VC, have a wonderful life. Oh... my personal thoughts about PART 3? Oh it was tough and all, but you know me, I can manage.

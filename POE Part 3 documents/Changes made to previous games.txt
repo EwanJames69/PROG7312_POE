@@ -1,0 +1,22 @@
+Changes made to previously created games based off lecturer's feedback
+
+PROG7312 POE PART 1 (Replace Books Game)
+-------------------------------------------------
+For part 1, One of the changes that needed to be made was implementing the use of a class library. The code has now been edited and the new code using class library in part one can be found in:
+- The Generate Button event (Twice) (Handling generating the call numbers, and sorting the call numbers)
+- ReplaceBooks (On Startup Event) (Handles adding the books background to the backgroundImageList)
+
+Another one of the changes that needed to be made was using "var". Throughout the code now, var has been used to improve my documentation and readability, as well as the coding standards for my application.
+
+The nesting of loops has been looked at in the application as that was also a problem, and a few changes have been made to make sure there is minimal nesting of loops where possible, to improve the maintenence and performance of the code/application.
+
+PROG7312 POE PART 2 (Matching Columns Game)
+-------------------------------------------------
+For part 2, the feedback was that some of the code had really long methods (and a lot of it was redundant), which can lead to making it difficult to debug and maintain and it is also prone to errors, so the long methods were looked at, and were made shorter where possible using the class library and other methods. The biggest change that was made regarding shortening the code was creating a method to start a new game for the user. In the generate button, reset button, swap button and all the level's buttons, the code to start a new game was present and was the exact same code as every other button. All the buttons now run the GenerateNewGame() method, which holds the code to start a new game. This is just one example of what I did to make the methods and the code shorter in length, which now makes it easier to maintain and less prone to errors.
+
+A similar problem that I had in part 1, I also have in part 2, which is nesting. I again nested my loops a lot in part 2, but I looked through each method (including the class library) and made changes where possible. I used tools such as chatGPT to help me figure out if there was a more efficient way for certain loops to work and the necessary changes were made.
+
+Another problem brought up by the lecturer was my naming conventions for my variables, classes and methods. This was a bit of a shocker, as I thought I did a good job, but there is always room for improvement. Again, I used tools such as chatGPT to help me find out if there was any better names that I could use for my variables and other functions, and a few changes were made, along with making some of the variables "var".
+
+
+
